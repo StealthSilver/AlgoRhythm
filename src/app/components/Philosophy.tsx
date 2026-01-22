@@ -24,7 +24,11 @@ export default function Philosophy() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 px-6 overflow-hidden">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="relative py-32 px-6 overflow-hidden"
+    >
       {/* Animated background gradient */}
       <div
         className="absolute inset-0"

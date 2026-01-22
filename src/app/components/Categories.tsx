@@ -52,7 +52,7 @@ function Category({ name, delay }: CategoryProps) {
 
       <div className="relative z-10 flex items-center justify-between">
         <span
-          className="text-lg font-semibold text-white group-hover:text-[rgb(141,118,233)] transition-colors duration-300"
+          className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-[rgb(141,118,233)] transition-colors duration-300"
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
             letterSpacing: "0.02em",
@@ -96,7 +96,7 @@ export default function Categories() {
   ];
 
   return (
-    <section className="relative py-32 px-6">
+    <section id="categories" className="relative py-32 px-6">
       {/* Background gradient accent */}
       <div
         className="absolute inset-0 opacity-30"
@@ -122,7 +122,7 @@ export default function Categories() {
             Explore by Category
           </h2>
           <p
-            className="text-xl text-white/70 max-w-2xl mx-auto"
+            className="text-xl text-gray-600 dark:text-white/70 max-w-2xl mx-auto"
             style={{
               fontFamily: "'Inter', sans-serif",
             }}

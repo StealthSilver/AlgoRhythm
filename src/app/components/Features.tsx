@@ -113,7 +113,7 @@ export default function Features() {
   ];
 
   return (
-    <section className="relative py-32 px-6">
+    <section id="features" className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2
