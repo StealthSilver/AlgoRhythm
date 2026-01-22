@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: rgb(141, 118, 233);
+  --color-primary-light: rgb(160, 140, 245);
+  --color-primary-dark: rgb(120, 100, 210);
+
+  /* Enable class-based dark mode */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+    }
+  }
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-white dark:bg-black text-gray-900 dark:text-white transition-colors duration-300;
+  }
+}

@@ -72,7 +72,7 @@ function FeatureCard({ title, description, icon, delay }: FeatureCardProps) {
         </h3>
 
         <p
-          className="text-white/80 leading-relaxed"
+          className="text-gray-600 dark:text-white/80 leading-relaxed"
           style={{
             fontFamily: "'Inter', sans-serif",
           }}
@@ -130,7 +130,7 @@ export default function Features() {
             Built for Learning
           </h2>
           <p
-            className="text-xl text-white/70 max-w-2xl mx-auto"
+            className="text-xl text-gray-600 dark:text-white/70 max-w-2xl mx-auto"
             style={{
               fontFamily: "'Inter', sans-serif",
             }}

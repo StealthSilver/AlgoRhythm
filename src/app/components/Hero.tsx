@@ -44,7 +44,7 @@ export default function Hero() {
         </h2>
 
         <p
-          className="text-lg md:text-xl lg:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed text-white/90"
+          className="text-lg md:text-xl lg:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed text-gray-600 dark:text-white/90"
           style={{
             fontFamily: "'Inter', 'DM Sans', sans-serif",
           }}
@@ -76,7 +76,7 @@ export default function Hero() {
           </button>
 
           <button
-            className="group px-8 py-4 text-lg font-semibold rounded-full border-2 transition-all duration-300 hover:scale-105 hover:bg-white/5"
+            className="group px-8 py-4 text-lg font-semibold rounded-full border-2 transition-all duration-300 hover:scale-105 dark:hover:bg-white/5 hover:bg-[rgb(141,118,233)]/5"
             style={{
               fontFamily: "'Inter', sans-serif",
               borderColor: "rgb(141, 118, 233)",

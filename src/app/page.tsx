@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Navbar from "./components/Navbar";
 import PathfindingCanvas from "./components/PathfindingCanvas";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -10,7 +11,9 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[rgb(48,22,140)] text-white overflow-x-hidden">
+    <main className="relative min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-x-hidden">
+      <Navbar />
+
       {/* Hero Section with Animated Background */}
       <section className="relative min-h-screen flex items-center justify-center">
         <PathfindingCanvas />
