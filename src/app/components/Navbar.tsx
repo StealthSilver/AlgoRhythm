@@ -31,13 +31,22 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
+            {/* Mobile logo - always use algo.svg */}
+            <Image
+              src="/algo.svg"
+              alt="AlgoRhythm Logo"
+              width={140}
+              height={32}
+              className="h-8 w-auto sm:hidden"
+            />
+            {/* Desktop logo - theme-based */}
             {mounted && (
               <Image
                 src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
                 alt="AlgoRhythm Logo"
                 width={140}
                 height={32}
-                className="h-8 sm:h-10 w-auto"
+                className="hidden sm:block h-10 w-auto"
               />
             )}
             {!mounted && (
@@ -46,7 +55,7 @@ export default function Navbar() {
                 alt="AlgoRhythm Logo"
                 width={140}
                 height={32}
-                className="h-8 sm:h-10 w-auto"
+                className="hidden sm:block h-10 w-auto"
               />
             )}
           </div>
@@ -75,17 +84,16 @@ export default function Navbar() {
 
           {/* Right Section */}
           <div className="flex items-center gap-3">
-            {/* Get Started Button */}
+            {/* Get Started Button - Desktop Only */}
             <button
-              className="px-4 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
+              className="hidden sm:block px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
               style={{
                 background: "rgb(141, 118, 233)",
                 color: "white",
                 boxShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
               }}
             >
-              <span className="hidden sm:inline">Get Started</span>
-              <span className="sm:hidden">Start</span>
+              Get Started
             </button>
 
             {/* Mobile Menu Button */}
@@ -144,6 +152,16 @@ export default function Navbar() {
             >
               About
             </a>
+            <button
+              className="w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 mt-2"
+              style={{
+                background: "rgb(141, 118, 233)",
+                color: "white",
+                boxShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
+              }}
+            >
+              Get Started
+            </button>
           </div>
         )}
       </div>
