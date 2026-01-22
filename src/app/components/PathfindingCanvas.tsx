@@ -6,9 +6,9 @@ interface Node {
   x: number;
   y: number;
   visited: boolean;
-  visiting: boolean;
-  path: boolean;
-  distance: number;
+  wave: number;
+  opacity: number;
+  birthTime: number;
 }
 
 export default function PathfindingCanvas() {
@@ -29,262 +29,271 @@ export default function PathfindingCanvas() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Grid configuration
-    const gridSize = 20;
-    const cols = Math.floor(canvas.width / gridSize);
-    const rows = Math.floor(canvas.height / gridSize);
+    // Grid configuration - smaller cells for finer detail
+    const gridSize = 30;
+    let cols = Math.floor(canvas.width / gridSize);
+    let rows = Math.floor(canvas.height / gridSize);
 
     // Initialize grid
-    const grid: Node[][] = [];
-    for (let i = 0; i < rows; i++) {
-      grid[i] = [];
-      for (let j = 0; j < cols; j++) {
-        grid[i][j] = {
-          x: j * gridSize,
-          y: i * gridSize,
-          visited: false,
-          visiting: false,
-          path: false,
-          distance: Infinity,
-        };
-      }
-    }
+    let grid: Node[][] = [];
+    const initGrid = () => {
+      cols = Math.floor(canvas.width / gridSize);
+      rows = Math.floor(canvas.height / gridSize);
+      grid = [];
 
-    // Start and end points
-    let startRow = Math.floor(rows / 2);
-    let startCol = Math.floor(cols / 4);
-    let endRow = Math.floor(rows / 2);
-    let endCol = Math.floor((3 * cols) / 4);
-
-    // BFS Animation
-    const queue: { row: number; col: number; parent: any }[] = [];
-    let animationFrame = 0;
-    let path: { row: number; col: number }[] = [];
-
-    const resetGrid = () => {
       for (let i = 0; i < rows; i++) {
+        grid[i] = [];
         for (let j = 0; j < cols; j++) {
-          grid[i][j].visited = false;
-          grid[i][j].visiting = false;
-          grid[i][j].path = false;
-          grid[i][j].distance = Infinity;
+          grid[i][j] = {
+            x: j * gridSize,
+            y: i * gridSize,
+            visited: false,
+            wave: -1,
+            opacity: 0,
+            birthTime: 0,
+          };
         }
       }
-      queue.length = 0;
-      path = [];
-      animationFrame = 0;
-
-      // Randomize start and end more frequently
-      startRow = Math.floor(Math.random() * rows);
-      startCol = Math.floor(Math.random() * cols);
-      endRow = Math.floor(Math.random() * rows);
-      endCol = Math.floor(Math.random() * cols);
-
-      queue.push({ row: startRow, col: startCol, parent: null });
-      grid[startRow][startCol].distance = 0;
     };
 
-    const bfsStep = () => {
-      if (queue.length === 0) return false;
+    initGrid();
 
-      const current = queue.shift();
-      if (!current) return false;
+    // BFS wavefront animation from center
+    let queue: { row: number; col: number; wave: number }[] = [];
+    let currentTime = 0;
+    let animationComplete = false;
+    let fadeOutStartTime = 0;
 
-      const { row, col, parent } = current;
+    const resetAnimation = () => {
+      initGrid();
+      queue = [];
+      currentTime = 0;
+      animationComplete = false;
+      fadeOutStartTime = 0;
 
-      if (row === endRow && col === endCol) {
-        // Reconstruct path
-        let temp = { row, col, parent };
-        while (temp) {
-          path.push({ row: temp.row, col: temp.col });
-          temp = temp.parent;
+      // Start from center
+      const centerRow = Math.floor(rows / 2);
+      const centerCol = Math.floor(cols / 2);
+
+      queue.push({ row: centerRow, col: centerCol, wave: 0 });
+      grid[centerRow][centerCol].wave = 0;
+      grid[centerRow][centerCol].birthTime = currentTime;
+    };
+
+    const expandWave = () => {
+      if (queue.length === 0) {
+        if (!animationComplete) {
+          animationComplete = true;
+          fadeOutStartTime = currentTime;
         }
-        return false;
+        return;
       }
 
-      if (grid[row][col].visited) return true;
+      const batchSize = 3; // Process multiple nodes per frame for smooth expansion
+      for (let b = 0; b < batchSize && queue.length > 0; b++) {
+        const current = queue.shift();
+        if (!current) continue;
 
-      grid[row][col].visited = true;
-      grid[row][col].visiting = false;
+        const { row, col, wave } = current;
 
-      // Check neighbors (including diagonals for more spreading)
-      const directions = [
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-        [1, 1],
-      ];
+        if (grid[row][col].visited) continue;
+        grid[row][col].visited = true;
 
-      // Shuffle directions for more randomness
-      for (let i = directions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [directions[i], directions[j]] = [directions[j], directions[i]];
-      }
+        // 8-directional expansion (grid-like)
+        const directions = [
+          [-1, 0],
+          [1, 0],
+          [0, -1],
+          [0, 1], // cardinal
+          [-1, -1],
+          [-1, 1],
+          [1, -1],
+          [1, 1], // diagonal
+        ];
 
-      for (const [dr, dc] of directions) {
-        const newRow = row + dr;
-        const newCol = col + dc;
+        // Add slight randomness to timing for organic feel
+        const delay = Math.random() * 0.3;
 
-        if (
-          newRow >= 0 &&
-          newRow < rows &&
-          newCol >= 0 &&
-          newCol < cols &&
-          !grid[newRow][newCol].visited
-        ) {
-          grid[newRow][newCol].visiting = true;
-          queue.push({
-            row: newRow,
-            col: newCol,
-            parent: { row, col, parent },
-          });
+        for (const [dr, dc] of directions) {
+          const newRow = row + dr;
+          const newCol = col + dc;
+
+          if (
+            newRow >= 0 &&
+            newRow < rows &&
+            newCol >= 0 &&
+            newCol < cols &&
+            grid[newRow][newCol].wave === -1
+          ) {
+            grid[newRow][newCol].wave = wave + 1;
+            grid[newRow][newCol].birthTime = currentTime + delay;
+            queue.push({
+              row: newRow,
+              col: newCol,
+              wave: wave + 1,
+            });
+          }
         }
       }
-
-      return true;
     };
 
     // Drawing function
     const draw = () => {
-      // Match the background color with theme
-      const isDark = document.documentElement.classList.contains("dark");
-      ctx.fillStyle = isDark ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)";
+      // Dark background - RGB(48, 22, 140)
+      ctx.fillStyle = "rgb(48, 22, 140)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw grid nodes
+      const nodeColor = "rgb(141, 118, 233)";
+      const edgeColor = "rgba(141, 118, 233, ";
+
+      // Fade out phase
+      let globalFade = 1;
+      if (animationComplete) {
+        const fadeProgress = (currentTime - fadeOutStartTime) / 60;
+        globalFade = Math.max(0, 1 - fadeProgress);
+
+        if (globalFade <= 0) {
+          resetAnimation();
+          return;
+        }
+      }
+
+      // Draw edges first (underneath nodes)
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
           const node = grid[i][j];
+          if (node.wave < 0) continue;
+
+          // Calculate opacity based on age and fade
+          const age = currentTime - node.birthTime;
+          let opacity = 0;
+
+          if (age > 0) {
+            // Fade in over 15 frames
+            opacity = Math.min(1, age / 15);
+          }
+
+          node.opacity = opacity * globalFade;
+
+          if (node.opacity <= 0.01) continue;
+
           const x = node.x + gridSize / 2;
           const y = node.y + gridSize / 2;
 
-          // Draw connections for visited nodes
-          if (node.visited || node.visiting) {
-            const directions = [
-              [-1, 0],
-              [1, 0],
-              [0, -1],
-              [0, 1],
-              [-1, -1],
-              [-1, 1],
-              [1, -1],
-              [1, 1],
-            ];
+          // Draw connections to adjacent nodes
+          const directions = [
+            [-1, 0],
+            [1, 0],
+            [0, -1],
+            [0, 1],
+            [-1, -1],
+            [-1, 1],
+            [1, -1],
+            [1, 1],
+          ];
 
-            for (const [dr, dc] of directions) {
-              const ni = i + dr;
-              const nj = j + dc;
+          for (const [dr, dc] of directions) {
+            const ni = i + dr;
+            const nj = j + dc;
 
-              if (
-                ni >= 0 &&
-                ni < rows &&
-                nj >= 0 &&
-                nj < cols &&
-                (grid[ni][nj].visited || grid[ni][nj].visiting)
-              ) {
-                ctx.strokeStyle = node.visited
-                  ? "rgba(141, 118, 233, 0.08)"
-                  : "rgba(141, 118, 233, 0.2)";
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-                ctx.lineTo(
-                  grid[ni][nj].x + gridSize / 2,
-                  grid[ni][nj].y + gridSize / 2,
-                );
-                ctx.stroke();
-              }
+            if (
+              ni >= 0 &&
+              ni < rows &&
+              nj >= 0 &&
+              nj < cols &&
+              grid[ni][nj].wave >= 0 &&
+              grid[ni][nj].opacity > 0.01
+            ) {
+              // Use average opacity of both nodes
+              const avgOpacity = (node.opacity + grid[ni][nj].opacity) / 2;
+
+              // Dimmer for visited, brighter for frontier
+              const isFrontier = queue.some(
+                (q) =>
+                  (q.row === i && q.col === j) ||
+                  (q.row === ni && q.col === nj),
+              );
+
+              const edgeOpacity = isFrontier
+                ? avgOpacity * 0.25
+                : avgOpacity * 0.1;
+
+              ctx.strokeStyle = edgeColor + edgeOpacity + ")";
+              ctx.lineWidth = 0.5;
+              ctx.shadowBlur = 0;
+
+              ctx.beginPath();
+              ctx.moveTo(x, y);
+              ctx.lineTo(
+                grid[ni][nj].x + gridSize / 2,
+                grid[ni][nj].y + gridSize / 2,
+              );
+              ctx.stroke();
             }
-          }
-
-          // Draw node
-          if (i === startRow && j === startCol) {
-            // Start node
-            ctx.fillStyle = "rgb(141, 118, 233)";
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = "rgb(141, 118, 233)";
-            ctx.beginPath();
-            ctx.arc(x, y, 3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-          } else if (i === endRow && j === endCol) {
-            // End node
-            ctx.fillStyle = "rgb(141, 118, 233)";
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = "rgb(141, 118, 233)";
-            ctx.beginPath();
-            ctx.arc(x, y, 3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-          } else if (node.visiting) {
-            // Currently visiting
-            ctx.fillStyle = "rgba(141, 118, 233, 0.6)";
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = "rgb(141, 118, 233)";
-            ctx.beginPath();
-            ctx.arc(x, y, 2, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-          } else if (node.visited) {
-            // Visited node
-            ctx.fillStyle = "rgba(141, 118, 233, 0.15)";
-            ctx.beginPath();
-            ctx.arc(x, y, 1, 0, Math.PI * 2);
-            ctx.fill();
           }
         }
       }
 
-      // Draw path
-      if (path.length > 0) {
-        ctx.strokeStyle = "rgb(141, 118, 233)";
-        ctx.lineWidth = 3;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = "rgb(141, 118, 233)";
-        ctx.beginPath();
-        ctx.moveTo(
-          grid[path[0].row][path[0].col].x + gridSize / 2,
-          grid[path[0].row][path[0].col].y + gridSize / 2,
-        );
+      // Draw nodes
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const node = grid[i][j];
+          if (node.wave < 0 || node.opacity <= 0.01) continue;
 
-        for (let i = 1; i < path.length; i++) {
-          ctx.lineTo(
-            grid[path[i].row][path[i].col].x + gridSize / 2,
-            grid[path[i].row][path[i].col].y + gridSize / 2,
-          );
+          const x = node.x + gridSize / 2;
+          const y = node.y + gridSize / 2;
+
+          // Check if this node is on the frontier
+          const isFrontier = queue.some((q) => q.row === i && q.col === j);
+          const isOrigin =
+            i === Math.floor(rows / 2) && j === Math.floor(cols / 2);
+
+          if (isOrigin) {
+            // Origin node - glowing
+            ctx.fillStyle = nodeColor;
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = nodeColor;
+            ctx.globalAlpha = node.opacity;
+            ctx.beginPath();
+            ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.globalAlpha = 1;
+          } else if (isFrontier) {
+            // Frontier nodes - medium glow
+            ctx.fillStyle = nodeColor;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = nodeColor;
+            ctx.globalAlpha = node.opacity * 0.8;
+            ctx.beginPath();
+            ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.globalAlpha = 1;
+          } else {
+            // Visited nodes - subtle
+            ctx.fillStyle = nodeColor;
+            ctx.globalAlpha = node.opacity * 0.3;
+            ctx.beginPath();
+            ctx.arc(x, y, 0.8, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          }
         }
-        ctx.stroke();
-        ctx.shadowBlur = 0;
       }
     };
 
     // Animation loop
     let running = true;
-    let frameCount = 0;
-    resetGrid();
+    resetAnimation();
 
     const animate = () => {
       if (!running) return;
 
-      frameCount++;
-
-      // Run BFS step faster for rapid spreading effect
-      for (let i = 0; i < 5; i++) {
-        const continuing = bfsStep();
-        if (!continuing) {
-          // Animation complete, reset after shorter delay
-          setTimeout(() => {
-            resetGrid();
-          }, 1000);
-          break;
-        }
-      }
-
+      currentTime++;
+      expandWave();
       draw();
+
       requestAnimationFrame(animate);
     };
 
@@ -299,7 +308,7 @@ export default function PathfindingCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full opacity-60"
+      className="absolute inset-0 w-full h-full"
       style={{ pointerEvents: "none" }}
     />
   );
