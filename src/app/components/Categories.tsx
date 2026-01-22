@@ -96,7 +96,10 @@ export default function Categories() {
   ];
 
   return (
-    <section id="categories" className="relative py-32 px-6">
+    <section
+      id="categories"
+      className="relative py-32 px-6 bg-white dark:bg-black"
+    >
       {/* Background gradient accent */}
       <div
         className="absolute inset-0 opacity-30"

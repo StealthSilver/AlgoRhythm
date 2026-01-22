@@ -27,7 +27,7 @@ export default function Philosophy() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-32 px-6 overflow-hidden"
+      className="relative py-32 px-6 overflow-hidden bg-white dark:bg-black"
     >
       {/* Animated background gradient */}
       <div
