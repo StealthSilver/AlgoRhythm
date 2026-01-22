@@ -308,7 +308,7 @@ export default function PathfindingCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full sm:inset-0 inset-x-0 top-1/2 -translate-y-1/2 sm:translate-y-0"
       style={{ pointerEvents: "none" }}
     />
   );
