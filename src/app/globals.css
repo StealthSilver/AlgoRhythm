@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: rgb(141, 118, 233);
-  --color-primary-light: rgb(160, 140, 245);
-  --color-primary-dark: rgb(120, 100, 210);
-}
-
 @layer base {
   html {
     @apply scroll-smooth;

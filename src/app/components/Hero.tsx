@@ -53,7 +53,7 @@ export default function Hero() {
           to advanced concepts — all in one rhythmic, interactive platform.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <div className="flex justify-center">
           <button
             className="group relative px-8 py-4 text-lg font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105"
             style={{
@@ -73,18 +73,6 @@ export default function Hero() {
                   "linear-gradient(135deg, rgb(160, 140, 245) 0%, rgb(141, 118, 233) 100%)",
               }}
             />
-          </button>
-
-          <button
-            className="group px-8 py-4 text-lg font-semibold rounded-full border-2 transition-all duration-300 hover:scale-105 dark:hover:bg-white/5 hover:bg-[rgb(141,118,233)]/5"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              borderColor: "rgb(141, 118, 233)",
-              color: "rgb(141, 118, 233)",
-              boxShadow: "0 0 20px rgba(141, 118, 233, 0.2)",
-            }}
-          >
-            View Visualizations
           </button>
         </div>
       </div>

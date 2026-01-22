@@ -15,10 +15,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section with Animated Background */}
-      <section
-        className="relative min-h-screen flex items-center justify-center"
-        style={{ backgroundColor: "rgb(48, 22, 140)" }}
-      >
+      <section className="relative min-h-screen flex items-center justify-center bg-black">
         <PathfindingCanvas />
         <Hero />
       </section>
