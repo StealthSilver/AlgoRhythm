@@ -150,7 +150,9 @@ export default function PathfindingCanvas() {
 
     // Drawing function
     const draw = () => {
-      ctx.fillStyle = "rgb(0, 0, 0)";
+      // Match the background color with theme
+      const isDark = document.documentElement.classList.contains("dark");
+      ctx.fillStyle = isDark ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw grid nodes
