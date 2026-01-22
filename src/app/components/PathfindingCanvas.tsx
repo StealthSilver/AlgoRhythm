@@ -30,7 +30,7 @@ export default function PathfindingCanvas() {
     window.addEventListener("resize", resizeCanvas);
 
     // Grid configuration
-    const gridSize = 40;
+    const gridSize = 20;
     const cols = Math.floor(canvas.width / gridSize);
     const rows = Math.floor(canvas.height / gridSize);
 
@@ -74,13 +74,11 @@ export default function PathfindingCanvas() {
       path = [];
       animationFrame = 0;
 
-      // Randomize start and end occasionally
-      if (Math.random() > 0.7) {
-        startRow = Math.floor(Math.random() * rows);
-        startCol = Math.floor(Math.random() * cols);
-        endRow = Math.floor(Math.random() * rows);
-        endCol = Math.floor(Math.random() * cols);
-      }
+      // Randomize start and end more frequently
+      startRow = Math.floor(Math.random() * rows);
+      startCol = Math.floor(Math.random() * cols);
+      endRow = Math.floor(Math.random() * rows);
+      endCol = Math.floor(Math.random() * cols);
 
       queue.push({ row: startRow, col: startCol, parent: null });
       grid[startRow][startCol].distance = 0;
@@ -109,13 +107,23 @@ export default function PathfindingCanvas() {
       grid[row][col].visited = true;
       grid[row][col].visiting = false;
 
-      // Check neighbors
+      // Check neighbors (including diagonals for more spreading)
       const directions = [
         [-1, 0],
         [1, 0],
         [0, -1],
         [0, 1],
+        [-1, -1],
+        [-1, 1],
+        [1, -1],
+        [1, 1],
       ];
+
+      // Shuffle directions for more randomness
+      for (let i = directions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [directions[i], directions[j]] = [directions[j], directions[i]];
+      }
 
       for (const [dr, dc] of directions) {
         const newRow = row + dr;
@@ -142,7 +150,7 @@ export default function PathfindingCanvas() {
 
     // Drawing function
     const draw = () => {
-      ctx.fillStyle = "rgb(48, 22, 140)";
+      ctx.fillStyle = "rgb(0, 0, 0)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw grid nodes
@@ -159,6 +167,10 @@ export default function PathfindingCanvas() {
               [1, 0],
               [0, -1],
               [0, 1],
+              [-1, -1],
+              [-1, 1],
+              [1, -1],
+              [1, 1],
             ];
 
             for (const [dr, dc] of directions) {
@@ -173,9 +185,9 @@ export default function PathfindingCanvas() {
                 (grid[ni][nj].visited || grid[ni][nj].visiting)
               ) {
                 ctx.strokeStyle = node.visited
-                  ? "rgba(141, 118, 233, 0.15)"
-                  : "rgba(141, 118, 233, 0.3)";
-                ctx.lineWidth = 1;
+                  ? "rgba(141, 118, 233, 0.08)"
+                  : "rgba(141, 118, 233, 0.2)";
+                ctx.lineWidth = 0.5;
                 ctx.beginPath();
                 ctx.moveTo(x, y);
                 ctx.lineTo(
@@ -191,35 +203,35 @@ export default function PathfindingCanvas() {
           if (i === startRow && j === startCol) {
             // Start node
             ctx.fillStyle = "rgb(141, 118, 233)";
-            ctx.shadowBlur = 20;
+            ctx.shadowBlur = 15;
             ctx.shadowColor = "rgb(141, 118, 233)";
             ctx.beginPath();
-            ctx.arc(x, y, 6, 0, Math.PI * 2);
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
             ctx.fill();
             ctx.shadowBlur = 0;
           } else if (i === endRow && j === endCol) {
             // End node
             ctx.fillStyle = "rgb(141, 118, 233)";
-            ctx.shadowBlur = 20;
+            ctx.shadowBlur = 15;
             ctx.shadowColor = "rgb(141, 118, 233)";
             ctx.beginPath();
-            ctx.arc(x, y, 6, 0, Math.PI * 2);
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
             ctx.fill();
             ctx.shadowBlur = 0;
           } else if (node.visiting) {
             // Currently visiting
             ctx.fillStyle = "rgba(141, 118, 233, 0.6)";
-            ctx.shadowBlur = 15;
+            ctx.shadowBlur = 10;
             ctx.shadowColor = "rgb(141, 118, 233)";
             ctx.beginPath();
-            ctx.arc(x, y, 4, 0, Math.PI * 2);
+            ctx.arc(x, y, 2, 0, Math.PI * 2);
             ctx.fill();
             ctx.shadowBlur = 0;
           } else if (node.visited) {
             // Visited node
-            ctx.fillStyle = "rgba(141, 118, 233, 0.2)";
+            ctx.fillStyle = "rgba(141, 118, 233, 0.15)";
             ctx.beginPath();
-            ctx.arc(x, y, 2, 0, Math.PI * 2);
+            ctx.arc(x, y, 1, 0, Math.PI * 2);
             ctx.fill();
           }
         }
@@ -258,14 +270,15 @@ export default function PathfindingCanvas() {
 
       frameCount++;
 
-      // Run BFS step every few frames for smooth animation
-      if (frameCount % 3 === 0) {
+      // Run BFS step faster for rapid spreading effect
+      for (let i = 0; i < 5; i++) {
         const continuing = bfsStep();
         if (!continuing) {
-          // Animation complete, reset after delay
+          // Animation complete, reset after shorter delay
           setTimeout(() => {
             resetGrid();
-          }, 3000);
+          }, 1000);
+          break;
         }
       }
 
@@ -284,7 +297,7 @@ export default function PathfindingCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full opacity-40"
+      className="absolute inset-0 w-full h-full opacity-60"
       style={{ pointerEvents: "none" }}
     />
   );
