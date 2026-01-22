@@ -8,6 +8,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -26,7 +27,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
@@ -34,24 +35,24 @@ export default function Navbar() {
               <Image
                 src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
                 alt="AlgoRhythm Logo"
-                width={180}
-                height={40}
-                className="h-10 w-auto"
+                width={140}
+                height={32}
+                className="h-8 sm:h-10 w-auto"
               />
             )}
             {!mounted && (
               <Image
                 src="/algo-light.svg"
                 alt="AlgoRhythm Logo"
-                width={180}
-                height={40}
-                className="h-10 w-auto"
+                width={140}
+                height={32}
+                className="h-8 sm:h-10 w-auto"
               />
             )}
           </div>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Navigation Links - Desktop */}
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
             <a
               href="#features"
               className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors"
@@ -72,21 +73,79 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Right Section: Get Started */}
-          <div className="flex items-center">
+          {/* Right Section */}
+          <div className="flex items-center gap-3">
             {/* Get Started Button */}
             <button
-              className="px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
+              className="px-4 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
               style={{
                 background: "rgb(141, 118, 233)",
                 color: "white",
                 boxShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
               }}
             >
-              Get Started
+              <span className="hidden sm:inline">Get Started</span>
+              <span className="sm:hidden">Start</span>
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-gray-700 dark:text-gray-200"
+              aria-label="Toggle menu"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {mobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 space-y-3">
+            <a
+              href="#features"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
+            >
+              Features
+            </a>
+            <a
+              href="#categories"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
+            >
+              Categories
+            </a>
+            <a
+              href="#about"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
+            >
+              About
+            </a>
+          </div>
+        )}
       </div>
     </nav>
   );

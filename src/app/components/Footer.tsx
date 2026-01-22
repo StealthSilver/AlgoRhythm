@@ -6,13 +6,13 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative py-16 px-6 border-t border-[rgba(141,118,233,0.2)] bg-white dark:bg-black">
+    <footer className="relative py-12 sm:py-16 px-4 sm:px-6 border-t border-[rgba(141,118,233,0.2)] bg-white dark:bg-black">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-10 md:gap-8">
           {/* Logo/Brand */}
           <div className="text-center md:text-left">
             <h3
-              className="text-3xl font-bold mb-2"
+              className="text-2xl sm:text-3xl font-bold mb-2"
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
                 background:
@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12">
             <div>
               <h4
                 className="text-[rgb(141,118,233)] font-semibold mb-3 text-sm uppercase tracking-wider"
@@ -122,10 +122,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-[rgba(141,118,233,0.1)]">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-[rgba(141,118,233,0.1)]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
             <p
-              className="text-gray-500 dark:text-white/40 text-sm"
+              className="text-gray-500 dark:text-white/40 text-xs sm:text-sm text-center md:text-left"
               style={{
                 fontFamily: "'Inter', sans-serif",
               }}
@@ -134,7 +134,7 @@ export default function Footer() {
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <a
                 href="https://github.com/StealthSilver/AlgoRhythm"
                 target="_blank"

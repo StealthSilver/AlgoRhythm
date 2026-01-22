@@ -27,7 +27,7 @@ export default function Philosophy() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-32 px-6 overflow-hidden bg-white dark:bg-black"
+      className="relative py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 overflow-hidden bg-white dark:bg-black"
     >
       {/* Animated background gradient */}
       <div
@@ -45,9 +45,9 @@ export default function Philosophy() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <div
-              className="inline-block w-16 h-1 rounded-full mb-8"
+              className="inline-block w-12 sm:w-16 h-1 rounded-full mb-6 sm:mb-8"
               style={{
                 background: "rgb(141, 118, 233)",
                 boxShadow: "0 0 20px rgba(141, 118, 233, 0.6)",
@@ -56,7 +56,7 @@ export default function Philosophy() {
           </div>
 
           <p
-            className="text-3xl md:text-4xl lg:text-5xl font-light leading-relaxed mb-8"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light leading-relaxed mb-6 sm:mb-8 px-2"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
               color: "rgb(200, 180, 255)",
@@ -67,7 +67,7 @@ export default function Philosophy() {
           </p>
 
           <p
-            className="text-3xl md:text-4xl lg:text-5xl font-light leading-relaxed mb-8"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light leading-relaxed mb-6 sm:mb-8 px-2"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
               color: "rgb(141, 118, 233)",
@@ -78,7 +78,7 @@ export default function Philosophy() {
           </p>
 
           <p
-            className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-relaxed"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold leading-relaxed px-2"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
               background:
@@ -92,9 +92,9 @@ export default function Philosophy() {
             And every great solution has a flow.
           </p>
 
-          <div className="mt-16">
+          <div className="mt-12 sm:mt-16">
             <div
-              className="inline-block w-16 h-1 rounded-full"
+              className="inline-block w-12 sm:w-16 h-1 rounded-full"
               style={{
                 background: "rgb(141, 118, 233)",
                 boxShadow: "0 0 20px rgba(141, 118, 233, 0.6)",
