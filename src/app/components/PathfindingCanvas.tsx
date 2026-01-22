@@ -139,8 +139,8 @@ export default function PathfindingCanvas() {
 
     // Drawing function
     const draw = () => {
-      // Dark background - RGB(48, 22, 140)
-      ctx.fillStyle = "rgb(48, 22, 140)";
+      // Dark background - Black
+      ctx.fillStyle = "rgb(0, 0, 0)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const nodeColor = "rgb(141, 118, 233)";

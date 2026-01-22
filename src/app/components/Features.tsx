@@ -1,15 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Eye, Zap, Network, Code } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 interface FeatureCardProps {
   title: string;
   description: string;
-  icon: string;
+  icon: LucideIcon;
   delay: number;
 }
 
-function FeatureCard({ title, description, icon, delay }: FeatureCardProps) {
+function FeatureCard({
+  title,
+  description,
+  icon: Icon,
+  delay,
+}: FeatureCardProps) {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -33,46 +40,43 @@ function FeatureCard({ title, description, icon, delay }: FeatureCardProps) {
   return (
     <div
       ref={cardRef}
-      className={`group relative p-8 rounded-2xl backdrop-blur-sm transition-all duration-700 ${
+      className={`group relative p-8 rounded-2xl backdrop-blur-sm transition-all duration-700 hover:shadow-xl ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{
-        background: "rgba(141, 118, 233, 0.05)",
-        border: "1px solid rgba(141, 118, 233, 0.2)",
+        background: "rgba(255, 255, 255, 0.02)",
+        border: "1px solid rgba(141, 118, 233, 0.15)",
       }}
     >
-      {/* Glowing border on hover */}
+      {/* Subtle glow on hover */}
       <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
           background:
-            "linear-gradient(135deg, rgba(141, 118, 233, 0.3) 0%, rgba(141, 118, 233, 0) 100%)",
-          boxShadow: "0 0 40px rgba(141, 118, 233, 0.4)",
+            "radial-gradient(circle at top left, rgba(141, 118, 233, 0.08) 0%, transparent 70%)",
         }}
       />
 
       <div className="relative z-10">
-        <div
-          className="text-5xl mb-4 transition-transform duration-300 group-hover:scale-110"
-          style={{
-            filter: "drop-shadow(0 0 10px rgba(141, 118, 233, 0.5))",
-          }}
-        >
-          {icon}
+        <div className="mb-5 inline-flex p-3 rounded-xl bg-[rgb(141,118,233)]/10 group-hover:bg-[rgb(141,118,233)]/20 transition-colors duration-300">
+          <Icon
+            className="text-[rgb(141,118,233)] transition-transform duration-300 group-hover:scale-110"
+            size={28}
+            strokeWidth={1.5}
+          />
         </div>
 
         <h3
-          className="text-2xl font-bold mb-3 text-[rgb(141,118,233)]"
+          className="text-xl font-semibold mb-3 text-gray-900 dark:text-white"
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            textShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
           }}
         >
           {title}
         </h3>
 
         <p
-          className="text-gray-600 dark:text-white/80 leading-relaxed"
+          className="text-gray-600 dark:text-gray-400 leading-relaxed text-[15px]"
           style={{
             fontFamily: "'Inter', sans-serif",
           }}
@@ -90,50 +94,56 @@ export default function Features() {
       title: "Visual Algorithm Explorer",
       description:
         "Watch algorithms come to life with real-time visualizations. See every step, every decision, every path.",
-      icon: "🎯",
+      icon: Eye,
     },
     {
       title: "Step-by-Step Animations",
       description:
         "Control the pace. Pause, rewind, and replay. Master complex algorithms at your own rhythm.",
-      icon: "⚡",
+      icon: Zap,
     },
     {
       title: "From Arrays to Graphs",
       description:
         "Complete coverage of data structures and algorithms — from fundamentals to advanced techniques.",
-      icon: "🌐",
+      icon: Network,
     },
     {
       title: "Clean Explanations + Code",
       description:
         "Understand the logic with clear explanations and clean, readable code in multiple languages.",
-      icon: "💻",
+      icon: Code,
     },
   ];
 
   return (
     <section
       id="features"
-      className="relative py-32 px-6 bg-white dark:bg-black"
+      className="relative py-24 px-6 bg-white dark:bg-black"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <h2
-            className="text-5xl md:text-6xl font-bold mb-6"
+            className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
-              background:
-                "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
             }}
           >
-            Built for Learning
+            Built for{" "}
+            <span
+              style={{
+                background:
+                  "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Learning
+            </span>
           </h2>
           <p
-            className="text-xl text-gray-600 dark:text-white/70 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
             style={{
               fontFamily: "'Inter', sans-serif",
             }}
@@ -142,7 +152,7 @@ export default function Features() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} delay={index * 150} />
           ))}
