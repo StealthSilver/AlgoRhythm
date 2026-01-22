@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-12">
             <div>
               <h4
                 className="text-[rgb(141,118,233)] font-semibold mb-3 text-sm uppercase tracking-wider"
