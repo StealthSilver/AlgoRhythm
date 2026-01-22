@@ -1,5 +1,7 @@
 "use client";
 
+import { Github, Linkedin, Twitter } from "lucide-react";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -120,15 +122,57 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-[rgba(141,118,233,0.1)] text-center">
-          <p
-            className="text-gray-500 dark:text-white/40 text-sm"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-            }}
-          >
-            © {currentYear} AlgoRhythm. Crafted with precision and flow.
-          </p>
+        <div className="mt-12 pt-8 border-t border-[rgba(141,118,233,0.1)]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p
+              className="text-gray-500 dark:text-white/40 text-sm"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+              }}
+            >
+              © {currentYear} AlgoRhythm. Crafted with precision and flow.
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-4">
+              <a
+                href="https://github.com/StealthSilver/AlgoRhythm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-[rgb(141,118,233)]/10 transition-all duration-300 group"
+                aria-label="GitHub"
+              >
+                <Github
+                  className="w-5 h-5 text-gray-600 dark:text-white/60 group-hover:text-[rgb(141,118,233)] transition-colors"
+                  strokeWidth={1.5}
+                />
+              </a>
+              <a
+                href="https://x.com/silver_srs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-[rgb(141,118,233)]/10 transition-all duration-300 group"
+                aria-label="X (Twitter)"
+              >
+                <Twitter
+                  className="w-5 h-5 text-gray-600 dark:text-white/60 group-hover:text-[rgb(141,118,233)] transition-colors"
+                  strokeWidth={1.5}
+                />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/rajat-saraswat-0491a3259/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-[rgb(141,118,233)]/10 transition-all duration-300 group"
+                aria-label="LinkedIn"
+              >
+                <Linkedin
+                  className="w-5 h-5 text-gray-600 dark:text-white/60 group-hover:text-[rgb(141,118,233)] transition-colors"
+                  strokeWidth={1.5}
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
