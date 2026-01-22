@@ -7,8 +7,10 @@ import { useTheme } from "../context/ThemeContext";
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
@@ -28,13 +30,24 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Image
-              src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
-              alt="AlgoRhythm Logo"
-              width={180}
-              height={40}
-              className="h-10 w-auto"
-            />
+            {mounted && (
+              <Image
+                src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
+                alt="AlgoRhythm Logo"
+                width={180}
+                height={40}
+                className="h-10 w-auto"
+              />
+            )}
+            {!mounted && (
+              <Image
+                src="/algo-light.svg"
+                alt="AlgoRhythm Logo"
+                width={180}
+                height={40}
+                className="h-10 w-auto"
+              />
+            )}
           </div>
 
           {/* Navigation Links */}
@@ -67,7 +80,7 @@ export default function Navbar() {
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? (
+              {mounted && theme === "dark" ? (
                 <svg
                   className="w-5 h-5 text-yellow-500"
                   fill="currentColor"
