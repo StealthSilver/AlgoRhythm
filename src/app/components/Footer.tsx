@@ -23,7 +23,7 @@ export default function Footer() {
               AlgoRhythm
             </h3>
             <p
-              className="text-white/60 text-sm"
+              className="text-gray-600 dark:text-white/60 text-sm"
               style={{
                 fontFamily: "'Inter', sans-serif",
               }}
@@ -53,7 +53,7 @@ export default function Footer() {
                   <li key={item}>
                     <a
                       href="#"
-                      className="text-white/60 hover:text-[rgb(141,118,233)] transition-colors duration-300 text-sm"
+                      className="text-gray-600 dark:text-white/60 hover:text-[rgb(141,118,233)] transition-colors duration-300 text-sm"
                       style={{
                         fontFamily: "'Inter', sans-serif",
                       }}
@@ -79,7 +79,7 @@ export default function Footer() {
                   <li key={item}>
                     <a
                       href="#"
-                      className="text-white/60 hover:text-[rgb(141,118,233)] transition-colors duration-300 text-sm"
+                      className="text-gray-600 dark:text-white/60 hover:text-[rgb(141,118,233)] transition-colors duration-300 text-sm"
                       style={{
                         fontFamily: "'Inter', sans-serif",
                       }}
@@ -105,7 +105,7 @@ export default function Footer() {
                   <li key={item}>
                     <a
                       href="#"
-                      className="text-white/60 hover:text-[rgb(141,118,233)] transition-colors duration-300 text-sm"
+                      className="text-gray-600 dark:text-white/60 hover:text-[rgb(141,118,233)] transition-colors duration-300 text-sm"
                       style={{
                         fontFamily: "'Inter', sans-serif",
                       }}
@@ -122,7 +122,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-[rgba(141,118,233,0.1)] text-center">
           <p
-            className="text-white/40 text-sm"
+            className="text-gray-500 dark:text-white/40 text-sm"
             style={{
               fontFamily: "'Inter', sans-serif",
             }}
