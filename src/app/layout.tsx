@@ -115,9 +115,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <div className="flex flex-col min-h-screen">{children}</div>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -11,26 +11,28 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-x-hidden">
-      <Navbar />
+    <>
+      <main className="relative flex-1 bg-white dark:bg-black text-gray-900 dark:text-white overflow-x-hidden">
+        <Navbar />
 
-      {/* Hero Section with Animated Background */}
-      <section className="relative min-h-screen flex items-center justify-center bg-black">
-        <PathfindingCanvas />
-        <Hero />
-      </section>
+        {/* Hero Section with Animated Background */}
+        <section className="relative min-h-screen flex items-center justify-center bg-black">
+          <PathfindingCanvas />
+          <Hero />
+        </section>
 
-      {/* Features Section */}
-      <Features />
+        {/* Features Section */}
+        <Features />
 
-      {/* Algorithm Categories */}
-      <Categories />
+        {/* Algorithm Categories */}
+        <Categories />
 
-      {/* Philosophy Section */}
-      <Philosophy />
+        {/* Philosophy Section */}
+        <Philosophy />
+      </main>
 
       {/* Footer */}
       <Footer />
-    </main>
+    </>
   );
 }
