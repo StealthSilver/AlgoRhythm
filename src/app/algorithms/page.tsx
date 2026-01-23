@@ -1,25 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import AlgorithmsNavbar from "../components/AlgorithmsNavbar";
 import AlgorithmsSidebar from "../components/AlgorithmsSidebar";
 
 export default function AlgorithmsPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
   return (
-    <div className="min-h-screen bg-white dark:bg-black">
-      <AlgorithmsNavbar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-      />
+    <div className="min-h-screen bg-white dark:bg-black max-w-7xl mx-auto">
+      <AlgorithmsNavbar />
       <div className="flex pt-16">
-        <AlgorithmsSidebar isOpen={sidebarOpen} />
-        <main
-          className={`flex-1 transition-all duration-300 ${
-            sidebarOpen ? "ml-64" : "ml-0"
-          }`}
-        >
+        <AlgorithmsSidebar isOpen={true} />
+        <main className="flex-1 ml-64">
           <div className="p-6 sm:p-8 md:p-10">
             <div className="max-w-7xl mx-auto">
               <h1
