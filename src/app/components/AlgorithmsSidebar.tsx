@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
@@ -18,10 +18,6 @@ export default function AlgorithmsSidebar({
   isOpen,
   selectedSlug,
 }: AlgorithmsSidebarProps) {
-  const [expandedCategories, setExpandedCategories] = useState<string[]>([
-    "Arrays & Basic Operations",
-  ]);
-
   const categories: AlgorithmCategory[] = [
     {
       name: "Arrays & Basic Operations",
@@ -246,17 +242,33 @@ export default function AlgorithmsSidebar({
         { name: "Edmonds-Karp Algorithm", slug: "edmonds-karp" },
       ],
     },
-    {
-      name: "Visual Comparisons & Meta",
-      algorithms: [
-        { name: "Sorting Algorithm Comparison", slug: "sorting-comparison" },
-        { name: "BFS vs DFS", slug: "bfs-vs-dfs" },
-        { name: "Dijkstra vs A*", slug: "dijkstra-vs-astar" },
-        { name: "Greedy vs DP", slug: "greedy-vs-dp" },
-        { name: "Recursion vs Iteration", slug: "recursion-vs-iteration" },
-      ],
-    },
   ];
+
+  // Find category containing selected algorithm
+  const selectedCategory = useMemo(() => {
+    if (!selectedSlug) return null;
+    return categories.find((category) =>
+      category.algorithms.some((algo) => algo.slug === selectedSlug),
+    );
+  }, [selectedSlug]);
+
+  // Initialize expanded categories with selected category
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(() => {
+    if (selectedCategory) {
+      return [selectedCategory.name];
+    }
+    return ["Arrays & Basic Operations"];
+  });
+
+  // Update expanded categories when selection changes
+  useEffect(() => {
+    if (
+      selectedCategory &&
+      !expandedCategories.includes(selectedCategory.name)
+    ) {
+      setExpandedCategories((prev) => [...prev, selectedCategory.name]);
+    }
+  }, [selectedCategory]);
 
   const toggleCategory = (categoryName: string) => {
     setExpandedCategories((prev) =>
