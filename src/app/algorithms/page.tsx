@@ -88,6 +88,17 @@ export default function AlgorithmsPage() {
           </div>
         </main>
       </div>
+
+      {/* Footer */}
+      <footer className="mt-16 px-8 pb-8">
+        <hr className="border-gray-200 dark:border-gray-800 mb-6" />
+        <p
+          className="text-center text-sm text-gray-600 dark:text-gray-400"
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
+          © {new Date().getFullYear()} AlgoRhythm. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }
