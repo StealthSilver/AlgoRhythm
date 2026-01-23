@@ -47,16 +47,6 @@ export default function AlgorithmPage() {
             </main>
           </div>
         </div>
-
-        {/* Footer */}
-        <footer className="w-full px-8 py-8 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
-          <p
-            className="text-center text-sm text-gray-600 dark:text-gray-400"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            © {new Date().getFullYear()} AlgoRhythm. All rights reserved.
-          </p>
-        </footer>
       </>
     );
   }
@@ -230,16 +220,6 @@ export default function AlgorithmPage() {
           </main>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="w-full px-8 py-8 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
-        <p
-          className="text-center text-sm text-gray-600 dark:text-gray-400"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
-          © {new Date().getFullYear()} AlgoRhythm. All rights reserved.
-        </p>
-      </footer>
     </>
   );
 }
