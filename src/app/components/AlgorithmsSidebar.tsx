@@ -127,29 +127,31 @@ export default function AlgorithmsSidebar({ isOpen }: AlgorithmsSidebarProps) {
                   }}
                 >
                   <span>{category.name}</span>
-                  {isExpanded ? (
-                    <ChevronDown className="w-4 h-4" />
-                  ) : (
-                    <ChevronRight className="w-4 h-4" />
-                  )}
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-0" : "-rotate-90"}`}
+                  />
                 </button>
 
                 {/* Algorithm List */}
-                {isExpanded && (
-                  <div className="ml-4 mt-1 space-y-1">
-                    {category.algorithms.map((algorithm) => (
-                      <button
-                        key={algorithm}
-                        className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5 transition-all duration-200"
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                        }}
-                      >
-                        {algorithm}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <div
+                  className={`ml-4 space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${
+                    isExpanded
+                      ? "max-h-96 opacity-100 mt-1"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  {category.algorithms.map((algorithm) => (
+                    <button
+                      key={algorithm}
+                      className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5 transition-all duration-200"
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                      }}
+                    >
+                      {algorithm}
+                    </button>
+                  ))}
+                </div>
               </div>
             );
           })}
