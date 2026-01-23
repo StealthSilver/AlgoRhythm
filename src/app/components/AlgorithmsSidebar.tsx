@@ -280,11 +280,33 @@ export default function AlgorithmsSidebar({
 
   return (
     <aside
-      className="fixed top-16 left-0 h-[calc(100vh-4rem)] w-72 bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 overflow-y-auto transition-transform duration-300 z-40"
+      className="fixed top-16 left-0 h-[calc(100vh-4rem)] w-72 bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 overflow-y-auto transition-transform duration-300 z-40 custom-scrollbar"
       style={{
         boxShadow: "2px 0 10px rgba(0, 0, 0, 0.05)",
       }}
     >
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(141, 118, 233, 0.05);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(141, 118, 233, 0.4);
+          border-radius: 4px;
+          transition: background 0.2s;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(141, 118, 233, 0.6);
+        }
+        /* Firefox */
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(141, 118, 233, 0.4) rgba(141, 118, 233, 0.05);
+        }
+      `}</style>
       <div className="py-6 pr-6 pl-8 sm:pl-10 lg:pl-12">
         <h2
           className="text-lg font-bold mb-4 text-gray-900 dark:text-white"
