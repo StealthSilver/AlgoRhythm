@@ -85,7 +85,8 @@ export default function Navbar() {
           {/* Right Section */}
           <div className="flex items-center gap-3">
             {/* Get Started Button - Desktop Only */}
-            <button
+            <a
+              href="/algorithms"
               className="hidden sm:block px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
               style={{
                 background: "rgb(141, 118, 233)",
@@ -94,7 +95,7 @@ export default function Navbar() {
               }}
             >
               Get Started
-            </button>
+            </a>
 
             {/* Mobile Menu Button */}
             <button
@@ -152,8 +153,9 @@ export default function Navbar() {
             >
               About
             </a>
-            <button
-              className="w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 mt-2"
+            <a
+              href="/algorithms"
+              className="block w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 mt-2 text-center"
               style={{
                 background: "rgb(141, 118, 233)",
                 color: "white",
@@ -161,7 +163,7 @@ export default function Navbar() {
               }}
             >
               Get Started
-            </button>
+            </a>
           </div>
         )}
       </div>

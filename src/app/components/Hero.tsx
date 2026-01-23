@@ -54,8 +54,9 @@ export default function Hero() {
         </p>
 
         <div className="flex justify-center px-4">
-          <button
-            className="group relative px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 w-full sm:w-auto max-w-xs sm:max-w-none"
+          <a
+            href="/algorithms"
+            className="group relative px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 w-full sm:w-auto max-w-xs sm:max-w-none inline-block text-center"
             style={{
               fontFamily: "'Inter', sans-serif",
               background: "rgb(141, 118, 233)",
@@ -73,7 +74,7 @@ export default function Hero() {
                   "linear-gradient(135deg, rgb(160, 140, 245) 0%, rgb(141, 118, 233) 100%)",
               }}
             />
-          </button>
+          </a>
         </div>
       </div>
     </div>
