@@ -9,8 +9,8 @@ export default function AlgorithmsPage() {
       <AlgorithmsNavbar />
       <div className="flex pt-16">
         <AlgorithmsSidebar isOpen={true} />
-        <main className="flex-1 ml-64">
-          <div className="p-6 sm:p-8 md:p-10">
+        <main className="flex-1 ml-72">
+          <div className="p-8 sm:p-10 md:p-12">
             <div className="max-w-7xl mx-auto">
               <h1
                 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6"

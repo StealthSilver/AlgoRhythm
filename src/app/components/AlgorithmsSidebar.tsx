@@ -97,12 +97,12 @@ export default function AlgorithmsSidebar({ isOpen }: AlgorithmsSidebarProps) {
 
   return (
     <aside
-      className="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 overflow-y-auto transition-transform duration-300 z-40"
+      className="fixed top-16 left-0 h-[calc(100vh-4rem)] w-72 bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 overflow-y-auto transition-transform duration-300 z-40"
       style={{
         boxShadow: "2px 0 10px rgba(0, 0, 0, 0.05)",
       }}
     >
-      <div className="p-4">
+      <div className="py-6 pr-6 pl-8 sm:pl-10 lg:pl-12">
         <h2
           className="text-lg font-bold mb-4 text-gray-900 dark:text-white"
           style={{
