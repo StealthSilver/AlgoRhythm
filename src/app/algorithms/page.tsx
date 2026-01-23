@@ -1,9 +1,19 @@
 "use client";
 
+import Link from "next/link";
 import AlgorithmsNavbar from "../components/AlgorithmsNavbar";
 import AlgorithmsSidebar from "../components/AlgorithmsSidebar";
 
 export default function AlgorithmsPage() {
+  const algorithmCards = [
+    { name: "Bubble Sort", slug: "bubble-sort" },
+    { name: "Quick Sort", slug: "quick-sort" },
+    { name: "Merge Sort", slug: "merge-sort" },
+    { name: "Binary Search", slug: "binary-search" },
+    { name: "Linear Search", slug: "linear-search" },
+    { name: "DFS", slug: "dfs" },
+  ];
+
   return (
     <div className="min-h-screen bg-white dark:bg-black max-w-7xl mx-auto">
       <AlgorithmsNavbar />
@@ -34,18 +44,12 @@ export default function AlgorithmsPage() {
                 Choose an algorithm from the sidebar to begin exploring
               </p>
 
-              {/* Placeholder content */}
+              {/* Featured Algorithms */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                  "Bubble Sort",
-                  "Quick Sort",
-                  "Merge Sort",
-                  "Binary Search",
-                  "Linear Search",
-                  "DFS",
-                ].map((algo, index) => (
-                  <div
+                {algorithmCards.map((algo, index) => (
+                  <Link
                     key={index}
+                    href={`/algorithms/${algo.slug}`}
                     className="group relative p-6 rounded-2xl backdrop-blur-sm cursor-pointer transition-all duration-300 hover:shadow-xl"
                     style={{
                       background: "rgba(255, 255, 255, 0.02)",
@@ -66,7 +70,7 @@ export default function AlgorithmsPage() {
                           fontFamily: "'Space Grotesk', sans-serif",
                         }}
                       >
-                        {algo}
+                        {algo.name}
                       </h3>
                       <p
                         className="text-gray-600 dark:text-gray-400 text-sm"
@@ -77,7 +81,7 @@ export default function AlgorithmsPage() {
                         Click to explore and visualize
                       </p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
