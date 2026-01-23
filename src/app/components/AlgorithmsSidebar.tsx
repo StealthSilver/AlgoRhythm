@@ -1,18 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 interface AlgorithmCategory {
   name: string;
-  algorithms: string[];
+  algorithms: { name: string; slug: string }[];
 }
 
 interface AlgorithmsSidebarProps {
   isOpen: boolean;
+  selectedSlug?: string;
 }
 
-export default function AlgorithmsSidebar({ isOpen }: AlgorithmsSidebarProps) {
+export default function AlgorithmsSidebar({
+  isOpen,
+  selectedSlug,
+}: AlgorithmsSidebarProps) {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([
     "Sorting",
   ]);
@@ -21,69 +26,86 @@ export default function AlgorithmsSidebar({ isOpen }: AlgorithmsSidebarProps) {
     {
       name: "Sorting",
       algorithms: [
-        "Bubble Sort",
-        "Quick Sort",
-        "Merge Sort",
-        "Insertion Sort",
-        "Selection Sort",
-        "Heap Sort",
+        { name: "Bubble Sort", slug: "bubble-sort" },
+        { name: "Quick Sort", slug: "quick-sort" },
+        { name: "Merge Sort", slug: "merge-sort" },
+        { name: "Insertion Sort", slug: "insertion-sort" },
+        { name: "Selection Sort", slug: "selection-sort" },
+        { name: "Heap Sort", slug: "heap-sort" },
       ],
     },
     {
       name: "Searching",
-      algorithms: ["Linear Search", "Binary Search", "Jump Search"],
+      algorithms: [
+        { name: "Linear Search", slug: "linear-search" },
+        { name: "Binary Search", slug: "binary-search" },
+        { name: "Jump Search", slug: "jump-search" },
+      ],
     },
     {
       name: "Arrays",
       algorithms: [
-        "Two Pointers",
-        "Sliding Window",
-        "Kadane's Algorithm",
-        "Dutch National Flag",
+        { name: "Two Pointers", slug: "two-pointers" },
+        { name: "Sliding Window", slug: "sliding-window" },
+        { name: "Kadane's Algorithm", slug: "kadanes-algorithm" },
+        { name: "Dutch National Flag", slug: "dutch-national-flag" },
       ],
     },
     {
       name: "Linked Lists",
       algorithms: [
-        "Reverse Linked List",
-        "Detect Cycle",
-        "Merge Two Lists",
-        "Remove Nth Node",
+        { name: "Reverse Linked List", slug: "reverse-linked-list" },
+        { name: "Detect Cycle", slug: "detect-cycle" },
+        { name: "Merge Two Lists", slug: "merge-two-lists" },
+        { name: "Remove Nth Node", slug: "remove-nth-node" },
       ],
     },
     {
       name: "Trees",
       algorithms: [
-        "Tree Traversal",
-        "Binary Search Tree",
-        "AVL Tree",
-        "Segment Tree",
+        { name: "Tree Traversal", slug: "tree-traversal" },
+        { name: "Binary Search Tree", slug: "binary-search-tree" },
+        { name: "AVL Tree", slug: "avl-tree" },
+        { name: "Segment Tree", slug: "segment-tree" },
       ],
     },
     {
       name: "Graphs",
-      algorithms: ["DFS", "BFS", "Dijkstra's", "Bellman-Ford", "Kruskal's"],
+      algorithms: [
+        { name: "DFS", slug: "dfs" },
+        { name: "BFS", slug: "bfs" },
+        { name: "Dijkstra's", slug: "dijkstras" },
+        { name: "Bellman-Ford", slug: "bellman-ford" },
+        { name: "Kruskal's", slug: "kruskals" },
+      ],
     },
     {
       name: "Dynamic Programming",
       algorithms: [
-        "Fibonacci",
-        "Knapsack",
-        "Longest Common Subsequence",
-        "Edit Distance",
+        { name: "Fibonacci", slug: "fibonacci" },
+        { name: "Knapsack", slug: "knapsack" },
+        {
+          name: "Longest Common Subsequence",
+          slug: "longest-common-subsequence",
+        },
+        { name: "Edit Distance", slug: "edit-distance" },
       ],
     },
     {
       name: "Greedy",
       algorithms: [
-        "Activity Selection",
-        "Huffman Coding",
-        "Fractional Knapsack",
+        { name: "Activity Selection", slug: "activity-selection" },
+        { name: "Huffman Coding", slug: "huffman-coding" },
+        { name: "Fractional Knapsack", slug: "fractional-knapsack" },
       ],
     },
     {
       name: "Backtracking",
-      algorithms: ["N-Queens", "Sudoku Solver", "Rat in Maze"],
+      algorithms: [
+        { name: "N-Queens", slug: "n-queens" },
+        { name: "Sudoku Solver", slug: "sudoku-solver" },
+        { name: "Rat in Maze", slug: "rat-in-maze" },
+      ],
     },
   ];
 
@@ -140,17 +162,25 @@ export default function AlgorithmsSidebar({ isOpen }: AlgorithmsSidebarProps) {
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  {category.algorithms.map((algorithm) => (
-                    <button
-                      key={algorithm}
-                      className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5 transition-all duration-200"
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                      }}
-                    >
-                      {algorithm}
-                    </button>
-                  ))}
+                  {category.algorithms.map((algorithm) => {
+                    const isSelected = selectedSlug === algorithm.slug;
+                    return (
+                      <Link
+                        key={algorithm.slug}
+                        href={`/algorithms/${algorithm.slug}`}
+                        className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                          isSelected
+                            ? "bg-[rgb(141,118,233)]/10 text-[rgb(141,118,233)] font-semibold"
+                            : "text-gray-600 dark:text-gray-400 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5"
+                        }`}
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                        }}
+                      >
+                        {algorithm.name}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             );
