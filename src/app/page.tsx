@@ -3,6 +3,7 @@
 import Navbar from "./components/sections/Navbar";
 import CTA from "./components/sections/CTA";
 import Categories from "./components/sections/Categories";
+import Footer from "./components/sections/Footer";
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
 
         {/* CTA Section */}
         <CTA />
+
+        {/* Footer */}
+        <Footer />
       </main>
     </>
   );

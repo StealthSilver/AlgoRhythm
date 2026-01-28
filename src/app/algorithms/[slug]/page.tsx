@@ -22,7 +22,7 @@ export default function AlgorithmPage() {
               <div className="p-8 sm:p-10 md:p-12">
                 <div className="max-w-4xl mx-auto">
                   <h1
-                    className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6"
+                    className="text-3xl sm:text-4xl md:text-5xl font-light mb-6"
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                       background:
@@ -61,7 +61,7 @@ export default function AlgorithmPage() {
             <div className="p-8 sm:p-10 md:p-12">
               <div className="max-w-4xl mx-auto">
                 <h1
-                  className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+                  className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
                   style={{
                     fontFamily: "'Space Grotesk', sans-serif",
                     background:

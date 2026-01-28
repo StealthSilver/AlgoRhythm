@@ -24,7 +24,7 @@ export default function AlgorithmsPage() {
             <div className="p-8 sm:p-10 md:p-12">
               <div className="max-w-7xl mx-auto">
                 <h1
-                  className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6"
+                  className="text-3xl sm:text-4xl md:text-5xl font-light mb-6"
                   style={{
                     fontFamily: "'Space Grotesk', sans-serif",
                     background:
@@ -66,7 +66,7 @@ export default function AlgorithmsPage() {
                       />
                       <div className="relative z-10">
                         <h3
-                          className="text-xl font-semibold mb-2 text-gray-900 dark:text-white"
+                          className="text-xl font-light mb-2 text-gray-900 dark:text-white"
                           style={{
                             fontFamily: "'Space Grotesk', sans-serif",
                           }}

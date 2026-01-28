@@ -86,10 +86,10 @@ export default function Categories() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15] mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] mb-6"
           >
             Comprehensive{" "}
-            <span className="font-semibold" style={{ color: "#8a4d98" }}>
+            <span className="font-light" style={{ color: "#8a4d98" }}>
               Algorithm Library
             </span>
           </motion.h2>
@@ -139,7 +139,7 @@ export default function Categories() {
                 </span>
               </div>
 
-              <h3 className="text-base font-semibold mb-2 transition-colors duration-300 group-hover:text-[#8a4d98]">
+              <h3 className="text-base font-light mb-2 transition-colors duration-300 group-hover:text-[#8a4d98]">
                 {category.title}
               </h3>
 

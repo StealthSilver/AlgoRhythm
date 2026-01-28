@@ -88,11 +88,11 @@ export default function CTA() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15] mb-6"
+          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] mb-6"
         >
           Learn Algorithms the Way
           <br />
-          <span className="font-semibold" style={{ color: "#8a4d98" }}>
+          <span className="font-light" style={{ color: "#8a4d98" }}>
             They Actually Work
           </span>
         </motion.h2>
@@ -115,7 +115,7 @@ export default function CTA() {
           className="flex justify-center"
         >
           <button
-            className="relative group px-6 py-2 text-sm font-semibold rounded-lg overflow-hidden cursor-pointer"
+            className="relative group px-6 py-2 text-sm font-light rounded-lg overflow-hidden cursor-pointer"
             style={{
               backgroundColor: "#8a4d98",
               color: "#ffffff",

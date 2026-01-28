@@ -310,7 +310,7 @@ export default function AlgorithmsSidebar({
       `}</style>
       <div className="py-6 pr-6 pl-8 sm:pl-10 lg:pl-12">
         <h2
-          className="text-lg font-bold mb-4 text-gray-900 dark:text-white"
+          className="text-lg font-light mb-4 text-gray-900 dark:text-white"
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
           }}
@@ -327,7 +327,7 @@ export default function AlgorithmsSidebar({
                 {/* Category Header */}
                 <button
                   onClick={() => toggleCategory(category.name)}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-light text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   style={{
                     fontFamily: "'Space Grotesk', sans-serif",
                   }}
@@ -354,7 +354,7 @@ export default function AlgorithmsSidebar({
                         href={`/algorithms/${algorithm.slug}`}
                         className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                           isSelected
-                            ? "bg-[rgb(141,118,233)]/10 text-[rgb(141,118,233)] font-semibold"
+                            ? "bg-[rgb(141,118,233)]/10 text-[rgb(141,118,233)] font-light"
                             : "text-gray-600 dark:text-gray-400 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5"
                         }`}
                         style={{
