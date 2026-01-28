@@ -115,7 +115,7 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="relative overflow-hidden py-24 md:py-32"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-24 lg:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
       <Meteors number={20} />
@@ -179,14 +179,17 @@ export default function Features() {
         </motion.div>
       ))}
 
-      <div className="relative max-w-6xl mx-auto px-8 md:px-12" ref={ref}>
+      <div
+        className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12"
+        ref={ref}
+      >
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm"
+            className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-4 sm:mb-6 text-xs sm:text-sm"
             style={{
               backgroundColor: "rgba(var(--foreground), 0.05)",
               border: "1px solid rgba(var(--foreground), 0.1)",
@@ -199,7 +202,7 @@ export default function Features() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] mb-6"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] mb-4 sm:mb-6"
           >
             Learn Through{" "}
             <span className="font-light" style={{ color: "#8a4d98" }}>
@@ -211,7 +214,7 @@ export default function Features() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg leading-relaxed"
+            className="text-sm sm:text-base md:text-lg leading-relaxed"
             style={{ opacity: 0.8 }}
           >
             More than just theory. Experience algorithms in action with
@@ -221,7 +224,7 @@ export default function Features() {
         </div>
 
         {/* Features grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}

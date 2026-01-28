@@ -50,14 +50,25 @@ export default function Navbar() {
           <div className="flex items-end gap-8">
             {/* Logo */}
             <a href="#home" className="flex items-end flex-shrink-0">
-              {/* Mobile logo - always use algo.svg */}
-              <Image
-                src="/algo.svg"
-                alt="AlgoRhythm Logo"
-                width={100}
-                height={24}
-                className="h-6 w-auto sm:hidden"
-              />
+              {/* Mobile logo - theme-based with dicon/licon */}
+              {mounted && (
+                <Image
+                  src={theme === "dark" ? "/licon.svg" : "/dicon.svg"}
+                  alt="AlgoRhythm Logo"
+                  width={40}
+                  height={40}
+                  className="h-8 w-8 sm:hidden"
+                />
+              )}
+              {!mounted && (
+                <Image
+                  src="/dicon.svg"
+                  alt="AlgoRhythm Logo"
+                  width={40}
+                  height={40}
+                  className="h-8 w-8 sm:hidden"
+                />
+              )}
               {/* Desktop logo - theme-based */}
               {mounted && (
                 <Image
@@ -133,12 +144,12 @@ export default function Navbar() {
               </AnimatePresence>
             </Button>
 
-            {/* Get Started Button */}
+            {/* Get Started Button - Desktop */}
             <motion.button
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="hidden sm:block relative px-6 py-2 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer"
+              className="hidden md:block relative px-6 py-2 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer"
               style={{
                 backgroundColor: "#8a4d98",
                 boxShadow:
@@ -187,13 +198,13 @@ export default function Navbar() {
               borderTop: "1px solid rgba(var(--foreground), 0.1)",
             }}
           >
-            <div className="max-w-6xl mx-auto px-8 md:px-12 py-4 flex flex-col gap-4">
+            <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-sm font-medium transition-colors py-2"
+                  className="text-base font-medium transition-colors py-2"
                   style={{
                     color: "rgb(var(--foreground))",
                     fontWeight: 500,
@@ -202,6 +213,19 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
+
+              {/* Get Started Button in Mobile Menu */}
+              <motion.button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative px-6 py-3 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer mt-2"
+                style={{
+                  backgroundColor: "#8a4d98",
+                  boxShadow:
+                    "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <span className="relative z-10">Get Started</span>
+              </motion.button>
             </div>
           </motion.div>
         )}

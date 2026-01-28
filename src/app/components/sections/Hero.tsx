@@ -92,14 +92,14 @@ export default function Hero() {
     <section
       ref={ref}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 px-4 sm:pt-20 sm:px-6"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
       <Meteors number={20} />
       {/* Smooth Ripple Effects */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
-          className="absolute w-[700px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-1"
+          className="absolute w-[300px] sm:w-[500px] md:w-[700px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-1"
           style={{
             x: mousePosition.x,
             y: mousePosition.y,
@@ -108,7 +108,7 @@ export default function Hero() {
       </div>
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
-          className="absolute w-[900px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-2"
+          className="absolute w-[400px] sm:w-[600px] md:w-[900px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-2"
           style={{
             x: mousePosition.x * 0.5,
             y: mousePosition.y * 0.5,
@@ -117,7 +117,7 @@ export default function Hero() {
       </div>
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
-          className="absolute w-[1100px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-3"
+          className="absolute w-[500px] sm:w-[700px] md:w-[1100px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-3"
           style={{
             x: mousePosition.x * 0.3,
             y: mousePosition.y * 0.3,
@@ -188,14 +188,14 @@ export default function Hero() {
       {/* Main content */}
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 max-w-5xl mx-auto px-8 md:px-12 text-center"
+        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 md:px-12 text-center"
       >
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 text-sm"
+          className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-6 sm:mb-8 text-xs sm:text-sm"
           style={{
             backgroundColor: "rgba(var(--foreground), 0.05)",
             border: "1px solid rgba(var(--foreground), 0.1)",
@@ -212,7 +212,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.1] mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight leading-[1.1] mb-4 sm:mb-6"
         >
           Visualize Algorithms
           <br />
@@ -231,7 +231,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-lg md:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto mb-12"
+          className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto mb-8 sm:mb-12"
           style={{ opacity: 0.8 }}
         >
           Watch algorithms come to life with step-by-step visualizations. Build
@@ -243,13 +243,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full sm:w-auto"
         >
           {/* Primary CTA */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="relative group px-8 py-4 text-white text-base font-semibold rounded-lg overflow-hidden cursor-pointer"
+            className="relative group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base font-semibold rounded-lg overflow-hidden cursor-pointer"
             style={{
               backgroundColor: "#8a4d98",
               boxShadow:
@@ -274,7 +274,7 @@ export default function Hero() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="relative group px-8 py-4 text-base font-semibold rounded-lg overflow-hidden cursor-pointer transition-all duration-300"
+            className="relative group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-lg overflow-hidden cursor-pointer transition-all duration-300"
             style={{
               backgroundColor: "rgba(var(--foreground), 0.05)",
               border: "1px solid rgba(var(--foreground), 0.2)",
@@ -304,7 +304,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-8 md:gap-12"
+          className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12"
         >
           {[
             { value: "50+", label: "Algorithms" },
@@ -319,12 +319,12 @@ export default function Hero() {
               className="text-center"
             >
               <div
-                className="text-3xl md:text-4xl font-light mb-1"
+                className="text-2xl sm:text-3xl md:text-4xl font-light mb-1"
                 style={{ color: "#8a4d98" }}
               >
                 {stat.value}
               </div>
-              <div className="text-sm" style={{ opacity: 0.7 }}>
+              <div className="text-xs sm:text-sm" style={{ opacity: 0.7 }}>
                 {stat.label}
               </div>
             </motion.div>
