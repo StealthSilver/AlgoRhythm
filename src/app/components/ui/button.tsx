@@ -16,8 +16,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const variantStyles = {
       default:
         "bg-[rgb(var(--secondary))] text-white hover:opacity-90 transition-all duration-300",
-      ghost:
-        "hover:bg-[rgb(var(--primary))] hover:text-white transition-all duration-300",
+      ghost: "transition-all duration-300",
     };
 
     const sizeStyles = {
