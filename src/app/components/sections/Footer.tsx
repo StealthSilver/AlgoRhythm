@@ -26,9 +26,22 @@ export default function Footer() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
+  const [dots, setDots] = useState<
+    Array<{ left: number; top: number; duration: number; delay: number }>
+  >([]);
 
   useEffect(() => {
     setMounted(true);
+
+    // Generate random positions only on client side to avoid hydration mismatch
+    setDots(
+      Array.from({ length: 25 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 5 + Math.random() * 4,
+        delay: Math.random() * 4,
+      })),
+    );
   }, []);
 
   return (
@@ -49,6 +62,30 @@ export default function Footer() {
             "radial-gradient(circle at top, rgba(138, 77, 152, 0.05), transparent 60%)",
         }}
       />
+
+      {/* Blinking dots */}
+      {dots.map((dot, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1.5 h-1.5 rounded-full"
+          style={{
+            left: `${dot.left}%`,
+            top: `${dot.top}%`,
+            backgroundColor: "#00c8fc",
+            opacity: 0,
+          }}
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.15, 0.35, 0.15],
+          }}
+          transition={{
+            duration: dot.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: dot.delay,
+          }}
+        />
+      ))}
 
       <div className="relative max-w-6xl mx-auto px-8 md:px-12">
         {/* Main footer content - Centered */}

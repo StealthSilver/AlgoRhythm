@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   ArrowUpDown,
   Search,
@@ -56,6 +56,21 @@ const categories = [
 export default function Categories() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [dots, setDots] = useState<
+    Array<{ left: number; top: number; duration: number; delay: number }>
+  >([]);
+
+  useEffect(() => {
+    // Generate random positions only on client side to avoid hydration mismatch
+    setDots(
+      Array.from({ length: 25 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 5 + Math.random() * 4,
+        delay: Math.random() * 4,
+      })),
+    );
+  }, []);
 
   return (
     <section
@@ -65,6 +80,30 @@ export default function Categories() {
     >
       {/* Background gradient that blends into CTA section */}
       <div className="absolute inset-0 categories-gradient" />
+
+      {/* Blinking dots */}
+      {dots.map((dot, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1.5 h-1.5 rounded-full"
+          style={{
+            left: `${dot.left}%`,
+            top: `${dot.top}%`,
+            backgroundColor: "#00c8fc",
+            opacity: 0,
+          }}
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.15, 0.35, 0.15],
+          }}
+          transition={{
+            duration: dot.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: dot.delay,
+          }}
+        />
+      ))}
 
       <div className="relative max-w-6xl mx-auto px-8 md:px-12" ref={ref}>
         {/* Header */}

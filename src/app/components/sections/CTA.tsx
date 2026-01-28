@@ -58,7 +58,7 @@ export default function CTA() {
         <div className="absolute w-[1000px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-3" />
       </div>
 
-      {/* Blinking dots - Theme aware */}
+      {/* Blinking dots */}
       {dots.map((dot, i) => (
         <motion.div
           key={i}
@@ -66,12 +66,12 @@ export default function CTA() {
           style={{
             left: `${dot.left}%`,
             top: `${dot.top}%`,
-            backgroundColor: isDark ? "rgb(126, 135, 205)" : "rgb(30, 70, 92)",
+            backgroundColor: "#00c8fc",
             opacity: 0,
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: isDark ? [0.15, 0.35, 0.15] : [0.2, 0.45, 0.2],
+            opacity: [0.15, 0.35, 0.15],
           }}
           transition={{
             duration: dot.duration,
