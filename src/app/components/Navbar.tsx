@@ -133,6 +133,30 @@ export default function Navbar() {
               </AnimatePresence>
             </Button>
 
+            {/* Get Started Button */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="hidden sm:block relative px-6 py-2 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer"
+              style={{
+                backgroundColor: "#8a4d98",
+                boxShadow:
+                  "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  "rgba(138, 77, 152, 0.85)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#8a4d98";
+              }}
+            >
+              {/* Metallic shine overlay */}
+              <span className="absolute inset-y-0 -left-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out"></span>
+              <span className="relative z-10">Get Started</span>
+            </motion.button>
+
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
