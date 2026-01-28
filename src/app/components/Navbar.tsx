@@ -44,63 +44,66 @@ export default function Navbar() {
         fontFamily: "var(--font-inter), sans-serif",
       }}
     >
-      <div className="container mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-8 md:px-12">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <a href="#home" className="flex items-center">
-            {/* Mobile logo - always use algo.svg */}
-            <Image
-              src="/algo.svg"
-              alt="AlgoRhythm Logo"
-              width={140}
-              height={32}
-              className="h-8 w-auto sm:hidden"
-            />
-            {/* Desktop logo - theme-based */}
-            {mounted && (
+          {/* Left side: Logo + Nav Links */}
+          <div className="flex items-end gap-8">
+            {/* Logo */}
+            <a href="#home" className="flex items-end flex-shrink-0">
+              {/* Mobile logo - always use algo.svg */}
               <Image
-                src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
+                src="/algo.svg"
                 alt="AlgoRhythm Logo"
-                width={140}
-                height={32}
-                className="hidden sm:block h-10 w-auto"
+                width={100}
+                height={24}
+                className="h-6 w-auto sm:hidden"
               />
-            )}
-            {!mounted && (
-              <Image
-                src="/algo-light.svg"
-                alt="AlgoRhythm Logo"
-                width={140}
-                height={32}
-                className="hidden sm:block h-10 w-auto"
-              />
-            )}
-          </a>
+              {/* Desktop logo - theme-based */}
+              {mounted && (
+                <Image
+                  src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
+                  alt="AlgoRhythm Logo"
+                  width={110}
+                  height={28}
+                  className="hidden sm:block h-7 w-auto"
+                />
+              )}
+              {!mounted && (
+                <Image
+                  src="/algo-light.svg"
+                  alt="AlgoRhythm Logo"
+                  width={110}
+                  height={28}
+                  className="hidden sm:block h-7 w-auto"
+                />
+              )}
+            </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-sm font-medium transition-colors duration-300"
-                style={{
-                  color: "rgb(var(--foreground))",
-                  fontWeight: 500,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "rgb(var(--secondary))";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "rgb(var(--foreground))";
-                }}
-              >
-                {link.name}
-              </motion.a>
-            ))}
+            {/* Desktop Navigation - Adjacent to Logo */}
+            <div className="hidden md:flex items-center gap-6">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="text-sm font-medium transition-colors duration-300"
+                  style={{
+                    color: "rgb(var(--foreground))",
+                    fontWeight: 500,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "rgb(var(--secondary))";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "rgb(var(--foreground))";
+                  }}
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+            </div>
           </div>
 
           {/* Actions */}
@@ -176,7 +179,7 @@ export default function Navbar() {
               borderTop: "1px solid rgba(var(--foreground), 0.1)",
             }}
           >
-            <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+            <div className="max-w-6xl mx-auto px-8 md:px-12 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
