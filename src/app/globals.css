@@ -94,3 +94,15 @@
     animation: shimmer-fast 2s ease-in-out infinite;
   }
 }
+
+@layer utilities {
+  .cta-gradient {
+    background:
+      radial-gradient(
+        1200px circle at 50% 30%,
+        rgba(126, 135, 205, 0.12),
+        transparent 60%
+      ),
+      linear-gradient(180deg, rgba(30, 70, 92, 0.18), transparent 70%);
+  }
+}
