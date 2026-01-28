@@ -1,16 +1,42 @@
 @import "tailwindcss";
 
 @layer base {
-  html {
-    @apply scroll-smooth;
+  :root {
+    /* Light theme (default) - Background and Text swapped */
+    --background: 211 222 233; /* #d3dee9 */
+    --foreground: 14 14 16; /* #0e0e10 */
+    --primary: 30 70 92; /* #1e465c */
+    --secondary: 126 135 205; /* #7e87cd */
   }
 
   html.dark {
     color-scheme: dark;
+    /* Dark theme - Original colors */
+    --background: 14 14 16; /* #0e0e10 */
+    --foreground: 211 222 233; /* #d3dee9 */
+    --primary: 30 70 92; /* #1e465c */
+    --secondary: 126 135 205; /* #7e87cd */
+  }
+
+  html {
+    @apply scroll-smooth;
   }
 
   body {
-    @apply bg-white dark:bg-black text-gray-900 dark:text-white transition-colors duration-300;
+    @apply transition-colors duration-500;
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
     min-height: 100vh;
+    font-family: var(--font-inter), sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    letter-spacing: -0.02em;
   }
 }

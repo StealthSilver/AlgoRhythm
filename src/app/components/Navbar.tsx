@@ -31,14 +31,18 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/80 dark:bg-black/80 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? "backdrop-blur-md shadow-lg" : "bg-transparent"
       }`}
+      style={{
+        backgroundColor: isScrolled
+          ? "rgba(var(--background), 0.8)"
+          : "transparent",
+        fontFamily: "var(--font-inter), sans-serif",
+      }}
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -75,14 +79,27 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
+            {navLinks.map((link, index) => (
+              <motion.a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors duration-200"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-sm font-medium transition-colors duration-300"
+                style={{
+                  color: "rgb(var(--foreground))",
+                  fontWeight: 500,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "rgb(var(--secondary))";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "rgb(var(--foreground))";
+                }}
               >
                 {link.name}
-              </a>
+              </motion.a>
             ))}
           </div>
 
@@ -113,17 +130,21 @@ export default function Navbar() {
               </AnimatePresence>
             </Button>
 
-            <a
+            <motion.a
               href="/algorithms"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
               className="hidden md:inline-flex px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
               style={{
-                background: "rgb(141, 118, 233)",
+                background: "rgb(var(--secondary))",
                 color: "white",
-                boxShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
+                boxShadow: "0 0 20px rgba(var(--secondary), 0.3)",
+                fontWeight: 600,
               }}
             >
               Get Started
-            </a>
+            </motion.a>
 
             {/* Mobile Menu Button */}
             <Button
@@ -149,7 +170,11 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/90 dark:bg-black/90 backdrop-blur-md border-t border-gray-200 dark:border-gray-800"
+            className="md:hidden backdrop-blur-md"
+            style={{
+              backgroundColor: "rgba(var(--background), 0.95)",
+              borderTop: "1px solid rgba(var(--foreground), 0.1)",
+            }}
           >
             <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -157,7 +182,11 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
+                  className="text-sm font-medium transition-colors py-2"
+                  style={{
+                    color: "rgb(var(--foreground))",
+                    fontWeight: 500,
+                  }}
                 >
                   {link.name}
                 </a>
@@ -166,9 +195,10 @@ export default function Navbar() {
                 href="/algorithms"
                 className="w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 mt-2 text-center"
                 style={{
-                  background: "rgb(141, 118, 233)",
+                  background: "rgb(var(--secondary))",
                   color: "white",
-                  boxShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
+                  boxShadow: "0 0 20px rgba(var(--secondary), 0.3)",
+                  fontWeight: 600,
                 }}
               >
                 Get Started

@@ -39,6 +39,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
+
+    // Add smooth transition class
+    document.documentElement.style.setProperty(
+      "transition",
+      "background-color 0.5s ease, color 0.5s ease",
+    );
+
     if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
