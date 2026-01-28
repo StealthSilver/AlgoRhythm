@@ -63,10 +63,7 @@ export default function Categories() {
       className="relative overflow-hidden py-24 md:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      {/* Background */}
-      <div className="absolute inset-0 cta-gradient" />
-
-      <div className="container mx-auto px-8 md:px-12" ref={ref}>
+      <div className="max-w-6xl mx-auto px-8 md:px-12" ref={ref}>
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -107,79 +104,53 @@ export default function Categories() {
         </div>
 
         {/* Categories grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className="relative cursor-pointer group rounded-2xl p-6 transition-all duration-300"
-              style={{
-                backgroundColor: "rgba(var(--foreground), 0.03)",
-                border: "1px solid rgba(var(--foreground), 0.08)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  "rgba(var(--foreground), 0.05)";
-                e.currentTarget.style.borderColor = "rgba(138, 77, 152, 0.3)";
-                e.currentTarget.style.transform = "translateY(-4px)";
-                e.currentTarget.style.boxShadow =
-                  "0 12px 24px rgba(0, 0, 0, 0.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  "rgba(var(--foreground), 0.03)";
-                e.currentTarget.style.borderColor =
-                  "rgba(var(--foreground), 0.08)";
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
+              className="category-card cursor-pointer group"
             >
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start justify-between mb-3">
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300"
+                  className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300"
                   style={{
-                    backgroundColor: "rgba(138, 77, 152, 0.1)",
+                    backgroundColor: "rgba(138, 77, 152, 0.12)",
                   }}
                 >
                   <category.icon
-                    className="w-6 h-6"
+                    className="w-5 h-5"
                     style={{ color: "#8a4d98" }}
                   />
                 </div>
                 <span
-                  className="text-xs font-medium px-3 py-1 rounded-full"
+                  className="text-xs font-medium px-2.5 py-1 rounded-full"
                   style={{
-                    backgroundColor: "rgba(var(--foreground), 0.08)",
-                    opacity: 0.8,
+                    backgroundColor: "rgba(138, 77, 152, 0.1)",
+                    color: "#8a4d98",
                   }}
                 >
                   {category.count} lessons
                 </span>
               </div>
 
-              <h3
-                className="text-lg font-semibold mb-2 transition-colors duration-300"
-                style={{
-                  color: "rgb(var(--foreground))",
-                }}
-              >
+              <h3 className="text-base font-semibold mb-2 transition-colors duration-300 group-hover:text-[#8a4d98]">
                 {category.title}
               </h3>
 
               <p
-                className="text-sm leading-relaxed"
+                className="text-sm leading-relaxed mb-3"
                 style={{
-                  color: "rgb(var(--foreground))",
-                  opacity: 0.7,
+                  opacity: 0.75,
                 }}
               >
                 {category.description}
               </p>
 
               <div
-                className="mt-4 flex items-center text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="flex items-center text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ color: "#8a4d98" }}
               >
                 <span>Explore</span>
