@@ -98,7 +98,7 @@ export default function Categories() {
   return (
     <section
       id="categories"
-      className="relative py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 bg-white dark:bg-black"
+      className="relative py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6"
     >
       {/* Background gradient accent */}
       <div

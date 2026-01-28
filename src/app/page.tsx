@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <>
-      <main className="relative flex-1 bg-white dark:bg-black text-gray-900 dark:text-white overflow-x-hidden">
+      <main className="relative flex-1 overflow-x-hidden">
         <Navbar />
 
         {/* Hero Section with Animated Background */}

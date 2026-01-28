@@ -16,7 +16,7 @@ export default function AlgorithmsPage() {
 
   return (
     <>
-      <div className="flex-1 bg-white dark:bg-black">
+      <div className="flex-1">
         <AlgorithmsNavbar />
         <div className="flex pt-16 min-h-[calc(100vh-4rem)]">
           <AlgorithmsSidebar isOpen={true} />

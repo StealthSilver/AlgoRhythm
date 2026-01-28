@@ -119,7 +119,7 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-white dark:bg-black"
+      className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
