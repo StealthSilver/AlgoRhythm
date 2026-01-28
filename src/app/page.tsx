@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "./components/sections/Navbar";
+import Features from "./components/sections/Features";
 import CTA from "./components/sections/CTA";
 import Categories from "./components/sections/Categories";
 import Footer from "./components/sections/Footer";
@@ -12,6 +13,9 @@ export default function Home() {
         <Navbar />
 
         {/* Hero Section */}
+
+        {/* Features Section */}
+        <Features />
 
         {/* Categories Section */}
         <Categories />
