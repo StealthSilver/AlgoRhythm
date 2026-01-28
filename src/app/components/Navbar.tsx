@@ -94,7 +94,7 @@ export default function Navbar() {
                     fontWeight: 500,
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "#7e87cd";
+                    e.currentTarget.style.color = "#8a4d98";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.color = "rgb(var(--foreground))";
