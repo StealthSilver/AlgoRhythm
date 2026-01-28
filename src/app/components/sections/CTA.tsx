@@ -9,8 +9,15 @@ export default function CTA() {
   const [dots, setDots] = useState<
     Array<{ left: number; top: number; duration: number; delay: number }>
   >([]);
-  const [isDark, setIsDark] = useState(false);
-
+  const [floatingElements, setFloatingElements] = useState<
+    Array<{
+      left: number;
+      top: number;
+      duration: number;
+      delay: number;
+      size: number;
+    }>
+  >([]);
   useEffect(() => {
     // Generate random positions only on client side to avoid hydration mismatch
     setDots(
@@ -22,21 +29,24 @@ export default function CTA() {
       })),
     );
 
-    // Check theme
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
-    checkTheme();
-
-    // Watch for theme changes
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
+    setFloatingElements(
+      Array.from({ length: 8 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 15 + Math.random() * 10,
+        delay: Math.random() * 5,
+        size: 40 + Math.random() * 80,
+      })),
+    );
   }, []);
+
+  const codeSnippets = [
+    "quickSort(arr)",
+    "bfs(graph)",
+    "dijkstra()",
+    "mergeSort()",
+    "dfs(node)",
+  ];
 
   return (
     <section
@@ -44,9 +54,6 @@ export default function CTA() {
       className="relative overflow-hidden py-24 md:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      {/* Background */}
-      <div className="absolute inset-0 cta-gradient" />
-
       {/* Smooth Ripple Effects - Positioned correctly with wrapper */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <div className="absolute w-[600px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-1" />
@@ -80,6 +87,42 @@ export default function CTA() {
             delay: dot.delay,
           }}
         />
+      ))}
+
+      {/* Floating code elements */}
+      {floatingElements.map((element, i) => (
+        <motion.div
+          key={i}
+          className="absolute pointer-events-none"
+          style={{
+            left: `${element.left}%`,
+            top: `${element.top}%`,
+            width: element.size,
+            height: element.size,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 15, 0],
+            rotate: [0, 10, 0],
+            opacity: [0.05, 0.15, 0.05],
+          }}
+          transition={{
+            duration: element.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: element.delay,
+          }}
+        >
+          <div
+            className="w-full h-full rounded-lg flex items-center justify-center text-xs font-mono"
+            style={{
+              backgroundColor: "rgba(138, 77, 152, 0.08)",
+              border: "1px solid rgba(138, 77, 152, 0.2)",
+            }}
+          >
+            {codeSnippets[i % codeSnippets.length]}
+          </div>
+        </motion.div>
       ))}
 
       {/* Content */}

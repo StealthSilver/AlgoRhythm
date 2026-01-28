@@ -385,7 +385,7 @@ html.dark * {
     left: 0;
     width: 0;
     height: 0.125rem;
-    background: linear-gradient(to right, #00c8fc, #8a4d98);
+    background: #8a4d98;
     transition: width 0.3s ease;
   }
 

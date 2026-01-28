@@ -92,9 +92,6 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 hero-gradient" />
-
       {/* Smooth Ripple Effects */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
@@ -215,27 +212,13 @@ export default function Hero() {
         >
           Visualize Algorithms
           <br />
-          <span className="relative inline-block">
-            <span
-              className="relative z-10 font-light"
-              style={{
-                color: "#8a4d98",
-              }}
-            >
-              Master Data Structures
-            </span>
-            {/* Animated underline */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="absolute bottom-0 left-0 right-0 h-1 origin-left"
-              style={{
-                backgroundColor: "#8a4d98",
-                opacity: 0.3,
-                transform: "translateY(8px)",
-              }}
-            />
+          <span
+            className="font-light"
+            style={{
+              color: "#8a4d98",
+            }}
+          >
+            Master Data Structures
           </span>
         </motion.h1>
 

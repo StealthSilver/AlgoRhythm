@@ -29,6 +29,15 @@ export default function Footer() {
   const [dots, setDots] = useState<
     Array<{ left: number; top: number; duration: number; delay: number }>
   >([]);
+  const [floatingElements, setFloatingElements] = useState<
+    Array<{
+      left: number;
+      top: number;
+      duration: number;
+      delay: number;
+      size: number;
+    }>
+  >([]);
 
   useEffect(() => {
     setMounted(true);
@@ -42,7 +51,25 @@ export default function Footer() {
         delay: Math.random() * 4,
       })),
     );
+
+    setFloatingElements(
+      Array.from({ length: 8 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 15 + Math.random() * 10,
+        delay: Math.random() * 5,
+        size: 40 + Math.random() * 80,
+      })),
+    );
   }, []);
+
+  const codeSnippets = [
+    "quickSort(arr)",
+    "bfs(graph)",
+    "dijkstra()",
+    "mergeSort()",
+    "dfs(node)",
+  ];
 
   return (
     <footer
@@ -54,15 +81,6 @@ export default function Footer() {
         borderTop: "1px solid rgba(var(--foreground), 0.1)",
       }}
     >
-      {/* Subtle gradient background */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          background:
-            "radial-gradient(circle at top, rgba(138, 77, 152, 0.05), transparent 60%)",
-        }}
-      />
-
       {/* Blinking dots */}
       {dots.map((dot, i) => (
         <motion.div
@@ -85,6 +103,42 @@ export default function Footer() {
             delay: dot.delay,
           }}
         />
+      ))}
+
+      {/* Floating code elements */}
+      {floatingElements.map((element, i) => (
+        <motion.div
+          key={i}
+          className="absolute pointer-events-none"
+          style={{
+            left: `${element.left}%`,
+            top: `${element.top}%`,
+            width: element.size,
+            height: element.size,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 15, 0],
+            rotate: [0, 10, 0],
+            opacity: [0.05, 0.15, 0.05],
+          }}
+          transition={{
+            duration: element.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: element.delay,
+          }}
+        >
+          <div
+            className="w-full h-full rounded-lg flex items-center justify-center text-xs font-mono"
+            style={{
+              backgroundColor: "rgba(138, 77, 152, 0.08)",
+              border: "1px solid rgba(138, 77, 152, 0.2)",
+            }}
+          >
+            {codeSnippets[i % codeSnippets.length]}
+          </div>
+        </motion.div>
       ))}
 
       <div className="relative max-w-6xl mx-auto px-8 md:px-12">

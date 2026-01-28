@@ -56,6 +56,15 @@ export default function Features() {
   const [dots, setDots] = useState<
     Array<{ left: number; top: number; duration: number; delay: number }>
   >([]);
+  const [floatingElements, setFloatingElements] = useState<
+    Array<{
+      left: number;
+      top: number;
+      duration: number;
+      delay: number;
+      size: number;
+    }>
+  >([]);
 
   useEffect(() => {
     // Generate random positions only on client side to avoid hydration mismatch
@@ -67,7 +76,25 @@ export default function Features() {
         delay: Math.random() * 4,
       })),
     );
+
+    setFloatingElements(
+      Array.from({ length: 8 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 15 + Math.random() * 10,
+        delay: Math.random() * 5,
+        size: 40 + Math.random() * 80,
+      })),
+    );
   }, []);
+
+  const codeSnippets = [
+    "quickSort(arr)",
+    "bfs(graph)",
+    "dijkstra()",
+    "mergeSort()",
+    "dfs(node)",
+  ];
 
   return (
     <section
@@ -75,15 +102,6 @@ export default function Features() {
       className="relative overflow-hidden py-24 md:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      {/* Subtle gradient background */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          background:
-            "radial-gradient(circle at top right, rgba(138, 77, 152, 0.08), transparent 50%), radial-gradient(circle at bottom left, rgba(30, 70, 92, 0.06), transparent 50%)",
-        }}
-      />
-
       {/* Blinking dots */}
       {dots.map((dot, i) => (
         <motion.div
@@ -106,6 +124,42 @@ export default function Features() {
             delay: dot.delay,
           }}
         />
+      ))}
+
+      {/* Floating code elements */}
+      {floatingElements.map((element, i) => (
+        <motion.div
+          key={i}
+          className="absolute pointer-events-none"
+          style={{
+            left: `${element.left}%`,
+            top: `${element.top}%`,
+            width: element.size,
+            height: element.size,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 15, 0],
+            rotate: [0, 10, 0],
+            opacity: [0.05, 0.15, 0.05],
+          }}
+          transition={{
+            duration: element.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: element.delay,
+          }}
+        >
+          <div
+            className="w-full h-full rounded-lg flex items-center justify-center text-xs font-mono"
+            style={{
+              backgroundColor: "rgba(138, 77, 152, 0.08)",
+              border: "1px solid rgba(138, 77, 152, 0.2)",
+            }}
+          >
+            {codeSnippets[i % codeSnippets.length]}
+          </div>
+        </motion.div>
       ))}
 
       <div className="relative max-w-6xl mx-auto px-8 md:px-12" ref={ref}>
