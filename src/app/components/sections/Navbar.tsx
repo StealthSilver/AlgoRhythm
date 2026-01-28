@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
-import { useTheme } from "../context/ThemeContext";
-import { Button } from "./ui/button";
+import { useTheme } from "../../context/ThemeContext";
+import { Button } from "../ui/button";
 
 const navLinks = [
   { name: "Home", href: "#home" },

@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Navbar from "./components/Navbar";
-
-import CTA from "./components/CTA";
+import Navbar from "./components/sections/Navbar";
+import CTA from "./components/sections/CTA";
+import Categories from "./components/sections/Categories";
 
 export default function Home() {
   return (
@@ -11,7 +10,10 @@ export default function Home() {
       <main className="relative flex-1 overflow-x-hidden">
         <Navbar />
 
-        {/* Hero Section with Animated Background */}
+        {/* Hero Section */}
+
+        {/* Categories Section */}
+        <Categories />
 
         {/* CTA Section */}
         <CTA />
