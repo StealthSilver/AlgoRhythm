@@ -10,7 +10,7 @@ export const Meteors = ({
   number?: number;
   className?: string;
 }) => {
-  const meteorCount = number || 20;
+  const meteorCount = number || 12;
 
   // Generate random values on client side only to avoid hydration mismatch
   const [meteorStyles, setMeteorStyles] = useState<
@@ -21,7 +21,7 @@ export const Meteors = ({
     // Generate random animation values after mount (client-side only)
     const styles = Array.from({ length: meteorCount }, () => ({
       delay: Math.random() * 10, // 0-10 seconds delay for more variation
-      duration: Math.random() * 3 + 2, // 2-5 seconds duration
+      duration: Math.random() * 0.9 + 1.1, // 1.1-2.0 seconds (faster)
       leftPercent: Math.random() * 120, // Random position across full width + overflow
     }));
     setMeteorStyles(styles);
@@ -45,15 +45,15 @@ export const Meteors = ({
         return (
           <span
             key={"meteor" + idx}
-            className={cn("absolute rounded-full", className)}
+            className={cn("meteor-fall absolute rounded-full", className)}
             style={{
-              top: "0",
+              top: "-40px",
               left: styles ? `${styles.leftPercent}%` : "50%",
               height: "2px",
               width: "2px",
-              backgroundColor: "#94a3b8",
+              backgroundColor: "rgba(148, 163, 184, 0.45)",
               boxShadow: "0 0 0 1px #ffffff10",
-              animation: `meteor ${styles?.duration || 3}s linear infinite`,
+              animationDuration: styles ? `${styles.duration}s` : "3s",
               animationDelay: styles ? `${styles.delay}s` : "0s",
             }}
           >
@@ -62,7 +62,7 @@ export const Meteors = ({
               style={{
                 width: "100px",
                 background:
-                  "linear-gradient(to right, rgba(148, 163, 184, 0), rgba(148, 163, 184, 1), rgba(100, 116, 139, 0.8), transparent)",
+                  "linear-gradient(to right, rgba(148, 163, 184, 0), rgba(148, 163, 184, 0.45), rgba(100, 116, 139, 0.25), transparent)",
               }}
             />
           </span>

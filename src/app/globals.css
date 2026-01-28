@@ -441,4 +441,28 @@ html.dark * {
   .animate-shimmer-fast {
     animation: shimmer-fast 2s ease-in-out infinite;
   }
+
+  @keyframes meteor-fall {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(45deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.45;
+    }
+    90% {
+      opacity: 0.45;
+    }
+    100% {
+      transform: translate3d(700px, 700px, 0) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  .meteor-fall {
+    animation-name: meteor-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform, opacity;
+  }
 }
