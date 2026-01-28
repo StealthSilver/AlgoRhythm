@@ -19,22 +19,24 @@ export default function CTA() {
 
       {/* Blinking dots */}
       {[...Array(20)].map((_, i) => (
-        <motion.span
+        <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-secondary/30"
+          className="absolute w-2 h-2 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            backgroundColor: "rgb(126, 135, 205)",
+            opacity: 0.3,
+          }}
           animate={{
             y: [-20, 20],
-            opacity: [0.2, 0.5, 0.2],
+            opacity: [0.2, 0.6, 0.2],
           }}
           transition={{
             duration: 3 + Math.random() * 2,
             repeat: Infinity,
             ease: "easeInOut",
             delay: Math.random() * 2,
-          }}
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
           }}
         />
       ))}

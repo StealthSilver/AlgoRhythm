@@ -87,22 +87,32 @@
       background-position: 100% 100%;
     }
   }
+
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position:
+        0% 50%,
+        0% 0%;
+    }
+    50% {
+      background-position:
+        100% 50%,
+        100% 100%;
+    }
+  }
+}
+
+@layer components {
+  .cta-gradient {
+    @apply bg-gradient-to-br from-primary/20 via-background to-secondary/20;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
 }
 
 @layer utilities {
   .animate-shimmer-fast {
     animation: shimmer-fast 2s ease-in-out infinite;
-  }
-}
-
-@layer utilities {
-  .cta-gradient {
-    background:
-      radial-gradient(
-        1200px circle at 50% 30%,
-        rgba(126, 135, 205, 0.12),
-        transparent 60%
-      ),
-      linear-gradient(180deg, rgba(30, 70, 92, 0.18), transparent 70%);
   }
 }
