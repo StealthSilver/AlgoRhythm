@@ -105,9 +105,53 @@
 
 @layer components {
   .cta-gradient {
-    @apply bg-gradient-to-br from-primary/20 via-background to-secondary/20;
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease-in-out infinite;
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--primary) / 0.25),
+      rgb(var(--background)) 40%,
+      rgb(var(--secondary) / 0.2)
+    );
+    background-size: 100% 100%;
+    animation: radial-ripple 6s ease-out infinite;
+  }
+
+  .cta-ripple {
+    animation: ripple-expand 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes radial-ripple {
+    0%,
+    100% {
+      background: radial-gradient(
+        circle at center,
+        rgb(var(--primary) / 0.25),
+        rgb(var(--background)) 40%,
+        rgb(var(--secondary) / 0.2)
+      );
+    }
+    50% {
+      background: radial-gradient(
+        circle at center,
+        rgb(var(--primary) / 0.35),
+        rgb(var(--background)) 60%,
+        rgb(var(--secondary) / 0.15)
+      );
+    }
+  }
+
+  @keyframes ripple-expand {
+    0% {
+      transform: translate(-50%, -50%) scale(0.95);
+      opacity: 0.15;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.05);
+      opacity: 0.2;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(0.95);
+      opacity: 0.15;
+    }
   }
 }
 

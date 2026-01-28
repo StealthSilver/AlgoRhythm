@@ -15,28 +15,28 @@ export default function CTA() {
     >
       {/* Background */}
       <div className="absolute inset-0 cta-gradient" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl pointer-events-none cta-ripple" />
 
       {/* Blinking dots */}
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 rounded-full"
+          className="absolute w-1 h-1 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
             backgroundColor: "rgb(126, 135, 205)",
-            opacity: 0.3,
+            opacity: 0.15,
           }}
           animate={{
-            y: [-20, 20],
-            opacity: [0.2, 0.6, 0.2],
+            y: [-10, 10],
+            opacity: [0.1, 0.25, 0.1],
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: 4 + Math.random() * 3,
             repeat: Infinity,
-            ease: "easeInOut",
-            delay: Math.random() * 2,
+            ease: [0.4, 0, 0.2, 1],
+            delay: Math.random() * 3,
           }}
         />
       ))}
