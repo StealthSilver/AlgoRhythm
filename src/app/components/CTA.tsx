@@ -9,17 +9,33 @@ export default function CTA() {
   const [dots, setDots] = useState<
     Array<{ left: number; top: number; duration: number; delay: number }>
   >([]);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     // Generate random positions only on client side to avoid hydration mismatch
     setDots(
-      Array.from({ length: 20 }, () => ({
+      Array.from({ length: 25 }, () => ({
         left: Math.random() * 100,
         top: Math.random() * 100,
-        duration: 4 + Math.random() * 3,
-        delay: Math.random() * 3,
+        duration: 5 + Math.random() * 4,
+        delay: Math.random() * 4,
       })),
     );
+
+    // Check theme
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    checkTheme();
+
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -30,27 +46,37 @@ export default function CTA() {
     >
       {/* Background */}
       <div className="absolute inset-0 cta-gradient" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl pointer-events-none cta-ripple" />
 
-      {/* Blinking dots */}
+      {/* Smooth Ripple Effects - Positioned correctly with wrapper */}
+      <div className="absolute top-1/2 left-1/2 pointer-events-none">
+        <div className="absolute w-[600px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-1" />
+      </div>
+      <div className="absolute top-1/2 left-1/2 pointer-events-none">
+        <div className="absolute w-[800px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-2" />
+      </div>
+      <div className="absolute top-1/2 left-1/2 pointer-events-none">
+        <div className="absolute w-[1000px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-3" />
+      </div>
+
+      {/* Blinking dots - Theme aware */}
       {dots.map((dot, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full"
+          className="absolute w-1.5 h-1.5 rounded-full"
           style={{
             left: `${dot.left}%`,
             top: `${dot.top}%`,
-            backgroundColor: "rgb(126, 135, 205)",
-            opacity: 0.15,
+            backgroundColor: isDark ? "rgb(126, 135, 205)" : "rgb(30, 70, 92)",
+            opacity: 0,
           }}
           animate={{
-            y: [-10, 10],
-            opacity: [0.1, 0.25, 0.1],
+            scale: [1, 1.3, 1],
+            opacity: isDark ? [0.15, 0.35, 0.15] : [0.2, 0.45, 0.2],
           }}
           transition={{
             duration: dot.duration,
             repeat: Infinity,
-            ease: [0.4, 0, 0.2, 1],
+            ease: "easeInOut",
             delay: dot.delay,
           }}
         />

@@ -43,30 +43,6 @@
     letter-spacing: -0.02em;
   }
 
-  @keyframes shimmer {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  @keyframes shimmer-slow {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
   @keyframes shimmer-fast {
     0% {
       background-position: 0% 50%;
@@ -78,110 +54,117 @@
       background-position: 0% 50%;
     }
   }
-
-  @keyframes wave {
-    0% {
-      background-position: 0% 0%;
-    }
-    100% {
-      background-position: 100% 100%;
-    }
-  }
-
-  @keyframes gradient-shift {
-    0%,
-    100% {
-      background-position:
-        0% 50%,
-        0% 0%;
-    }
-    50% {
-      background-position:
-        100% 50%,
-        100% 100%;
-    }
-  }
 }
 
 @layer components {
+  /* CTA Gradient Background - Cleaner, more subtle */
   .cta-gradient {
     background: radial-gradient(
       circle at center,
-      rgb(var(--primary) / 0.25),
-      rgb(var(--background)) 40%,
-      rgb(var(--secondary) / 0.2)
+      rgb(var(--primary) / 0.08),
+      rgb(var(--background)) 60%
     );
-    background-size: 100% 100%;
-    animation: radial-ripple 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  .cta-ripple {
-    animation: ripple-expand 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  html.dark .cta-gradient {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--primary) / 0.15),
+      rgb(var(--background)) 60%
+    );
   }
 
-  @keyframes radial-ripple {
-    0% {
-      background: radial-gradient(
-        circle at center,
-        rgb(var(--primary) / 0.22),
-        rgb(var(--background)) 35%,
-        rgb(var(--secondary) / 0.18)
-      );
-    }
-    25% {
-      background: radial-gradient(
-        circle at center,
-        rgb(var(--primary) / 0.28),
-        rgb(var(--background)) 45%,
-        rgb(var(--secondary) / 0.2)
-      );
+  /* Smooth Ripple Layers - Cleaner animations */
+  .cta-ripple-1 {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--secondary) / 0.06),
+      transparent 70%
+    );
+    filter: blur(30px);
+    animation: smooth-ripple-1 12s ease-in-out infinite;
+  }
+
+  html.dark .cta-ripple-1 {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--secondary) / 0.1),
+      transparent 70%
+    );
+  }
+
+  .cta-ripple-2 {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--primary) / 0.04),
+      transparent 65%
+    );
+    filter: blur(40px);
+    animation: smooth-ripple-2 14s ease-in-out infinite;
+    animation-delay: -5s;
+  }
+
+  html.dark .cta-ripple-2 {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--primary) / 0.08),
+      transparent 65%
+    );
+  }
+
+  .cta-ripple-3 {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--secondary) / 0.03),
+      transparent 60%
+    );
+    filter: blur(50px);
+    animation: smooth-ripple-3 16s ease-in-out infinite;
+    animation-delay: -10s;
+  }
+
+  html.dark .cta-ripple-3 {
+    background: radial-gradient(
+      circle at center,
+      rgb(var(--secondary) / 0.06),
+      transparent 60%
+    );
+  }
+
+  /* Smooth Ripple Animations - Fixed to work properly */
+  @keyframes smooth-ripple-1 {
+    0%,
+    100% {
+      transform: scale(0.9);
+      opacity: 0.5;
     }
     50% {
-      background: radial-gradient(
-        circle at center,
-        rgb(var(--primary) / 0.32),
-        rgb(var(--background)) 55%,
-        rgb(var(--secondary) / 0.16)
-      );
-    }
-    75% {
-      background: radial-gradient(
-        circle at center,
-        rgb(var(--primary) / 0.28),
-        rgb(var(--background)) 45%,
-        rgb(var(--secondary) / 0.2)
-      );
-    }
-    100% {
-      background: radial-gradient(
-        circle at center,
-        rgb(var(--primary) / 0.22),
-        rgb(var(--background)) 35%,
-        rgb(var(--secondary) / 0.18)
-      );
+      transform: scale(1.1);
+      opacity: 0.8;
     }
   }
 
-  @keyframes ripple-expand {
-    0% {
-      transform: translate(-50%, -50%) scale(0.98);
-      opacity: 0.12;
-    }
-    25% {
-      transform: translate(-50%, -50%) scale(1.01);
-      opacity: 0.16;
+  @keyframes smooth-ripple-2 {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.4;
     }
     50% {
-      transform: translate(-50%, -50%) scale(1.04);
-      opacity: 0.18;
+      transform: scale(0.85);
+      opacity: 0.7;
     }
-    75% {
-      transform: translate(-50%, -50%) scale(1.01);
-      opacity: 0.16;
-    }
+  }
+
+  @keyframes smooth-ripple-3 {
+    0%,
     100% {
-      transform: translate(-50%, -50%) scale(0.98);
-      opacity: 0.12;
+      transform: scale(1.05);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(0.95);
+      opacity: 0.6;
     }
   }
 }
