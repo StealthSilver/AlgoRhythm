@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Github, Linkedin } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { SiX } from "@icons-pack/react-simple-icons";
+import { Meteors } from "../ui/meteors";
 
 const socialLinks = [
   {
@@ -96,6 +97,7 @@ export default function Footer() {
         borderTop: "1px solid rgba(var(--foreground), 0.1)",
       }}
     >
+      <Meteors number={20} />
       {/* Blinking dots */}
       {dots.map((dot, i) => (
         <motion.div

@@ -14,14 +14,15 @@ export const Meteors = ({
 
   // Generate random values on client side only to avoid hydration mismatch
   const [meteorStyles, setMeteorStyles] = useState<
-    Array<{ delay: number; duration: number }>
+    Array<{ delay: number; duration: number; leftPercent: number }>
   >([]);
 
   useEffect(() => {
     // Generate random animation values after mount (client-side only)
     const styles = Array.from({ length: meteorCount }, () => ({
-      delay: Math.random() * 5, // 0-5 seconds delay
-      duration: Math.random() * 3 + 5, // 5-8 seconds duration
+      delay: Math.random() * 8, // 0-8 seconds delay for more variation
+      duration: Math.random() * 4 + 4, // 4-8 seconds duration
+      leftPercent: Math.random() * 100, // Random position across full width
     }));
     setMeteorStyles(styles);
   }, [meteorCount]);
@@ -39,25 +40,32 @@ export const Meteors = ({
       className="absolute inset-0 overflow-hidden pointer-events-none"
     >
       {meteors.map((_, idx) => {
-        // Calculate position to evenly distribute meteors across container width
-        const position = idx * (800 / meteorCount) - 400; // Spread across 800px range, centered
         const styles = meteorStyles[idx];
 
         return (
           <span
             key={"meteor" + idx}
             className={cn(
-              "animate-meteor-effect absolute h-0.5 w-0.5 rotate-[215deg] rounded-[9999px] bg-slate-500 shadow-[0_0_0_1px_#ffffff10]",
-              "before:absolute before:top-1/2 before:h-[1px] before:w-[50px] before:-translate-y-[50%] before:transform before:bg-gradient-to-r before:from-[#64748b] before:to-transparent before:content-['']",
+              "animate-meteor-effect absolute h-1 w-1 rotate-[215deg] rounded-[9999px] shadow-[0_0_0_1px_#ffffff10]",
+              "before:absolute before:top-1/2 before:h-[1px] before:w-[50px] before:-translate-y-[50%] before:transform before:bg-gradient-to-r before:content-['']",
               className,
             )}
             style={{
-              top: "-40px", // Start above the container
-              left: `${position}px`,
+              top: "0",
+              left: styles ? `${styles.leftPercent}%` : "50%",
               animationDelay: styles ? `${styles.delay}s` : "0s",
-              animationDuration: styles ? `${styles.duration}s` : "5s",
+              animationDuration: styles ? `${styles.duration}s` : "6s",
+              backgroundColor: "#94a3b8",
             }}
-          ></span>
+          >
+            <span
+              className="absolute top-1/2 -translate-y-1/2 h-[2px] w-[60px]"
+              style={{
+                background:
+                  "linear-gradient(to right, #94a3b8, #64748b, transparent)",
+              }}
+            />
+          </span>
         );
       })}
     </motion.div>

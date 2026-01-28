@@ -21,7 +21,7 @@ const config: Config = {
             opacity: "1",
           },
           "100%": {
-            transform: "rotate(215deg) translateX(-500px)",
+            transform: "rotate(215deg) translateX(-800px)",
             opacity: "0",
           },
         },
