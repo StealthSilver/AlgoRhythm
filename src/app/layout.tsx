@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     siteName: "AlgoRhythm",
     images: [
       {
-        url: "/algo.svg",
+        url: "/licon.svg",
         width: 1200,
         height: 630,
         alt: "AlgoRhythm - Algorithm Visualization Platform",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     description:
       "Master algorithms through interactive visualizations and step-by-step animations. Explore data structures, sorting, searching, and more.",
     creator: "@silver_srs",
-    images: ["/algo.svg"],
+    images: ["/licon.svg"],
   },
   robots: {
     index: true,
@@ -96,12 +96,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/algo.svg",
+        url: "/licon.svg",
         type: "image/svg+xml",
       },
     ],
-    shortcut: "/algo.svg",
-    apple: "/algo.svg",
+    shortcut: "/licon.svg",
+    apple: "/licon.svg",
   },
   manifest: "/site.webmanifest",
   category: "education",
