@@ -55,18 +55,18 @@ export default function Navbar() {
                 <Image
                   src={theme === "dark" ? "/licon.svg" : "/dicon.svg"}
                   alt="AlgoRhythm Logo"
-                  width={40}
-                  height={40}
-                  className="h-8 w-8 sm:hidden"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 sm:hidden"
                 />
               )}
               {!mounted && (
                 <Image
                   src="/dicon.svg"
                   alt="AlgoRhythm Logo"
-                  width={40}
-                  height={40}
-                  className="h-8 w-8 sm:hidden"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 sm:hidden"
                 />
               )}
               {/* Desktop logo - theme-based */}
