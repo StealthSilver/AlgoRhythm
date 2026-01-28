@@ -7,6 +7,7 @@ import Hero from "./components/Hero";
 import Features from "./components/Features";
 import Categories from "./components/Categories";
 import Philosophy from "./components/Philosophy";
+import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -17,10 +18,9 @@ export default function Home() {
 
         {/* Hero Section with Animated Background */}
 
-        {/* Features Section */}
+        {/* CTA Section */}
+        <CTA />
       </main>
-
-      {/* Footer */}
     </>
   );
 }
