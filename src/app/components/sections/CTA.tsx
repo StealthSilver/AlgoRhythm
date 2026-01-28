@@ -2,9 +2,11 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Meteors } from "../ui/meteors";
 
 export default function CTA() {
+  const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [dots, setDots] = useState<
@@ -182,6 +184,7 @@ export default function CTA() {
               boxShadow:
                 "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
             }}
+            onClick={() => router.push("/algorithms")}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor =
                 "rgba(138, 77, 152, 0.85)";

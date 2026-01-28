@@ -3,9 +3,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ChevronDown, Play, Code2, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Meteors } from "../ui/meteors";
 
 export default function Hero() {
+  const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -255,6 +257,7 @@ export default function Hero() {
               boxShadow:
                 "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
             }}
+            onClick={() => router.push("/algorithms")}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor =
                 "rgba(138, 77, 152, 0.85)";
@@ -280,6 +283,7 @@ export default function Hero() {
               border: "1px solid rgba(var(--foreground), 0.2)",
               color: "rgb(var(--foreground))",
             }}
+            onClick={() => router.push("/algorithms")}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor =
                 "rgba(var(--foreground), 0.1)";

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
@@ -15,6 +16,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -155,6 +157,7 @@ export default function Navbar() {
                 boxShadow:
                   "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
               }}
+              onClick={() => router.push("/algorithms")}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor =
                   "rgba(138, 77, 152, 0.85)";
@@ -216,7 +219,10 @@ export default function Navbar() {
 
               {/* Get Started Button in Mobile Menu */}
               <motion.button
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  router.push("/algorithms");
+                }}
                 className="relative px-6 py-3 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer mt-2"
                 style={{
                   backgroundColor: "#8a4d98",
