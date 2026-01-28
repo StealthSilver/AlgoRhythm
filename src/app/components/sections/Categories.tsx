@@ -63,7 +63,10 @@ export default function Categories() {
       className="relative overflow-hidden py-24 md:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      <div className="max-w-6xl mx-auto px-8 md:px-12" ref={ref}>
+      {/* Background gradient that blends into CTA section */}
+      <div className="absolute inset-0 categories-gradient" />
+
+      <div className="relative max-w-6xl mx-auto px-8 md:px-12" ref={ref}>
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
