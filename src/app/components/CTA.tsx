@@ -1,11 +1,26 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function CTA() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [dots, setDots] = useState<
+    Array<{ left: number; top: number; duration: number; delay: number }>
+  >([]);
+
+  useEffect(() => {
+    // Generate random positions only on client side to avoid hydration mismatch
+    setDots(
+      Array.from({ length: 20 }, () => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 4 + Math.random() * 3,
+        delay: Math.random() * 3,
+      })),
+    );
+  }, []);
 
   return (
     <section
@@ -18,13 +33,13 @@ export default function CTA() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-3xl pointer-events-none cta-ripple" />
 
       {/* Blinking dots */}
-      {[...Array(20)].map((_, i) => (
+      {dots.map((dot, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${dot.left}%`,
+            top: `${dot.top}%`,
             backgroundColor: "rgb(126, 135, 205)",
             opacity: 0.15,
           }}
@@ -33,10 +48,10 @@ export default function CTA() {
             opacity: [0.1, 0.25, 0.1],
           }}
           transition={{
-            duration: 4 + Math.random() * 3,
+            duration: dot.duration,
             repeat: Infinity,
             ease: [0.4, 0, 0.2, 1],
-            delay: Math.random() * 3,
+            delay: dot.delay,
           }}
         />
       ))}

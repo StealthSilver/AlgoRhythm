@@ -112,45 +112,76 @@
       rgb(var(--secondary) / 0.2)
     );
     background-size: 100% 100%;
-    animation: radial-ripple 6s ease-out infinite;
+    animation: radial-ripple 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .cta-ripple {
-    animation: ripple-expand 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: ripple-expand 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes radial-ripple {
-    0%,
-    100% {
+    0% {
       background: radial-gradient(
         circle at center,
-        rgb(var(--primary) / 0.25),
-        rgb(var(--background)) 40%,
+        rgb(var(--primary) / 0.22),
+        rgb(var(--background)) 35%,
+        rgb(var(--secondary) / 0.18)
+      );
+    }
+    25% {
+      background: radial-gradient(
+        circle at center,
+        rgb(var(--primary) / 0.28),
+        rgb(var(--background)) 45%,
         rgb(var(--secondary) / 0.2)
       );
     }
     50% {
       background: radial-gradient(
         circle at center,
-        rgb(var(--primary) / 0.35),
-        rgb(var(--background)) 60%,
-        rgb(var(--secondary) / 0.15)
+        rgb(var(--primary) / 0.32),
+        rgb(var(--background)) 55%,
+        rgb(var(--secondary) / 0.16)
+      );
+    }
+    75% {
+      background: radial-gradient(
+        circle at center,
+        rgb(var(--primary) / 0.28),
+        rgb(var(--background)) 45%,
+        rgb(var(--secondary) / 0.2)
+      );
+    }
+    100% {
+      background: radial-gradient(
+        circle at center,
+        rgb(var(--primary) / 0.22),
+        rgb(var(--background)) 35%,
+        rgb(var(--secondary) / 0.18)
       );
     }
   }
 
   @keyframes ripple-expand {
     0% {
-      transform: translate(-50%, -50%) scale(0.95);
-      opacity: 0.15;
+      transform: translate(-50%, -50%) scale(0.98);
+      opacity: 0.12;
+    }
+    25% {
+      transform: translate(-50%, -50%) scale(1.01);
+      opacity: 0.16;
     }
     50% {
-      transform: translate(-50%, -50%) scale(1.05);
-      opacity: 0.2;
+      transform: translate(-50%, -50%) scale(1.04);
+      opacity: 0.18;
+    }
+    75% {
+      transform: translate(-50%, -50%) scale(1.01);
+      opacity: 0.16;
     }
     100% {
-      transform: translate(-50%, -50%) scale(0.95);
-      opacity: 0.15;
+      transform: translate(-50%, -50%) scale(0.98);
+      opacity: 0.12;
     }
   }
 }
