@@ -2,83 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-
-function MeteorShower() {
-  const [meteors, setMeteors] = useState<
-    Array<{
-      id: number;
-      left: number;
-      top: number;
-      duration: number;
-    }>
-  >([]);
-
-  useEffect(() => {
-    let meteorId = 0;
-    const spawnMeteor = () => {
-      const newMeteor = {
-        id: meteorId++,
-        left: Math.random() * 100,
-        top: -5,
-        duration: 0.8 + Math.random() * 0.4,
-      };
-      setMeteors((prev) => [...prev, newMeteor]);
-
-      setTimeout(
-        () => {
-          setMeteors((prev) => prev.filter((m) => m.id !== newMeteor.id));
-        },
-        (newMeteor.duration + 0.5) * 1000,
-      );
-    };
-
-    const meteorInterval = setInterval(
-      () => {
-        if (Math.random() > 0.5) {
-          spawnMeteor();
-        }
-      },
-      2000 + Math.random() * 4000,
-    );
-
-    return () => clearInterval(meteorInterval);
-  }, []);
-
-  return (
-    <>
-      {meteors.map((meteor) => (
-        <motion.div
-          key={meteor.id}
-          className="absolute pointer-events-none"
-          style={{
-            left: `${meteor.left}%`,
-            top: `${meteor.top}%`,
-          }}
-          initial={{ opacity: 0, x: 0, y: 0 }}
-          animate={{
-            opacity: [0, 0.6, 0],
-            x: 200,
-            y: 200,
-          }}
-          transition={{
-            duration: meteor.duration,
-            ease: "easeOut",
-          }}
-        >
-          <div
-            style={{
-              width: "2px",
-              height: "60px",
-              background: `linear-gradient(to bottom, transparent, #00c8fc, transparent)`,
-              boxShadow: `0 0 6px #00c8fc, 0 0 12px #00c8fc`,
-              transform: "rotate(45deg)",
-            }}
-          />
-        </motion.div>
-      ))}
-    </>
-  );
-}
+import { Meteors } from "../ui/meteors";
 
 export default function CTA() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -146,7 +70,7 @@ export default function CTA() {
       className="relative overflow-hidden py-24 md:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      <MeteorShower />
+      <Meteors number={20} />
       {/* Smooth Ripple Effects - Positioned correctly with wrapper */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <div className="absolute w-[600px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-1" />

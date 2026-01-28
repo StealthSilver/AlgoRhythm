@@ -14,12 +14,14 @@ const config: Config = {
       keyframes: {
         meteor: {
           "0%": {
-            transform: "translate(0px, 0px) rotate(-45deg)",
+            transform: "rotate(215deg) translateX(0)",
             opacity: "1",
           },
-          "70%": { opacity: "1" },
+          "70%": {
+            opacity: "1",
+          },
           "100%": {
-            transform: "translate(-400px, 400px) rotate(-45deg)",
+            transform: "rotate(215deg) translateX(-500px)",
             opacity: "0",
           },
         },

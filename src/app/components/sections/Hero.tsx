@@ -3,52 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ChevronDown, Play, Code2, Sparkles } from "lucide-react";
-
-const Meteors = ({ number }: { number?: number }) => {
-  const [meteorStyles, setMeteorStyles] = useState<
-    Array<{
-      left: string;
-      top: string;
-      animationDelay: string;
-      animationDuration: string;
-    }>
-  >([]);
-
-  useEffect(() => {
-    const styles = [...new Array(number || 20).fill(true)].map(() => ({
-      left: Math.floor(Math.random() * window.innerWidth) + "px",
-      top: Math.floor(Math.random() * 100) + "px",
-      animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + "s",
-      animationDuration: Math.floor(Math.random() * (8 - 3) + 3) + "s",
-    }));
-    setMeteorStyles(styles);
-  }, [number]);
-
-  return (
-    <>
-      {meteorStyles.map((style, idx) => (
-        <span
-          key={idx}
-          className="meteor animate-meteor-effect absolute rounded-[9999px] shadow-[0_0_0_1px_#ffffff10]"
-          style={{
-            height: '2px',
-            width: '2px',
-            background: 'linear-gradient(90deg, rgba(138, 77, 152, 0) 0%, rgba(138, 77, 152, 1) 50%, rgba(138, 77, 152, 0) 100%)',
-            boxShadow: '0 0 10px rgba(138, 77, 152, 0.8), 0 0 20px rgba(138, 77, 152, 0.5)',
-            ...style,
-          }}
-        >
-          <span 
-            className="absolute w-[50px] h-[1px] -left-[50px] top-1/2 -translate-y-1/2"
-            style={{
-              background: 'linear-gradient(90deg, rgba(138, 77, 152, 0) 0%, rgba(138, 77, 152, 0.8) 100%)',
-            }}
-          />
-        </span>
-      ))}
-    </>
-  );
-};
+import { Meteors } from "../ui/meteors";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -140,9 +95,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      {/* Meteor shower */}
       <Meteors number={20} />
-
       {/* Smooth Ripple Effects */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
