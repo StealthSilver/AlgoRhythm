@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { Button } from "./ui/button";
+import PremiumCTA from "./PremiumCTA";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -133,38 +134,14 @@ export default function Navbar() {
               </AnimatePresence>
             </Button>
 
-            <motion.a
-              href="/algorithms"
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="hidden md:inline-flex px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
-              style={{
-                background:
-                  "linear-gradient(90deg, #7e87cd 0%, #9da5d9 50%, #7e87cd 100%)",
-                backgroundSize: "200% 100%",
-                color: "white",
-                boxShadow: "0 0 20px rgba(126, 135, 205, 0.3)",
-                fontWeight: 600,
-                animation: "shimmer 3s ease-in-out infinite",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background =
-                  "linear-gradient(90deg, #6a73b8 0%, #8890c5 50%, #6a73b8 100%)";
-                e.currentTarget.style.backgroundSize = "200% 100%";
-                e.currentTarget.style.boxShadow =
-                  "0 0 30px rgba(126, 135, 205, 0.5)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background =
-                  "linear-gradient(90deg, #7e87cd 0%, #9da5d9 50%, #7e87cd 100%)";
-                e.currentTarget.style.backgroundSize = "200% 100%";
-                e.currentTarget.style.boxShadow =
-                  "0 0 20px rgba(126, 135, 205, 0.3)";
-              }}
+              className="hidden md:inline-flex"
             >
-              Get Started
-            </motion.a>
+              <PremiumCTA href="/algorithms" />
+            </motion.div>
 
             {/* Mobile Menu Button */}
             <Button
@@ -211,21 +188,7 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
-              <a
-                href="/algorithms"
-                className="w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 mt-2 text-center relative overflow-hidden"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #7e87cd 0%, #9da5d9 50%, #7e87cd 100%)",
-                  backgroundSize: "200% 100%",
-                  color: "white",
-                  boxShadow: "0 0 20px rgba(126, 135, 205, 0.3)",
-                  fontWeight: 600,
-                  animation: "shimmer 3s ease-in-out infinite",
-                }}
-              >
-                Get Started
-              </a>
+              <PremiumCTA href="/algorithms" className="w-full mt-2" />
             </div>
           </motion.div>
         )}
