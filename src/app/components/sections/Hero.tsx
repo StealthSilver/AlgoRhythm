@@ -129,12 +129,12 @@ export default function Hero() {
           style={{
             left: `${dot.left}%`,
             top: `${dot.top}%`,
-            backgroundColor: "#00c8fc",
+            backgroundColor: isDark ? "#00c8fc" : "#1e465c",
             opacity: 0,
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: [0.15, 0.35, 0.15],
+            opacity: isDark ? [0.15, 0.35, 0.15] : [0.25, 0.5, 0.25],
           }}
           transition={{
             duration: dot.duration,
@@ -304,7 +304,7 @@ export default function Hero() {
         >
           {[
             { value: "50+", label: "Algorithms" },
-            { value: "6", label: "Categories" },
+            { value: "21", label: "Categories" },
             { value: "100%", label: "Interactive" },
           ].map((stat, index) => (
             <motion.div

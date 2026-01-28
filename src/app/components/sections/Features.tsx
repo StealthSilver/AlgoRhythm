@@ -65,6 +65,7 @@ export default function Features() {
       size: number;
     }>
   >([]);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     // Generate random positions only on client side to avoid hydration mismatch
@@ -86,6 +87,20 @@ export default function Features() {
         size: 40 + Math.random() * 80,
       })),
     );
+
+    // Check theme
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const codeSnippets = [
@@ -110,12 +125,12 @@ export default function Features() {
           style={{
             left: `${dot.left}%`,
             top: `${dot.top}%`,
-            backgroundColor: "#00c8fc",
+            backgroundColor: isDark ? "#00c8fc" : "#1e465c",
             opacity: 0,
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: [0.15, 0.35, 0.15],
+            opacity: isDark ? [0.15, 0.35, 0.15] : [0.25, 0.5, 0.25],
           }}
           transition={{
             duration: dot.duration,
