@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 export const Meteors = ({
   number,
@@ -10,7 +10,27 @@ export const Meteors = ({
   number?: number;
   className?: string;
 }) => {
-  const meteors = new Array(number || 20).fill(true);
+  const meteorCount = number || 20;
+
+  // Generate random values on client side only to avoid hydration mismatch
+  const [meteorStyles, setMeteorStyles] = useState<
+    Array<{ delay: number; duration: number }>
+  >([]);
+
+  useEffect(() => {
+    // Generate random animation values after mount (client-side only)
+    const styles = Array.from({ length: meteorCount }, () => ({
+      delay: Math.random() * 5, // 0-5 seconds delay
+      duration: Math.random() * 3 + 5, // 5-8 seconds duration
+    }));
+    setMeteorStyles(styles);
+  }, [meteorCount]);
+
+  const meteors = useMemo(
+    () => Array.from({ length: meteorCount }),
+    [meteorCount],
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -18,10 +38,10 @@ export const Meteors = ({
       transition={{ duration: 0.5 }}
       className="absolute inset-0 overflow-hidden pointer-events-none"
     >
-      {meteors.map((el, idx) => {
-        const meteorCount = number || 20;
+      {meteors.map((_, idx) => {
         // Calculate position to evenly distribute meteors across container width
         const position = idx * (800 / meteorCount) - 400; // Spread across 800px range, centered
+        const styles = meteorStyles[idx];
 
         return (
           <span
@@ -33,9 +53,9 @@ export const Meteors = ({
             )}
             style={{
               top: "-40px", // Start above the container
-              left: position + "px",
-              animationDelay: Math.random() * 5 + "s", // Random delay between 0-5s
-              animationDuration: Math.floor(Math.random() * (10 - 5) + 5) + "s", // Keep some randomness in duration
+              left: `${position}px`,
+              animationDelay: styles ? `${styles.delay}s` : "0s",
+              animationDuration: styles ? `${styles.duration}s` : "5s",
             }}
           ></span>
         );
