@@ -131,7 +131,7 @@ export default function AlgorithmPage() {
                 {/* How it Works */}
                 <section className="mb-8">
                   <h2
-                    className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"
+                    className="text-2xl font-light mb-4 text-gray-900 dark:text-white"
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                     }}
@@ -148,7 +148,7 @@ export default function AlgorithmPage() {
                         }}
                       >
                         <span
-                          className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-semibold"
+                          className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-light"
                           style={{
                             background: "rgba(141, 118, 233, 0.1)",
                             color: "rgb(141, 118, 233)",
@@ -165,7 +165,7 @@ export default function AlgorithmPage() {
                 {/* Use Cases */}
                 <section className="mb-8">
                   <h2
-                    className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"
+                    className="text-2xl font-light mb-4 text-gray-900 dark:text-white"
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                     }}
@@ -191,7 +191,7 @@ export default function AlgorithmPage() {
                 {/* Visualization Placeholder */}
                 <section className="mb-8">
                   <h2
-                    className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"
+                    className="text-2xl font-light mb-4 text-gray-900 dark:text-white"
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                     }}
