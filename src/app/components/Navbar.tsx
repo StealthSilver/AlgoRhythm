@@ -138,12 +138,29 @@ export default function Navbar() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="hidden md:inline-flex px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
+              className="hidden md:inline-flex px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 relative overflow-hidden group"
               style={{
-                background: "rgb(var(--secondary))",
+                background:
+                  "linear-gradient(90deg, #7e87cd 0%, #9da5d9 50%, #7e87cd 100%)",
+                backgroundSize: "200% 100%",
                 color: "white",
-                boxShadow: "0 0 20px rgba(var(--secondary), 0.3)",
+                boxShadow: "0 0 20px rgba(126, 135, 205, 0.3)",
                 fontWeight: 600,
+                animation: "shimmer 3s ease-in-out infinite",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background =
+                  "linear-gradient(90deg, #6a73b8 0%, #8890c5 50%, #6a73b8 100%)";
+                e.currentTarget.style.backgroundSize = "200% 100%";
+                e.currentTarget.style.boxShadow =
+                  "0 0 30px rgba(126, 135, 205, 0.5)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background =
+                  "linear-gradient(90deg, #7e87cd 0%, #9da5d9 50%, #7e87cd 100%)";
+                e.currentTarget.style.backgroundSize = "200% 100%";
+                e.currentTarget.style.boxShadow =
+                  "0 0 20px rgba(126, 135, 205, 0.3)";
               }}
             >
               Get Started
@@ -196,12 +213,15 @@ export default function Navbar() {
               ))}
               <a
                 href="/algorithms"
-                className="w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 mt-2 text-center"
+                className="w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 mt-2 text-center relative overflow-hidden"
                 style={{
-                  background: "rgb(var(--secondary))",
+                  background:
+                    "linear-gradient(90deg, #7e87cd 0%, #9da5d9 50%, #7e87cd 100%)",
+                  backgroundSize: "200% 100%",
                   color: "white",
-                  boxShadow: "0 0 20px rgba(var(--secondary), 0.3)",
+                  boxShadow: "0 0 20px rgba(126, 135, 205, 0.3)",
                   fontWeight: 600,
+                  animation: "shimmer 3s ease-in-out infinite",
                 }}
               >
                 Get Started

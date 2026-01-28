@@ -16,23 +16,11 @@ export default function Home() {
         <Navbar />
 
         {/* Hero Section with Animated Background */}
-        <section className="relative min-h-screen flex items-center justify-center bg-black">
-          <PathfindingCanvas />
-          <Hero />
-        </section>
 
         {/* Features Section */}
-        <Features />
-
-        {/* Algorithm Categories */}
-        <Categories />
-
-        {/* Philosophy Section */}
-        <Philosophy />
       </main>
 
       {/* Footer */}
-      <Footer />
     </>
   );
 }
