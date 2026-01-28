@@ -121,7 +121,7 @@ export default function Categories() {
       className="relative overflow-hidden py-16 sm:py-20 md:py-24 lg:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      <Meteors number={20} />
+      <Meteors number={6} />
       {/* Blinking dots */}
       {dots.map((dot, i) => (
         <motion.div
@@ -135,7 +135,7 @@ export default function Categories() {
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: isDark ? [0.15, 0.35, 0.15] : [0.25, 0.5, 0.25],
+            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
           }}
           transition={{
             duration: dot.duration,

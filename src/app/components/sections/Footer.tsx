@@ -97,7 +97,7 @@ export default function Footer() {
         borderTop: "1px solid rgba(var(--foreground), 0.1)",
       }}
     >
-      <Meteors number={20} />
+      <Meteors number={6} />
       {/* Blinking dots */}
       {dots.map((dot, i) => (
         <motion.div
@@ -111,7 +111,7 @@ export default function Footer() {
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: isDark ? [0.15, 0.35, 0.15] : [0.25, 0.5, 0.25],
+            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
           }}
           transition={{
             duration: dot.duration,

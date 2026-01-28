@@ -95,7 +95,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 px-4 sm:pt-20 sm:px-6"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      <Meteors number={20} />
+      <Meteors number={6} />
       {/* Smooth Ripple Effects */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
@@ -138,7 +138,7 @@ export default function Hero() {
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: isDark ? [0.15, 0.35, 0.15] : [0.25, 0.5, 0.25],
+            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
           }}
           transition={{
             duration: dot.duration,

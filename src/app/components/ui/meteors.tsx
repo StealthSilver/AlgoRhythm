@@ -10,7 +10,7 @@ export const Meteors = ({
   number?: number;
   className?: string;
 }) => {
-  const meteorCount = number || 12;
+  const meteorCount = number || 6;
 
   // Generate random values on client side only to avoid hydration mismatch
   const [meteorStyles, setMeteorStyles] = useState<

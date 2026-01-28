@@ -70,7 +70,7 @@ export default function CTA() {
       className="relative overflow-hidden py-24 md:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
-      <Meteors number={20} />
+      <Meteors number={6} />
       {/* Smooth Ripple Effects - Positioned correctly with wrapper */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <div className="absolute w-[600px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-1" />
@@ -95,7 +95,7 @@ export default function CTA() {
           }}
           animate={{
             scale: [1, 1.3, 1],
-            opacity: isDark ? [0.15, 0.35, 0.15] : [0.25, 0.5, 0.25],
+            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
           }}
           transition={{
             duration: dot.duration,
