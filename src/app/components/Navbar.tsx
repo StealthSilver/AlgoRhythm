@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { Button } from "./ui/button";
-import PremiumCTA from "./PremiumCTA";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -134,15 +133,6 @@ export default function Navbar() {
               </AnimatePresence>
             </Button>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="hidden md:inline-flex"
-            >
-              <PremiumCTA href="/algorithms" />
-            </motion.div>
-
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
@@ -188,7 +178,6 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
-              <PremiumCTA href="/algorithms" className="w-full mt-2" />
             </div>
           </motion.div>
         )}
