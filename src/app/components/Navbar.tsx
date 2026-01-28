@@ -2,35 +2,48 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { Button } from "./ui/button";
+
+const navLinks = [
+  { name: "Home", href: "#home" },
+  { name: "Features", href: "#features" },
+  { name: "Categories", href: "#categories" },
+  { name: "About", href: "#about" },
+];
 
 export default function Navbar() {
-  const { theme, toggleTheme } = useTheme();
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        isScrolled
           ? "bg-white/80 dark:bg-black/80 backdrop-blur-md shadow-lg"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center">
+          <a href="#home" className="flex items-center">
             {/* Mobile logo - always use algo.svg */}
             <Image
               src="/algo.svg"
@@ -58,36 +71,51 @@ export default function Navbar() {
                 className="hidden sm:block h-10 w-auto"
               />
             )}
+          </a>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors duration-200"
+              >
+                {link.name}
+              </a>
+            ))}
           </div>
 
-          {/* Navigation Links - Desktop */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            <a
-              href="#features"
-              className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors"
-            >
-              Features
-            </a>
-            <a
-              href="#categories"
-              className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors"
-            >
-              Categories
-            </a>
-            <a
-              href="#about"
-              className="text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors"
-            >
-              About
-            </a>
-          </div>
-
-          {/* Right Section */}
+          {/* Actions */}
           <div className="flex items-center gap-3">
-            {/* Get Started Button - Desktop Only */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="relative overflow-hidden"
+            >
+              <AnimatePresence mode="wait">
+                {mounted && (
+                  <motion.div
+                    key={theme}
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 20, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {theme === "dark" ? (
+                      <Sun className="h-5 w-5" />
+                    ) : (
+                      <Moon className="h-5 w-5" />
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Button>
+
             <a
               href="/algorithms"
-              className="hidden sm:block px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
+              className="hidden md:inline-flex px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
               style={{
                 background: "rgb(141, 118, 233)",
                 color: "white",
@@ -98,75 +126,57 @@ export default function Navbar() {
             </a>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-gray-700 dark:text-gray-200"
-              aria-label="Toggle menu"
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {mobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-3">
-            <a
-              href="#features"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
-            >
-              Features
-            </a>
-            <a
-              href="#categories"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
-            >
-              Categories
-            </a>
-            <a
-              href="#about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
-            >
-              About
-            </a>
-            <a
-              href="/algorithms"
-              className="block w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 mt-2 text-center"
-              style={{
-                background: "rgb(141, 118, 233)",
-                color: "white",
-                boxShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
-              }}
-            >
-              Get Started
-            </a>
-          </div>
-        )}
       </div>
-    </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white/90 dark:bg-black/90 backdrop-blur-md border-t border-gray-200 dark:border-gray-800"
+          >
+            <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] transition-colors py-2"
+                >
+                  {link.name}
+                </a>
+              ))}
+              <a
+                href="/algorithms"
+                className="w-full px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 mt-2 text-center"
+                style={{
+                  background: "rgb(141, 118, 233)",
+                  color: "white",
+                  boxShadow: "0 0 20px rgba(141, 118, 233, 0.3)",
+                }}
+              >
+                Get Started
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }
