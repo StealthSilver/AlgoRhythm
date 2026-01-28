@@ -7,6 +7,83 @@ import { Github, Linkedin } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { SiX } from "@icons-pack/react-simple-icons";
 
+function MeteorShower() {
+  const [meteors, setMeteors] = useState<
+    Array<{
+      id: number;
+      left: number;
+      top: number;
+      duration: number;
+    }>
+  >([]);
+
+  useEffect(() => {
+    let meteorId = 0;
+    const spawnMeteor = () => {
+      const newMeteor = {
+        id: meteorId++,
+        left: Math.random() * 100,
+        top: -5,
+        duration: 0.8 + Math.random() * 0.4,
+      };
+      setMeteors((prev) => [...prev, newMeteor]);
+
+      setTimeout(
+        () => {
+          setMeteors((prev) => prev.filter((m) => m.id !== newMeteor.id));
+        },
+        (newMeteor.duration + 0.5) * 1000,
+      );
+    };
+
+    const meteorInterval = setInterval(
+      () => {
+        if (Math.random() > 0.5) {
+          spawnMeteor();
+        }
+      },
+      2000 + Math.random() * 4000,
+    );
+
+    return () => clearInterval(meteorInterval);
+  }, []);
+
+  return (
+    <>
+      {meteors.map((meteor) => (
+        <motion.div
+          key={meteor.id}
+          className="absolute pointer-events-none"
+          style={{
+            left: `${meteor.left}%`,
+            top: `${meteor.top}%`,
+          }}
+          initial={{ opacity: 0, x: 0, y: 0 }}
+          animate={{
+            opacity: [0, 0.6, 0],
+            x: 200,
+            y: 200,
+          }}
+          transition={{
+            duration: meteor.duration,
+            ease: "easeOut",
+          }}
+        >
+          <div
+            style={{
+              width: "2px",
+              height: "60px",
+              background: `linear-gradient(to bottom, transparent, #00c8fc, transparent)`,
+              boxShadow: `0 0 6px #00c8fc, 0 0 12px #00c8fc`,
+              transform: "rotate(45deg)",
+            }}
+          />
+        </motion.div>
+      ))}
+    </>
+  );
+}
+
 const socialLinks = [
   {
     icon: Github,
@@ -96,6 +173,7 @@ export default function Footer() {
         borderTop: "1px solid rgba(var(--foreground), 0.1)",
       }}
     >
+      <MeteorShower />
       {/* Blinking dots */}
       {dots.map((dot, i) => (
         <motion.div

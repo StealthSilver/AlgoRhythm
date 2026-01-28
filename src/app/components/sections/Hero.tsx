@@ -26,6 +26,15 @@ export default function Hero() {
       size: number;
     }>
   >([]);
+  const [meteors, setMeteors] = useState<
+    Array<{
+      id: number;
+      left: number;
+      top: number;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
   const [isDark, setIsDark] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -50,6 +59,38 @@ export default function Hero() {
       })),
     );
 
+    // Generate meteors at random intervals
+    let meteorId = 0;
+    const spawnMeteor = () => {
+      const newMeteor = {
+        id: meteorId++,
+        left: Math.random() * 100,
+        top: -5,
+        duration: 0.8 + Math.random() * 0.4,
+        delay: 0,
+      };
+      setMeteors((prev) => [...prev, newMeteor]);
+
+      // Remove meteor after animation completes
+      setTimeout(
+        () => {
+          setMeteors((prev) => prev.filter((m) => m.id !== newMeteor.id));
+        },
+        (newMeteor.duration + 0.5) * 1000,
+      );
+    };
+
+    // Spawn meteors at random intervals (2-6 seconds apart)
+    const meteorInterval = setInterval(
+      () => {
+        if (Math.random() > 0.5) {
+          // 50% chance to spawn
+          spawnMeteor();
+        }
+      },
+      2000 + Math.random() * 4000,
+    );
+
     // Check theme
     const checkTheme = () => {
       setIsDark(document.documentElement.classList.contains("dark"));
@@ -62,7 +103,10 @@ export default function Hero() {
       attributeFilter: ["class"],
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearInterval(meteorInterval);
+    };
   }, []);
 
   useEffect(() => {
@@ -92,6 +136,39 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}
     >
+      {/* Meteor shower */}
+      {meteors.map((meteor) => (
+        <motion.div
+          key={meteor.id}
+          className="absolute pointer-events-none"
+          style={{
+            left: `${meteor.left}%`,
+            top: `${meteor.top}%`,
+          }}
+          initial={{ opacity: 0, x: 0, y: 0 }}
+          animate={{
+            opacity: [0, 0.6, 0],
+            x: 200,
+            y: 200,
+          }}
+          transition={{
+            duration: meteor.duration,
+            ease: "easeOut",
+          }}
+        >
+          <div
+            className="relative"
+            style={{
+              width: "2px",
+              height: "60px",
+              background: `linear-gradient(to bottom, transparent, #00c8fc, transparent)`,
+              boxShadow: `0 0 6px #00c8fc, 0 0 12px #00c8fc`,
+              transform: "rotate(45deg)",
+            }}
+          />
+        </motion.div>
+      ))}
+
       {/* Smooth Ripple Effects */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
