@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { ChevronDown, Play, Code2, Sparkles } from "lucide-react";
+import { Play, Code2, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Meteors } from "../ui/meteors";
 
@@ -249,7 +249,6 @@ export default function Hero() {
         >
           {/* Primary CTA */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="relative group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base font-semibold rounded-lg overflow-hidden cursor-pointer"
             style={{
@@ -275,7 +274,6 @@ export default function Hero() {
 
           {/* Secondary CTA */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="relative group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-lg overflow-hidden cursor-pointer transition-all duration-300"
             style={{
@@ -287,7 +285,7 @@ export default function Hero() {
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor =
                 "rgba(var(--foreground), 0.1)";
-              e.currentTarget.style.borderColor = "rgba(138, 77, 152, 0.5)";
+              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.9)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor =
@@ -333,43 +331,6 @@ export default function Hero() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
-        onClick={() => {
-          document
-            .getElementById("features")
-            ?.scrollIntoView({ behavior: "smooth" });
-        }}
-      >
-        <span
-          className="text-sm transition-colors duration-300"
-          style={{ opacity: 0.6 }}
-        >
-          Scroll to explore
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full flex items-start justify-center pt-2"
-          style={{
-            border: "2px solid rgba(var(--foreground), 0.2)",
-          }}
-        >
-          <motion.div
-            animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1.5 h-1.5 rounded-full"
-            style={{
-              backgroundColor: "#8a4d98",
-            }}
-          />
         </motion.div>
       </motion.div>
     </section>
