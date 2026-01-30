@@ -280,10 +280,11 @@ export default function AlgorithmsSidebar({
 
   return (
     <aside
-      className="fixed top-16 left-0 h-[calc(100vh-4rem)] w-72 border-r border-gray-200 dark:border-gray-800 overflow-y-auto transition-transform duration-300 z-40 custom-scrollbar"
+      className="hidden md:block fixed top-16 md:top-20 left-0 h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)] w-72 overflow-y-auto transition-transform duration-300 z-40 custom-scrollbar backdrop-blur-md"
       style={{
-        backgroundColor: "rgb(var(--background))",
-        boxShadow: "2px 0 10px rgba(0, 0, 0, 0.05)",
+        backgroundColor: "rgba(var(--background), 0.8)",
+        borderRight: "1px solid rgba(var(--foreground), 0.1)",
+        boxShadow: "2px 0 16px rgba(0, 0, 0, 0.08)",
       }}
     >
       <style jsx>{`

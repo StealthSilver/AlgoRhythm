@@ -9,10 +9,10 @@ import { useTheme } from "../../context/ThemeContext";
 import { Button } from "../ui/button";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Features", href: "#features" },
-  { name: "Categories", href: "#categories" },
-  { name: "About", href: "#about" },
+  { name: "Home", href: "/#home" },
+  { name: "Features", href: "/#features" },
+  { name: "Categories", href: "/#categories" },
+  { name: "About", href: "/#about" },
 ];
 
 export default function Navbar() {
@@ -51,7 +51,7 @@ export default function Navbar() {
           {/* Left side: Logo + Nav Links */}
           <div className="flex items-end gap-8">
             {/* Logo */}
-            <a href="#home" className="flex items-end flex-shrink-0">
+            <a href="/#home" className="flex items-end flex-shrink-0">
               {/* Mobile logo - theme-based with dicon/licon */}
               {mounted && (
                 <Image
