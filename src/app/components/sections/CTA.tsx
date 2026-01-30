@@ -68,6 +68,7 @@ export default function CTA() {
 
   return (
     <section
+      id="cta"
       ref={ref}
       className="relative overflow-hidden py-24 md:py-32"
       style={{ fontFamily: "var(--font-inter), sans-serif" }}

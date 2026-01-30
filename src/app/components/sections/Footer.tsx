@@ -89,6 +89,7 @@ export default function Footer() {
 
   return (
     <footer
+      id="connect"
       ref={ref}
       className="relative overflow-hidden pt-24 pb-8"
       style={{

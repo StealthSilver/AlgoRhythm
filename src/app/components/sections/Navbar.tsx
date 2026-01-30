@@ -8,19 +8,35 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { Button } from "../ui/button";
 
-const navLinks = [
+type NavbarLink = { name: string; href: string };
+
+interface NavbarProps {
+  linksOverride?: NavbarLink[];
+  activeLinkName?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const defaultNavLinks: NavbarLink[] = [
   { name: "Home", href: "/#home" },
   { name: "Features", href: "/#features" },
   { name: "Categories", href: "/#categories" },
   { name: "About", href: "/#about" },
 ];
 
-export default function Navbar() {
+export default function Navbar({
+  linksOverride,
+  activeLinkName,
+  ctaLabel = "Get Started",
+  ctaHref = "/algorithms",
+}: NavbarProps) {
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  const navLinks = linksOverride ?? defaultNavLinks;
 
   useEffect(() => {
     setMounted(true);
@@ -103,14 +119,23 @@ export default function Navbar() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="text-sm font-medium transition-colors duration-300"
                   style={{
-                    color: "rgb(var(--foreground))",
+                    color:
+                      activeLinkName === link.name
+                        ? "#8a4d98"
+                        : "rgb(var(--foreground))",
                     fontWeight: 500,
                   }}
+                  aria-current={
+                    activeLinkName === link.name ? "page" : undefined
+                  }
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = "#8a4d98";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "rgb(var(--foreground))";
+                    e.currentTarget.style.color =
+                      activeLinkName === link.name
+                        ? "#8a4d98"
+                        : "rgb(var(--foreground))";
                   }}
                 >
                   {link.name}
@@ -157,7 +182,7 @@ export default function Navbar() {
                 boxShadow:
                   "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
               }}
-              onClick={() => router.push("/algorithms")}
+              onClick={() => router.push(ctaHref)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor =
                   "rgba(138, 77, 152, 0.85)";
@@ -168,7 +193,7 @@ export default function Navbar() {
             >
               {/* Metallic shine overlay */}
               <span className="absolute inset-y-0 -left-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out"></span>
-              <span className="relative z-10">Get Started</span>
+              <span className="relative z-10">{ctaLabel}</span>
             </motion.button>
 
             {/* Mobile Menu Button */}
@@ -209,9 +234,15 @@ export default function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-base font-medium transition-colors py-2"
                   style={{
-                    color: "rgb(var(--foreground))",
+                    color:
+                      activeLinkName === link.name
+                        ? "#8a4d98"
+                        : "rgb(var(--foreground))",
                     fontWeight: 500,
                   }}
+                  aria-current={
+                    activeLinkName === link.name ? "page" : undefined
+                  }
                 >
                   {link.name}
                 </a>
@@ -221,7 +252,7 @@ export default function Navbar() {
               <motion.button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  router.push("/algorithms");
+                  router.push(ctaHref);
                 }}
                 className="relative px-6 py-3 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer mt-2"
                 style={{
@@ -230,7 +261,7 @@ export default function Navbar() {
                     "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                <span className="relative z-10">Get Started</span>
+                <span className="relative z-10">{ctaLabel}</span>
               </motion.button>
             </div>
           </motion.div>

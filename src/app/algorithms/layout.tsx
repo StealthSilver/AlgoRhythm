@@ -10,7 +10,16 @@ export default function AlgorithmsLayout({
 }) {
   return (
     <main className="relative flex-1 overflow-x-hidden">
-      <Navbar />
+      <Navbar
+        linksOverride={[
+          { name: "Explorer", href: "/algorithms" },
+          { name: "Course", href: "/#categories" },
+          { name: "Connect", href: "/#connect" },
+        ]}
+        activeLinkName="Explorer"
+        ctaLabel="Subscribe"
+        ctaHref="/#cta"
+      />
 
       {/* Offset for fixed navbar: 4rem mobile, 5rem md+ */}
       <div className="pt-16 md:pt-20">{children}</div>
