@@ -311,9 +311,10 @@ export default function AlgorithmsSidebar({
       `}</style>
       <div className="py-6 pr-6 pl-8 sm:pl-10 lg:pl-12">
         <h2
-          className="text-lg font-light mb-4 text-gray-900 dark:text-white"
+          className="text-lg font-light mb-4"
           style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: "var(--font-space-grotesk), sans-serif",
+            color: "rgb(var(--foreground))",
           }}
         >
           Algorithm Categories
@@ -328,9 +329,19 @@ export default function AlgorithmsSidebar({
                 {/* Category Header */}
                 <button
                   onClick={() => toggleCategory(category.name)}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-light text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-light transition-colors"
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "var(--font-space-grotesk), sans-serif",
+                    color: "rgb(var(--foreground))",
+                    backgroundColor: "rgba(var(--foreground), 0.03)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(var(--foreground), 0.06)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(var(--foreground), 0.03)";
                   }}
                 >
                   <span>{category.name}</span>
@@ -356,10 +367,14 @@ export default function AlgorithmsSidebar({
                         className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                           isSelected
                             ? "bg-[rgb(141,118,233)]/10 text-[rgb(141,118,233)] font-light"
-                            : "text-gray-600 dark:text-gray-400 hover:text-[rgb(141,118,233)] dark:hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5"
+                            : "hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5"
                         }`}
                         style={{
-                          fontFamily: "'Inter', sans-serif",
+                          fontFamily: "var(--font-inter), sans-serif",
+                          color: isSelected
+                            ? "rgb(141, 118, 233)"
+                            : "rgb(var(--foreground))",
+                          opacity: isSelected ? 1 : 0.72,
                         }}
                       >
                         {algorithm.name}

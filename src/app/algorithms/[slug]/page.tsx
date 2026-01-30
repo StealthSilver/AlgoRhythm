@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import AlgorithmsNavbar from "../../components/AlgorithmsNavbar";
 import AlgorithmsSidebar from "../../components/AlgorithmsSidebar";
 import { algorithmData } from "@/app/data/algorithmData";
 
@@ -13,213 +12,176 @@ export default function AlgorithmPage() {
 
   if (!algorithm) {
     return (
-      <>
-        <div className="flex-1">
-          <AlgorithmsNavbar />
-          <div className="flex pt-16 min-h-[calc(100vh-4rem)]">
-            <AlgorithmsSidebar isOpen={true} selectedSlug={slug} />
-            <main className="flex-1 ml-72">
-              <div className="p-8 sm:p-10 md:p-12">
-                <div className="max-w-4xl mx-auto">
-                  <h1
-                    className="text-3xl sm:text-4xl md:text-5xl font-light mb-6"
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      background:
-                        "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    Algorithm Not Found
-                  </h1>
-                  <p
-                    className="text-lg text-gray-600 dark:text-gray-400"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  >
-                    The algorithm you're looking for doesn't exist.
-                  </p>
-                </div>
-              </div>
-            </main>
+      <div className="flex min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)]">
+        <AlgorithmsSidebar isOpen={true} selectedSlug={slug} />
+
+        <main className="flex-1 md:ml-72">
+          <div className="max-w-4xl mx-auto px-8 md:px-12 py-10 md:py-14">
+            <h1
+              className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
+              style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+                background:
+                  "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Algorithm Not Found
+            </h1>
+            <p className="text-base sm:text-lg" style={{ opacity: 0.7 }}>
+              The algorithm you're looking for doesn't exist.
+            </p>
           </div>
-        </div>
-      </>
+        </main>
+      </div>
     );
   }
 
   return (
-    <>
-      <div className="flex-1">
-        <AlgorithmsNavbar />
-        <div className="flex pt-16 min-h-[calc(100vh-4rem)]">
-          <AlgorithmsSidebar isOpen={true} selectedSlug={slug} />
-          <main className="flex-1 ml-72">
-            <div className="p-8 sm:p-10 md:p-12">
-              <div className="max-w-4xl mx-auto">
-                <h1
-                  className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    background:
-                      "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  {algorithm.name}
-                </h1>
+    <div className="flex min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)]">
+      <AlgorithmsSidebar isOpen={true} selectedSlug={slug} />
 
-                {/* Metadata */}
-                <div className="flex flex-wrap gap-3 mb-8">
+      <main className="flex-1 md:ml-72">
+        <div className="max-w-4xl mx-auto px-8 md:px-12 py-10 md:py-14">
+          <h1
+            className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
+            style={{
+              fontFamily: "var(--font-space-grotesk), sans-serif",
+              background:
+                "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            {algorithm.name}
+          </h1>
+
+          <div className="flex flex-wrap gap-3 mb-8">
+            <span
+              className="px-3 py-1 rounded-full text-sm font-medium"
+              style={{
+                background: "rgba(141, 118, 233, 0.12)",
+                color: "rgb(141, 118, 233)",
+              }}
+            >
+              {algorithm.category}
+            </span>
+            <span
+              className="px-3 py-1 rounded-full text-sm font-medium"
+              style={{
+                backgroundColor: "rgba(var(--foreground), 0.04)",
+                border: "1px solid rgba(var(--foreground), 0.08)",
+                opacity: 0.9,
+              }}
+            >
+              Time: {algorithm.timeComplexity}
+            </span>
+            <span
+              className="px-3 py-1 rounded-full text-sm font-medium"
+              style={{
+                backgroundColor: "rgba(var(--foreground), 0.04)",
+                border: "1px solid rgba(var(--foreground), 0.08)",
+                opacity: 0.9,
+              }}
+            >
+              Space: {algorithm.spaceComplexity}
+            </span>
+          </div>
+
+          <section className="mb-10">
+            <h2
+              className="text-2xl font-medium mb-3"
+              style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+              }}
+            >
+              Description
+            </h2>
+            <p
+              className="text-base sm:text-lg leading-relaxed"
+              style={{ opacity: 0.75 }}
+            >
+              {algorithm.description}
+            </p>
+          </section>
+
+          <section className="mb-10">
+            <h2
+              className="text-2xl font-medium mb-4"
+              style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+              }}
+            >
+              How it Works
+            </h2>
+            <ol className="space-y-3" style={{ opacity: 0.8 }}>
+              {algorithm.steps.map((step, index) => (
+                <li key={index} className="flex gap-3">
                   <span
-                    className="px-3 py-1 rounded-full text-sm font-medium"
+                    className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-light"
                     style={{
-                      background: "rgba(141, 118, 233, 0.1)",
+                      background: "rgba(141, 118, 233, 0.12)",
                       color: "rgb(141, 118, 233)",
-                      fontFamily: "'Inter', sans-serif",
                     }}
                   >
-                    {algorithm.category}
+                    {index + 1}
                   </span>
+                  <span className="pt-0.5">{step}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="mb-10">
+            <h2
+              className="text-2xl font-medium mb-4"
+              style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+              }}
+            >
+              Use Cases
+            </h2>
+            <ul className="space-y-2" style={{ opacity: 0.8 }}>
+              {algorithm.useCases.map((useCase, index) => (
+                <li key={index} className="flex items-start gap-2">
                   <span
-                    className="px-3 py-1 rounded-full text-sm font-medium text-gray-600 dark:text-gray-400"
-                    style={{
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(141, 118, 233, 0.15)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
+                    style={{ color: "rgb(141, 118, 233)" }}
+                    className="mt-1"
                   >
-                    Time: {algorithm.timeComplexity}
+                    •
                   </span>
-                  <span
-                    className="px-3 py-1 rounded-full text-sm font-medium text-gray-600 dark:text-gray-400"
-                    style={{
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(141, 118, 233, 0.15)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  >
-                    Space: {algorithm.spaceComplexity}
-                  </span>
-                </div>
+                  <span>{useCase}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-                {/* Description */}
-                <section className="mb-8">
-                  <h2
-                    className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                    }}
-                  >
-                    Description
-                  </h2>
-                  <p
-                    className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  >
-                    {algorithm.description}
-                  </p>
-                </section>
-
-                {/* How it Works */}
-                <section className="mb-8">
-                  <h2
-                    className="text-2xl font-light mb-4 text-gray-900 dark:text-white"
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                    }}
-                  >
-                    How it Works
-                  </h2>
-                  <ol className="space-y-3">
-                    {algorithm.steps.map((step, index) => (
-                      <li
-                        key={index}
-                        className="flex gap-3 text-gray-600 dark:text-gray-400"
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                        }}
-                      >
-                        <span
-                          className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-light"
-                          style={{
-                            background: "rgba(141, 118, 233, 0.1)",
-                            color: "rgb(141, 118, 233)",
-                          }}
-                        >
-                          {index + 1}
-                        </span>
-                        <span className="pt-0.5">{step}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </section>
-
-                {/* Use Cases */}
-                <section className="mb-8">
-                  <h2
-                    className="text-2xl font-light mb-4 text-gray-900 dark:text-white"
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                    }}
-                  >
-                    Use Cases
-                  </h2>
-                  <ul className="space-y-2">
-                    {algorithm.useCases.map((useCase, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-gray-600 dark:text-gray-400"
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                        }}
-                      >
-                        <span className="text-[rgb(141,118,233)] mt-1">•</span>
-                        <span>{useCase}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-
-                {/* Visualization Placeholder */}
-                <section className="mb-8">
-                  <h2
-                    className="text-2xl font-light mb-4 text-gray-900 dark:text-white"
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                    }}
-                  >
-                    Visualization
-                  </h2>
-                  <div
-                    className="rounded-2xl p-12 flex items-center justify-center"
-                    style={{
-                      background: "rgba(255, 255, 255, 0.02)",
-                      border: "1px solid rgba(141, 118, 233, 0.15)",
-                    }}
-                  >
-                    <p
-                      className="text-gray-500 dark:text-gray-400"
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                      }}
-                    >
-                      Interactive visualization coming soon...
-                    </p>
-                  </div>
-                </section>
-              </div>
+          <section className="mb-8">
+            <h2
+              className="text-2xl font-medium mb-4"
+              style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+              }}
+            >
+              Visualization
+            </h2>
+            <div
+              className="rounded-2xl p-12 flex items-center justify-center"
+              style={{
+                backgroundColor: "rgba(var(--foreground), 0.03)",
+                border: "1px solid rgba(var(--foreground), 0.1)",
+              }}
+            >
+              <p style={{ opacity: 0.7 }}>
+                Interactive visualization coming soon...
+              </p>
             </div>
-          </main>
+          </section>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

@@ -51,7 +51,7 @@ export default function Navbar() {
           {/* Left side: Logo + Nav Links */}
           <div className="flex items-end gap-8">
             {/* Logo */}
-            <a href="/#home" className="flex items-end flex-shrink-0">
+            <a href="/#home" className="flex items-end shrink-0">
               {/* Mobile logo - theme-based with dicon/licon */}
               {mounted && (
                 <Image
