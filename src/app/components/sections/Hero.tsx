@@ -277,21 +277,18 @@ export default function Hero() {
             whileTap={{ scale: 0.95 }}
             className="relative group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-lg overflow-hidden cursor-pointer transition-all duration-300"
             style={{
-              backgroundColor: "rgba(var(--foreground), 0.05)",
-              border: "1px solid rgba(var(--foreground), 0.2)",
+              backgroundColor: "transparent",
+              border: "0.5px solid transparent",
               color: "rgb(var(--foreground))",
             }}
             onClick={() => router.push("/algorithms")}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor =
-                "rgba(var(--foreground), 0.1)";
-              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.9)";
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.65)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor =
-                "rgba(var(--foreground), 0.05)";
-              e.currentTarget.style.borderColor =
-                "rgba(var(--foreground), 0.2)";
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.borderColor = "transparent";
             }}
           >
             <span className="relative z-10 flex items-center gap-2">
