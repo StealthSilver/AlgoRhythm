@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 interface AlgorithmCategory {
   name: string;
@@ -12,11 +14,13 @@ interface AlgorithmCategory {
 interface AlgorithmsSidebarProps {
   isOpen: boolean;
   selectedSlug?: string;
+  className?: string;
 }
 
 export default function AlgorithmsSidebar({
   isOpen,
   selectedSlug,
+  className,
 }: AlgorithmsSidebarProps) {
   const categories: AlgorithmCategory[] = [
     {
@@ -280,12 +284,14 @@ export default function AlgorithmsSidebar({
 
   return (
     <aside
-      className="hidden md:block fixed top-16 md:top-20 left-0 h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)] w-72 overflow-y-auto transition-transform duration-300 z-40 custom-scrollbar backdrop-blur-md"
-      style={{
-        backgroundColor: "rgba(var(--background), 0.8)",
-        borderRight: "1px solid rgba(var(--foreground), 0.1)",
-        boxShadow: "2px 0 16px rgba(0, 0, 0, 0.08)",
-      }}
+      className={cn(
+        "hidden md:block",
+        "custom-scrollbar overflow-y-auto",
+        "rounded-2xl",
+        "border border-[rgba(var(--foreground),0.10)]",
+        className,
+      )}
+      style={{ backgroundColor: "rgba(var(--foreground), 0.02)" }}
     >
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
@@ -309,50 +315,73 @@ export default function AlgorithmsSidebar({
           scrollbar-color: rgba(141, 118, 233, 0.4) rgba(141, 118, 233, 0.05);
         }
       `}</style>
-      <div className="py-6 px-8 md:px-12">
-        <h2
-          className="text-lg font-light mb-4"
+      <div
+        className="p-4 lg:p-5"
+        style={{ fontFamily: "var(--font-inter), sans-serif" }}
+      >
+        <div
+          className="mb-4 rounded-xl px-3 py-2"
           style={{
-            fontFamily: "var(--font-space-grotesk), sans-serif",
-            color: "rgb(var(--foreground))",
+            backgroundColor: "rgba(var(--foreground), 0.04)",
+            border: "1px solid rgba(var(--foreground), 0.08)",
           }}
         >
-          Algorithm Categories
-        </h2>
+          <h2
+            className="text-sm font-medium tracking-wide"
+            style={{
+              fontFamily: "var(--font-space-grotesk), sans-serif",
+              color: "rgb(var(--foreground))",
+            }}
+          >
+            Algorithm Categories
+          </h2>
+          <p className="text-xs mt-0.5" style={{ opacity: 0.65 }}>
+            Browse topics and jump into any algorithm.
+          </p>
+        </div>
 
         <nav className="space-y-2">
           {categories.map((category) => {
             const isExpanded = expandedCategories.includes(category.name);
 
             return (
-              <div key={category.name}>
+              <div
+                key={category.name}
+                className="rounded-xl"
+                style={{
+                  backgroundColor: "rgba(var(--background), 0.35)",
+                  border: "1px solid rgba(var(--foreground), 0.10)",
+                }}
+              >
                 {/* Category Header */}
                 <button
                   onClick={() => toggleCategory(category.name)}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-light transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors"
                   style={{
                     fontFamily: "var(--font-space-grotesk), sans-serif",
                     color: "rgb(var(--foreground))",
-                    backgroundColor: "rgba(var(--foreground), 0.03)",
+                    backgroundColor: "transparent",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor =
-                      "rgba(var(--foreground), 0.06)";
+                      "rgba(138, 77, 152, 0.08)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(var(--foreground), 0.03)";
+                    e.currentTarget.style.backgroundColor = "transparent";
                   }}
                 >
-                  <span>{category.name}</span>
+                  <span className="text-[13px]" style={{ opacity: 0.9 }}>
+                    {category.name}
+                  </span>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-0" : "-rotate-90"}`}
+                    style={{ opacity: 0.75 }}
                   />
                 </button>
 
                 {/* Algorithm List */}
                 <div
-                  className={`ml-4 space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${
+                  className={`px-2 pb-2 space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${
                     isExpanded
                       ? "max-h-96 opacity-100 mt-1"
                       : "max-h-0 opacity-0"
@@ -364,17 +393,21 @@ export default function AlgorithmsSidebar({
                       <Link
                         key={algorithm.slug}
                         href={`/algorithms/${algorithm.slug}`}
-                        className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                        className={cn(
+                          "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
                           isSelected
-                            ? "bg-[rgb(141,118,233)]/10 text-[rgb(141,118,233)] font-light"
-                            : "hover:text-[rgb(141,118,233)] hover:bg-[rgb(141,118,233)]/5"
-                        }`}
+                            ? "text-[rgb(141,118,233)]"
+                            : "hover:text-[rgb(141,118,233)]",
+                        )}
                         style={{
                           fontFamily: "var(--font-inter), sans-serif",
                           color: isSelected
                             ? "rgb(141, 118, 233)"
                             : "rgb(var(--foreground))",
                           opacity: isSelected ? 1 : 0.72,
+                          backgroundColor: isSelected
+                            ? "rgba(141, 118, 233, 0.12)"
+                            : "transparent",
                         }}
                       >
                         {algorithm.name}
