@@ -16,7 +16,7 @@ export default function AlgorithmPage() {
         <AlgorithmsSidebar isOpen={true} selectedSlug={slug} />
 
         <main className="flex-1 md:ml-72">
-          <div className="max-w-4xl mx-auto px-8 md:px-12 py-10 md:py-14">
+          <div className="max-w-6xl mx-auto px-8 md:px-12 py-10 md:py-14">
             <h1
               className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
               style={{
@@ -44,7 +44,7 @@ export default function AlgorithmPage() {
       <AlgorithmsSidebar isOpen={true} selectedSlug={slug} />
 
       <main className="flex-1 md:ml-72">
-        <div className="max-w-4xl mx-auto px-8 md:px-12 py-10 md:py-14">
+        <div className="max-w-6xl mx-auto px-8 md:px-12 py-10 md:py-14">
           <h1
             className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
             style={{

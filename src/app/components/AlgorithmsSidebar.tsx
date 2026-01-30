@@ -309,7 +309,7 @@ export default function AlgorithmsSidebar({
           scrollbar-color: rgba(141, 118, 233, 0.4) rgba(141, 118, 233, 0.05);
         }
       `}</style>
-      <div className="py-6 pr-6 pl-8 sm:pl-10 lg:pl-12">
+      <div className="py-6 px-8 md:px-12">
         <h2
           className="text-lg font-light mb-4"
           style={{
