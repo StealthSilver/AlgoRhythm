@@ -287,11 +287,13 @@ export default function AlgorithmsSidebar({
       className={cn(
         "hidden md:block",
         "custom-scrollbar overflow-y-auto",
-        "rounded-2xl",
-        "border border-[rgba(var(--foreground),0.10)]",
+        "relative rounded-2xl backdrop-blur-md",
         className,
       )}
-      style={{ backgroundColor: "rgba(var(--foreground), 0.02)" }}
+      style={{
+        backgroundColor: "rgba(var(--foreground), 0.02)",
+        boxShadow: "0 18px 50px rgba(0, 0, 0, 0.18)",
+      }}
     >
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
@@ -316,14 +318,21 @@ export default function AlgorithmsSidebar({
         }
       `}</style>
       <div
-        className="p-4 lg:p-5"
+        className="pointer-events-none absolute inset-0 rounded-2xl"
+        style={{
+          background:
+            "radial-gradient(circle at top left, rgba(141, 118, 233, 0.14) 0%, transparent 55%), radial-gradient(circle at bottom right, rgba(138, 77, 152, 0.10) 0%, transparent 60%)",
+        }}
+      />
+      <div
+        className="relative z-10 p-4 lg:p-5"
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
       >
         <div
           className="mb-4 rounded-xl px-3 py-2"
           style={{
             backgroundColor: "rgba(var(--foreground), 0.04)",
-            border: "1px solid rgba(var(--foreground), 0.08)",
+            boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.06)",
           }}
         >
           <h2
@@ -335,9 +344,6 @@ export default function AlgorithmsSidebar({
           >
             Algorithm Categories
           </h2>
-          <p className="text-xs mt-0.5" style={{ opacity: 0.65 }}>
-            Browse topics and jump into any algorithm.
-          </p>
         </div>
 
         <nav className="space-y-2">
@@ -349,8 +355,8 @@ export default function AlgorithmsSidebar({
                 key={category.name}
                 className="rounded-xl"
                 style={{
-                  backgroundColor: "rgba(var(--background), 0.35)",
-                  border: "1px solid rgba(var(--foreground), 0.10)",
+                  backgroundColor: "rgba(var(--background), 0.28)",
+                  boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.04)",
                 }}
               >
                 {/* Category Header */}
@@ -395,19 +401,13 @@ export default function AlgorithmsSidebar({
                         href={`/algorithms/${algorithm.slug}`}
                         className={cn(
                           "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
-                          isSelected
-                            ? "text-[rgb(141,118,233)]"
-                            : "hover:text-[rgb(141,118,233)]",
+                          "text-[rgb(var(--foreground))] opacity-70 visited:text-[rgb(var(--foreground))]",
+                          "hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
+                          isSelected &&
+                            "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
                         )}
                         style={{
                           fontFamily: "var(--font-inter), sans-serif",
-                          color: isSelected
-                            ? "rgb(141, 118, 233)"
-                            : "rgb(var(--foreground))",
-                          opacity: isSelected ? 1 : 0.72,
-                          backgroundColor: isSelected
-                            ? "rgba(141, 118, 233, 0.12)"
-                            : "transparent",
                         }}
                       >
                         {algorithm.name}
