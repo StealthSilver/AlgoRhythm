@@ -45,7 +45,7 @@ interface MemoryStep {
   gcEvent?: GCEvent;
 }
 
-type DetailLevel = "beginner" | "advanced";
+type DetailLevel = "simple" | "detailed";
 
 function cloneHeap(heap: HeapEntry[]): HeapEntry[] {
   return heap.map((h) => ({
@@ -592,8 +592,9 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
   const [arraySize, setArraySize] = useState([14]);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const [detailLevel, setDetailLevel] = useState<DetailLevel>("beginner");
-  const [showTempHeapInBeginner, setShowTempHeapInBeginner] = useState(false);
+  const [detailLevel, setDetailLevel] = useState<DetailLevel>("simple");
+  const [showHelperArraysInSimple, setShowHelperArraysInSimple] =
+    useState(false);
 
   const stepsRef = useRef<MemoryStep[]>([]);
   const timeoutRef = useRef<number | null>(null);
@@ -724,12 +725,12 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
     return [...primary, ...others];
   }, [active]);
 
-  const beginnerHeapList = useMemo(() => {
+  const simpleHeapList = useMemo(() => {
     if (!active) return [] as HeapEntry[];
     const base = heapPrimary.filter((h) => h.id === "A");
-    if (showTempHeapInBeginner) return heapPrimary;
+    if (showHelperArraysInSimple) return heapPrimary;
     return base;
-  }, [active, heapPrimary, showTempHeapInBeginner]);
+  }, [active, heapPrimary, showHelperArraysInSimple]);
 
   return (
     <div className="space-y-6">
@@ -828,23 +829,23 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
           >
             <Button
               type="button"
-              variant={detailLevel === "beginner" ? "default" : "ghost"}
-              onClick={() => setDetailLevel("beginner")}
+              variant={detailLevel === "simple" ? "default" : "ghost"}
+              onClick={() => setDetailLevel("simple")}
               className="h-8 px-3"
               role="tab"
-              aria-selected={detailLevel === "beginner"}
+              aria-selected={detailLevel === "simple"}
             >
-              Beginner
+              Simple
             </Button>
             <Button
               type="button"
-              variant={detailLevel === "advanced" ? "default" : "ghost"}
-              onClick={() => setDetailLevel("advanced")}
+              variant={detailLevel === "detailed" ? "default" : "ghost"}
+              onClick={() => setDetailLevel("detailed")}
               className="h-8 px-3"
               role="tab"
-              aria-selected={detailLevel === "advanced"}
+              aria-selected={detailLevel === "detailed"}
             >
-              Advanced
+              Detailed
             </Button>
           </div>
         </div>
@@ -859,27 +860,19 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
           border: "1px solid rgba(141, 118, 233, 0.18)",
         }}
       >
-        {detailLevel === "beginner" ? (
+        {detailLevel === "simple" ? (
           <div className="space-y-2">
             <p className="text-sm" style={{ opacity: 0.85 }}>
-              Beginner view: think of memory as two places.
+              Quick guide: <span className="font-medium">Stack</span> =
+              variables,
+              <span className="font-medium"> Heap</span> = arrays.
             </p>
-            <ul className="text-sm space-y-1" style={{ opacity: 0.8 }}>
-              <li>
-                <span className="font-medium">Stack</span>: the current
-                function’s variables (like{" "}
-                <span className="font-medium">i</span>,
-                <span className="font-medium"> j</span>,{" "}
-                <span className="font-medium">key</span>).
-              </li>
-              <li>
-                <span className="font-medium">Heap</span>: bigger things like
-                arrays. When the stack says{" "}
-                <span className="font-medium">arr → heap</span>, it means “arr
-                points to an array stored in the heap”.
-              </li>
-            </ul>
-            <div className="flex flex-wrap gap-2 pt-2">
+            <p className="text-xs" style={{ opacity: 0.72 }}>
+              If you see <span className="font-medium">arr → heap</span>, it
+              means the variable <span className="font-medium">arr</span> points
+              to the array stored in the heap.
+            </p>
+            <div className="flex flex-wrap gap-2 pt-1">
               <div
                 className="rounded-lg px-2 py-1 text-xs"
                 style={{
@@ -887,7 +880,7 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
                   border: "1px solid rgba(141, 118, 233, 0.18)",
                 }}
               >
-                Purple = active focus
+                Purple = focus
               </div>
               <div
                 className="rounded-lg px-2 py-1 text-xs"
@@ -896,7 +889,7 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
                   border: "1px solid rgba(245, 158, 11, 0.30)",
                 }}
               >
-                Yellow = compared / moved
+                Yellow = active indexes
               </div>
             </div>
           </div>
@@ -926,7 +919,7 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
             </div>
           ) : (
             <div className="space-y-4">
-              {detailLevel === "beginner" ? (
+              {detailLevel === "simple" ? (
                 <>
                   <div
                     className="rounded-xl p-4"
@@ -990,7 +983,7 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
                       className="cursor-pointer text-sm"
                       style={{ opacity: 0.8 }}
                     >
-                      Advanced details: full call stack
+                      More details: full call stack
                     </summary>
                     <div className="mt-3 space-y-3">
                       {[...active.stack]
@@ -1118,114 +1111,117 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
             </div>
           ) : (
             <div className="space-y-3">
-              {detailLevel === "beginner" &&
+              {detailLevel === "simple" &&
               active.heap.some((h) => h.id !== "A") ? (
                 <div className="flex items-center justify-between gap-3">
                   <div className="text-xs" style={{ opacity: 0.7 }}>
-                    Showing main array only.
+                    Showing main array.
                   </div>
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => setShowTempHeapInBeginner((v) => !v)}
+                    onClick={() => setShowHelperArraysInSimple((v) => !v)}
                     className="h-8"
                   >
-                    {showTempHeapInBeginner
-                      ? "Hide temp arrays"
-                      : "Show temp arrays"}
+                    {showHelperArraysInSimple
+                      ? "Hide helper arrays"
+                      : "Show helper arrays"}
                   </Button>
                 </div>
               ) : null}
 
-              {(detailLevel === "beginner"
-                ? beginnerHeapList
-                : heapPrimary
-              ).map((entry) => {
-                const isHighlighted = active.highlight?.heapId === entry.id;
+              {(detailLevel === "simple" ? simpleHeapList : heapPrimary).map(
+                (entry) => {
+                  const isHighlighted = active.highlight?.heapId === entry.id;
 
-                return (
-                  <div
-                    key={entry.id}
-                    className="rounded-xl p-4"
-                    style={{
-                      backgroundColor: isHighlighted
-                        ? "rgba(141, 118, 233, 0.10)"
-                        : "rgba(var(--foreground), 0.03)",
-                      border: isHighlighted
-                        ? "1px solid rgba(141, 118, 233, 0.18)"
-                        : "1px solid rgba(var(--foreground), 0.08)",
-                      opacity: entry.status === "garbage" ? 0.55 : 1,
-                    }}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="text-sm font-medium">
-                          {entry.label}{" "}
-                          {detailLevel === "advanced" ? (
-                            <span style={{ opacity: 0.65 }}>
-                              ({formatPtr(entry.id)})
-                            </span>
-                          ) : null}
+                  return (
+                    <div
+                      key={entry.id}
+                      className="rounded-xl p-4"
+                      style={{
+                        backgroundColor: isHighlighted
+                          ? "rgba(141, 118, 233, 0.10)"
+                          : "rgba(var(--foreground), 0.03)",
+                        border: isHighlighted
+                          ? "1px solid rgba(141, 118, 233, 0.18)"
+                          : "1px solid rgba(var(--foreground), 0.08)",
+                        opacity: entry.status === "garbage" ? 0.55 : 1,
+                      }}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="text-sm font-medium">
+                            {entry.label}{" "}
+                            {detailLevel === "detailed" ? (
+                              <span style={{ opacity: 0.65 }}>
+                                ({formatPtr(entry.id)})
+                              </span>
+                            ) : null}
+                          </div>
+                          <div className="text-xs" style={{ opacity: 0.7 }}>
+                            {entry.kind === "array"
+                              ? "Array"
+                              : detailLevel === "simple"
+                                ? "Helper array"
+                                : "Temp Array"}
+                            {detailLevel === "detailed" ? (
+                              <> · {entry.status}</>
+                            ) : entry.status === "garbage" ? (
+                              <> · removed</>
+                            ) : null}
+                          </div>
                         </div>
-                        <div className="text-xs" style={{ opacity: 0.7 }}>
-                          {entry.kind === "array" ? "Array" : "Temp Array"}
-                          {detailLevel === "advanced" ? (
-                            <> · {entry.status}</>
-                          ) : entry.status === "garbage" ? (
-                            <> · removed</>
-                          ) : null}
-                        </div>
+
+                        {entry.id === "A" && mainHeap ? (
+                          <div className="text-xs" style={{ opacity: 0.7 }}>
+                            len={mainHeap.value.length}
+                          </div>
+                        ) : null}
                       </div>
 
-                      {entry.id === "A" && mainHeap ? (
-                        <div className="text-xs" style={{ opacity: 0.7 }}>
-                          len={mainHeap.value.length}
-                        </div>
-                      ) : null}
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {entry.value.map((v, idx) => {
+                          const isIdxHighlighted =
+                            entry.id === active.highlight?.heapId &&
+                            (active.highlight.arrayIndexes ?? []).includes(idx);
+
+                          return (
+                            <motion.div
+                              key={idx}
+                              layout
+                              className="w-10 h-10 rounded-lg flex items-center justify-center text-xs"
+                              style={{
+                                backgroundColor: isIdxHighlighted
+                                  ? "rgba(245, 158, 11, 0.22)"
+                                  : "rgba(var(--background), 0.45)",
+                                border: isIdxHighlighted
+                                  ? "1px solid rgba(245, 158, 11, 0.45)"
+                                  : "1px solid rgba(var(--foreground), 0.06)",
+                                color: "rgb(var(--foreground))",
+                              }}
+                            >
+                              <div className="relative w-full h-full flex items-center justify-center">
+                                {detailLevel === "simple" ? (
+                                  <span
+                                    className="absolute left-1 top-1 text-[10px]"
+                                    style={{ opacity: 0.55 }}
+                                  >
+                                    {idx}
+                                  </span>
+                                ) : null}
+                                <span>{v}</span>
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
                     </div>
+                  );
+                },
+              )}
 
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {entry.value.map((v, idx) => {
-                        const isIdxHighlighted =
-                          entry.id === active.highlight?.heapId &&
-                          (active.highlight.arrayIndexes ?? []).includes(idx);
-
-                        return (
-                          <motion.div
-                            key={idx}
-                            layout
-                            className="w-10 h-10 rounded-lg flex items-center justify-center text-xs"
-                            style={{
-                              backgroundColor: isIdxHighlighted
-                                ? "rgba(245, 158, 11, 0.22)"
-                                : "rgba(var(--background), 0.45)",
-                              border: isIdxHighlighted
-                                ? "1px solid rgba(245, 158, 11, 0.45)"
-                                : "1px solid rgba(var(--foreground), 0.06)",
-                              color: "rgb(var(--foreground))",
-                            }}
-                          >
-                            <div className="relative w-full h-full flex items-center justify-center">
-                              {detailLevel === "beginner" ? (
-                                <span
-                                  className="absolute left-1 top-1 text-[10px]"
-                                  style={{ opacity: 0.55 }}
-                                >
-                                  {idx}
-                                </span>
-                              ) : null}
-                              <span>{v}</span>
-                            </div>
-                          </motion.div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-
-              {detailLevel === "beginner" &&
-              !showTempHeapInBeginner &&
+              {detailLevel === "simple" &&
+              !showHelperArraysInSimple &&
               active.heap.some((h) => h.id !== "A") ? (
                 <details
                   className="rounded-xl p-4"
@@ -1238,7 +1234,7 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
                     className="cursor-pointer text-sm"
                     style={{ opacity: 0.8 }}
                   >
-                    Advanced details: other heap objects
+                    More details: other heap objects
                   </summary>
                   <div className="mt-3 space-y-3">
                     {heapPrimary
@@ -1316,7 +1312,7 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
           </div>
           <div className="text-sm" style={{ opacity: 0.7 }}>
             Step {totalSteps > 0 ? currentStep + 1 : 0} / {totalSteps || "?"}
-            {detailLevel === "advanced" &&
+            {detailLevel === "detailed" &&
             active?.gcEvent &&
             active.gcEvent !== "none" ? (
               <span className="ml-3" style={{ color: "rgb(141,118,233)" }}>
