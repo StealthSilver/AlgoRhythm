@@ -4,6 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { algorithmData } from "@/app/data/algorithmData";
+import { AboutTab } from "@/app/components/tabs/AboutTab";
+import { ComplexityTab } from "@/app/components/tabs/ComplexityTab";
+import { DataDiagramTab } from "@/app/components/tabs/DataDiagramTab";
+import { VisualizeTab } from "@/app/components/tabs/VisualizeTab";
 import { cn } from "@/lib/utils";
 
 interface AlgorithmViewProps {
@@ -71,7 +75,7 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="max-w-none"
+        className="max-w-5xl mx-auto"
       >
         {/* Header */}
         <div className="mb-8">
@@ -91,39 +95,17 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
             >
               {algorithm.name}
             </motion.h1>
-
-            <div className="flex flex-wrap gap-2 pb-1">
-              <span
-                className="px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{
-                  background: "rgba(141, 118, 233, 0.12)",
-                  color: "rgb(141, 118, 233)",
-                }}
-              >
-                {algorithm.category}
-              </span>
-              <span
-                className="px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{
-                  backgroundColor: "rgba(var(--foreground), 0.04)",
-                  border: "1px solid rgba(var(--foreground), 0.08)",
-                  opacity: 0.9,
-                }}
-              >
-                Time: {algorithm.timeComplexity}
-              </span>
-              <span
-                className="px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{
-                  backgroundColor: "rgba(var(--foreground), 0.04)",
-                  border: "1px solid rgba(var(--foreground), 0.08)",
-                  opacity: 0.9,
-                }}
-              >
-                Space: {algorithm.spaceComplexity}
-              </span>
-            </div>
           </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.06 }}
+            className="mt-3 text-sm sm:text-base"
+            style={{ opacity: 0.72 }}
+          >
+            {algorithm.shortDescription}
+          </motion.p>
 
           {/* View Toggles */}
           <div className="mt-3">
@@ -146,18 +128,41 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
                     className={cn(
-                      "px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                      "relative px-3 py-2 rounded-lg text-sm transition-colors",
                       "text-[rgb(var(--foreground))]",
                       isActive
-                        ? "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100"
-                        : "opacity-70 hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
+                        ? "opacity-100"
+                        : "opacity-70 hover:text-[rgb(141,118,233)] hover:opacity-100",
                     )}
                     style={{ fontFamily: "var(--font-inter), sans-serif" }}
                     role="tab"
                     aria-selected={isActive}
                     aria-controls={`algo-panel-${tab.id}`}
                   >
-                    {tab.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="algo-tab-indicator"
+                        className="absolute inset-0 rounded-lg"
+                        transition={{
+                          type: "spring",
+                          stiffness: 320,
+                          damping: 32,
+                        }}
+                        style={{
+                          background: "rgba(141, 118, 233, 0.12)",
+                          boxShadow: "0 10px 30px rgba(141, 118, 233, 0.10)",
+                          border: "1px solid rgba(141, 118, 233, 0.18)",
+                        }}
+                      />
+                    )}
+                    <span
+                      className={cn(
+                        "relative z-10",
+                        isActive ? "text-[rgb(141,118,233)]" : undefined,
+                      )}
+                    >
+                      {tab.label}
+                    </span>
                   </button>
                 );
               })}
@@ -175,159 +180,26 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
             transition={{ duration: 0.2 }}
           >
             {activeTab === "about" && (
-              <section
-                className="rounded-2xl p-6"
-                style={{
-                  backgroundColor: "rgba(var(--foreground), 0.02)",
-                  border: "1px solid rgba(var(--foreground), 0.08)",
-                }}
-                id="algo-panel-about"
-                role="tabpanel"
-              >
-                <section className="mb-8">
-                  <h2
-                    className="text-2xl font-medium mb-3"
-                    style={{
-                      fontFamily: "var(--font-space-grotesk), sans-serif",
-                    }}
-                  >
-                    Description
-                  </h2>
-                  <p
-                    className="text-base sm:text-lg leading-relaxed"
-                    style={{ opacity: 0.75 }}
-                  >
-                    {algorithm.description}
-                  </p>
-                </section>
-
-                <h2
-                  className="text-2xl font-medium mb-4"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                  }}
-                >
-                  How it Works
-                </h2>
-                <ol className="space-y-3" style={{ opacity: 0.85 }}>
-                  {algorithm.steps.map((step, index) => (
-                    <li key={index} className="flex gap-3">
-                      <span
-                        className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-light"
-                        style={{
-                          background: "rgba(141, 118, 233, 0.12)",
-                          color: "rgb(141, 118, 233)",
-                        }}
-                      >
-                        {index + 1}
-                      </span>
-                      <span className="pt-0.5">{step}</span>
-                    </li>
-                  ))}
-                </ol>
-
-                <h3
-                  className="text-xl font-medium mt-8 mb-4"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                  }}
-                >
-                  Use Cases
-                </h3>
-                <ul className="space-y-2" style={{ opacity: 0.85 }}>
-                  {algorithm.useCases.map((useCase, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span
-                        style={{ color: "rgb(141, 118, 233)" }}
-                        className="mt-1"
-                      >
-                        •
-                      </span>
-                      <span>{useCase}</span>
-                    </li>
-                  ))}
-                </ul>
+              <section id="algo-panel-about" role="tabpanel">
+                <AboutTab algorithm={algorithm} />
               </section>
             )}
 
             {activeTab === "visualize" && (
-              <section
-                className="rounded-2xl p-10 flex items-center justify-center"
-                style={{
-                  backgroundColor: "rgba(var(--foreground), 0.02)",
-                  border: "1px solid rgba(var(--foreground), 0.08)",
-                }}
-                id="algo-panel-visualize"
-                role="tabpanel"
-              >
-                <p style={{ opacity: 0.7 }}>
-                  Interactive visualization coming soon...
-                </p>
+              <section id="algo-panel-visualize" role="tabpanel">
+                <VisualizeTab algorithm={algorithm} />
               </section>
             )}
 
             {activeTab === "diagram" && (
-              <section
-                className="rounded-2xl p-10 flex items-center justify-center"
-                style={{
-                  backgroundColor: "rgba(var(--foreground), 0.02)",
-                  border: "1px solid rgba(var(--foreground), 0.08)",
-                }}
-                id="algo-panel-diagram"
-                role="tabpanel"
-              >
-                <p style={{ opacity: 0.7 }}>Data diagram coming soon...</p>
+              <section id="algo-panel-diagram" role="tabpanel">
+                <DataDiagramTab algorithm={algorithm} />
               </section>
             )}
 
             {activeTab === "complexity" && (
-              <section
-                className="rounded-2xl p-6"
-                style={{
-                  backgroundColor: "rgba(var(--foreground), 0.02)",
-                  border: "1px solid rgba(var(--foreground), 0.08)",
-                }}
-                id="algo-panel-complexity"
-                role="tabpanel"
-              >
-                <h2
-                  className="text-2xl font-medium mb-4"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                  }}
-                >
-                  Complexity
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div
-                    className="rounded-xl p-4"
-                    style={{
-                      backgroundColor: "rgba(var(--foreground), 0.03)",
-                      border: "1px solid rgba(var(--foreground), 0.08)",
-                    }}
-                  >
-                    <p className="text-sm" style={{ opacity: 0.7 }}>
-                      Time Complexity
-                    </p>
-                    <p className="text-lg font-semibold mt-1">
-                      {algorithm.timeComplexity}
-                    </p>
-                  </div>
-                  <div
-                    className="rounded-xl p-4"
-                    style={{
-                      backgroundColor: "rgba(var(--foreground), 0.03)",
-                      border: "1px solid rgba(var(--foreground), 0.08)",
-                    }}
-                  >
-                    <p className="text-sm" style={{ opacity: 0.7 }}>
-                      Space Complexity
-                    </p>
-                    <p className="text-lg font-semibold mt-1">
-                      {algorithm.spaceComplexity}
-                    </p>
-                  </div>
-                </div>
+              <section id="algo-panel-complexity" role="tabpanel">
+                <ComplexityTab algorithm={algorithm} />
               </section>
             )}
           </motion.div>

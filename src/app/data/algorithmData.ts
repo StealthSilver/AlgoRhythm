@@ -2,6 +2,7 @@ export interface Algorithm {
   name: string;
   slug: string;
   category: string;
+  shortDescription: string;
   description: string;
   timeComplexity: string;
   spaceComplexity: string;
@@ -18,6 +19,7 @@ export const algorithmData: AlgorithmData = {
     name: "Bubble Sort",
     slug: "bubble-sort",
     category: "Sorting",
+    shortDescription: "Simple comparison-based sorting algorithm",
     description:
       "Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted. The algorithm gets its name because smaller elements 'bubble' to the top of the list.",
     timeComplexity: "O(n²)",
@@ -40,6 +42,7 @@ export const algorithmData: AlgorithmData = {
     name: "Quick Sort",
     slug: "quick-sort",
     category: "Sorting",
+    shortDescription: "Fast divide-and-conquer, pivot-based sorting",
     description:
       "Quick Sort is an efficient, in-place sorting algorithm that uses a divide-and-conquer strategy. It works by selecting a 'pivot' element and partitioning the array around it, such that elements smaller than the pivot come before it and elements greater come after it. This process is then recursively applied to the sub-arrays.",
     timeComplexity: "O(n log n) average, O(n²) worst",
@@ -61,6 +64,7 @@ export const algorithmData: AlgorithmData = {
     name: "Merge Sort",
     slug: "merge-sort",
     category: "Sorting",
+    shortDescription: "Stable divide-and-conquer sorting algorithm",
     description:
       "Merge Sort is a stable, divide-and-conquer sorting algorithm that divides the input array into two halves, recursively sorts them, and then merges the two sorted halves. It guarantees O(n log n) time complexity in all cases, making it very predictable and reliable.",
     timeComplexity: "O(n log n)",
@@ -83,6 +87,7 @@ export const algorithmData: AlgorithmData = {
     name: "Insertion Sort",
     slug: "insertion-sort",
     category: "Sorting",
+    shortDescription: "Builds a sorted array one element at a time",
     description:
       "Insertion Sort builds the final sorted array one item at a time. It iterates through an input array and removes one element per iteration, finds the place it belongs in the sorted portion, and inserts it there. It's much like sorting playing cards in your hands.",
     timeComplexity: "O(n²)",
@@ -104,6 +109,7 @@ export const algorithmData: AlgorithmData = {
     name: "Selection Sort",
     slug: "selection-sort",
     category: "Sorting",
+    shortDescription: "Repeatedly selects the minimum to sort",
     description:
       "Selection Sort divides the array into a sorted and unsorted region. It repeatedly finds the minimum element from the unsorted region and moves it to the end of the sorted region. Despite its simplicity, it performs poorly on large lists.",
     timeComplexity: "O(n²)",
@@ -125,6 +131,7 @@ export const algorithmData: AlgorithmData = {
     name: "Heap Sort",
     slug: "heap-sort",
     category: "Sorting",
+    shortDescription: "Sorting using a binary heap data structure",
     description:
       "Heap Sort is a comparison-based sorting algorithm that uses a binary heap data structure. It first builds a max heap from the input data, then repeatedly extracts the maximum element and rebuilds the heap until all elements are sorted.",
     timeComplexity: "O(n log n)",
@@ -146,6 +153,7 @@ export const algorithmData: AlgorithmData = {
     name: "Linear Search",
     slug: "linear-search",
     category: "Searching",
+    shortDescription: "Sequential search through elements",
     description:
       "Linear Search is the simplest searching algorithm that checks every element in the list sequentially until the target element is found or the list ends. It doesn't require the data to be sorted and works on any type of list.",
     timeComplexity: "O(n)",
@@ -167,6 +175,7 @@ export const algorithmData: AlgorithmData = {
     name: "Binary Search",
     slug: "binary-search",
     category: "Searching",
+    shortDescription: "Efficient search in sorted arrays",
     description:
       "Binary Search is an efficient algorithm for finding an item in a sorted array. It works by repeatedly dividing the search interval in half. If the target value is less than the middle element, search the left half; otherwise, search the right half.",
     timeComplexity: "O(log n)",
@@ -188,6 +197,7 @@ export const algorithmData: AlgorithmData = {
     name: "Jump Search",
     slug: "jump-search",
     category: "Searching",
+    shortDescription: "Block-jumping search for sorted arrays",
     description:
       "Jump Search is a searching algorithm for sorted arrays. It works by jumping ahead by fixed steps and then performing a linear search in the identified block. The optimal jump size is √n, making it faster than linear search but slower than binary search.",
     timeComplexity: "O(√n)",
@@ -209,6 +219,7 @@ export const algorithmData: AlgorithmData = {
     name: "Two Pointers",
     slug: "two-pointers",
     category: "Arrays",
+    shortDescription: "Technique using two indices to solve array problems",
     description:
       "Two Pointers is a technique where two pointers iterate through an array, typically from different ends or at different speeds. It's commonly used to solve array problems in linear time and constant space, especially for sorted arrays.",
     timeComplexity: "O(n)",
@@ -231,6 +242,7 @@ export const algorithmData: AlgorithmData = {
     name: "Sliding Window",
     slug: "sliding-window",
     category: "Arrays",
+    shortDescription: "Maintains a moving window over data",
     description:
       "Sliding Window is a technique for processing arrays or lists by maintaining a window of elements and sliding it through the data structure. It's useful for problems involving subarrays or substrings with specific properties.",
     timeComplexity: "O(n)",
@@ -253,6 +265,7 @@ export const algorithmData: AlgorithmData = {
     name: "Kadane's Algorithm",
     slug: "kadanes-algorithm",
     category: "Arrays",
+    shortDescription: "Maximum subarray sum in linear time",
     description:
       "Kadane's Algorithm is used to find the maximum sum of a contiguous subarray within a one-dimensional array. It uses dynamic programming principles and runs in linear time, making it very efficient.",
     timeComplexity: "O(n)",
@@ -275,6 +288,7 @@ export const algorithmData: AlgorithmData = {
     name: "Dutch National Flag",
     slug: "dutch-national-flag",
     category: "Arrays",
+    shortDescription: "Three-way partitioning in a single pass",
     description:
       "The Dutch National Flag algorithm is a sorting algorithm that partitions an array into three parts. It's commonly used to sort an array of 0s, 1s, and 2s in linear time using constant space.",
     timeComplexity: "O(n)",
@@ -298,6 +312,7 @@ export const algorithmData: AlgorithmData = {
     name: "Reverse Linked List",
     slug: "reverse-linked-list",
     category: "Linked Lists",
+    shortDescription: "Reverse a linked list in-place",
     description:
       "Reversing a linked list involves changing the direction of all the pointers in the list so that the last node becomes the first node. This can be done iteratively or recursively.",
     timeComplexity: "O(n)",
@@ -321,6 +336,7 @@ export const algorithmData: AlgorithmData = {
     name: "Detect Cycle",
     slug: "detect-cycle",
     category: "Linked Lists",
+    shortDescription: "Detect a cycle using fast/slow pointers",
     description:
       "Floyd's Cycle Detection Algorithm (Tortoise and Hare) detects if a linked list contains a cycle. It uses two pointers moving at different speeds - if there's a cycle, they will eventually meet.",
     timeComplexity: "O(n)",
@@ -343,6 +359,7 @@ export const algorithmData: AlgorithmData = {
     name: "Merge Two Lists",
     slug: "merge-two-lists",
     category: "Linked Lists",
+    shortDescription: "Merge two sorted linked lists",
     description:
       "Merging two sorted linked lists involves comparing nodes from both lists and linking them in ascending order to create a single sorted list. This is a fundamental operation used in merge sort.",
     timeComplexity: "O(n + m)",
@@ -366,6 +383,7 @@ export const algorithmData: AlgorithmData = {
     name: "Remove Nth Node",
     slug: "remove-nth-node",
     category: "Linked Lists",
+    shortDescription: "Remove the Nth node from the end",
     description:
       "Removing the nth node from the end of a linked list can be efficiently done using the two-pointer technique. One pointer moves n steps ahead, then both pointers move together until the first reaches the end.",
     timeComplexity: "O(n)",
@@ -389,6 +407,7 @@ export const algorithmData: AlgorithmData = {
     name: "Tree Traversal",
     slug: "tree-traversal",
     category: "Trees",
+    shortDescription: "Visit all nodes using standard traversal orders",
     description:
       "Tree traversal refers to visiting all nodes in a tree data structure. Common methods include In-order (left, root, right), Pre-order (root, left, right), and Post-order (left, right, root) for binary trees, and Level-order for breadth-first traversal.",
     timeComplexity: "O(n)",
@@ -411,6 +430,7 @@ export const algorithmData: AlgorithmData = {
     name: "Binary Search Tree",
     slug: "binary-search-tree",
     category: "Trees",
+    shortDescription: "Ordered tree for fast search and insert",
     description:
       "A Binary Search Tree (BST) is a tree data structure where each node has at most two children. For each node, all values in the left subtree are less than the node's value, and all values in the right subtree are greater.",
     timeComplexity: "O(log n) average, O(n) worst",
@@ -434,6 +454,7 @@ export const algorithmData: AlgorithmData = {
     name: "AVL Tree",
     slug: "avl-tree",
     category: "Trees",
+    shortDescription: "Self-balancing binary search tree",
     description:
       "An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at most one. When this balance is violated, rotations are performed to restore balance.",
     timeComplexity: "O(log n)",
@@ -457,6 +478,7 @@ export const algorithmData: AlgorithmData = {
     name: "Segment Tree",
     slug: "segment-tree",
     category: "Trees",
+    shortDescription: "Efficient range queries and updates",
     description:
       "A Segment Tree is a tree data structure used for storing intervals or segments. It allows for efficient query operations over an array, particularly for range queries and updates.",
     timeComplexity: "O(log n) query and update",
@@ -479,6 +501,7 @@ export const algorithmData: AlgorithmData = {
     name: "Depth-First Search (DFS)",
     slug: "dfs",
     category: "Graphs",
+    shortDescription: "Graph traversal that explores deep first",
     description:
       "Depth-First Search is a graph traversal algorithm that explores as far as possible along each branch before backtracking. It uses a stack (or recursion) to remember where to go next after reaching a dead end.",
     timeComplexity: "O(V + E)",
@@ -502,6 +525,7 @@ export const algorithmData: AlgorithmData = {
     name: "Breadth-First Search (BFS)",
     slug: "bfs",
     category: "Graphs",
+    shortDescription: "Graph traversal that explores level by level",
     description:
       "Breadth-First Search is a graph traversal algorithm that explores all neighbors at the present depth before moving to nodes at the next depth level. It uses a queue to keep track of nodes to visit.",
     timeComplexity: "O(V + E)",
@@ -525,6 +549,7 @@ export const algorithmData: AlgorithmData = {
     name: "Dijkstra's Algorithm",
     slug: "dijkstras",
     category: "Graphs",
+    shortDescription: "Shortest paths with non-negative weights",
     description:
       "Dijkstra's Algorithm finds the shortest path from a source node to all other nodes in a weighted graph with non-negative edge weights. It greedily selects the node with the smallest known distance.",
     timeComplexity: "O((V + E) log V) with priority queue",
@@ -548,6 +573,7 @@ export const algorithmData: AlgorithmData = {
     name: "Bellman-Ford",
     slug: "bellman-ford",
     category: "Graphs",
+    shortDescription: "Shortest paths that handle negative edges",
     description:
       "Bellman-Ford Algorithm computes shortest paths from a source node to all other nodes in a weighted graph. Unlike Dijkstra's, it can handle negative edge weights and detect negative cycles.",
     timeComplexity: "O(V × E)",
@@ -570,6 +596,7 @@ export const algorithmData: AlgorithmData = {
     name: "Kruskal's Algorithm",
     slug: "kruskals",
     category: "Graphs",
+    shortDescription: "Greedy minimum spanning tree algorithm",
     description:
       "Kruskal's Algorithm finds the minimum spanning tree of a graph by sorting edges by weight and adding them one by one, ensuring no cycles are formed. It uses the Union-Find data structure.",
     timeComplexity: "O(E log E)",
@@ -592,6 +619,7 @@ export const algorithmData: AlgorithmData = {
     name: "Fibonacci",
     slug: "fibonacci",
     category: "Dynamic Programming",
+    shortDescription: "DP optimization of Fibonacci computation",
     description:
       "The Fibonacci sequence is a series where each number is the sum of the two preceding ones. Dynamic programming optimizes its calculation by storing previously computed values to avoid redundant calculations.",
     timeComplexity: "O(n)",
@@ -614,6 +642,7 @@ export const algorithmData: AlgorithmData = {
     name: "Knapsack Problem",
     slug: "knapsack",
     category: "Dynamic Programming",
+    shortDescription: "0/1 knapsack dynamic programming optimization",
     description:
       "The 0/1 Knapsack Problem involves selecting items with given weights and values to maximize total value without exceeding a weight capacity. Each item can be included or excluded.",
     timeComplexity: "O(n × W) where W is capacity",
@@ -637,6 +666,7 @@ export const algorithmData: AlgorithmData = {
     name: "Longest Common Subsequence",
     slug: "longest-common-subsequence",
     category: "Dynamic Programming",
+    shortDescription: "Find the LCS between two sequences",
     description:
       "LCS finds the longest subsequence common to two sequences. Unlike substrings, subsequences don't need to be contiguous. It's solved using dynamic programming with a 2D table.",
     timeComplexity: "O(m × n)",
@@ -659,6 +689,7 @@ export const algorithmData: AlgorithmData = {
     name: "Edit Distance",
     slug: "edit-distance",
     category: "Dynamic Programming",
+    shortDescription: "Minimum edits to transform one string into another",
     description:
       "Edit Distance (Levenshtein Distance) measures the minimum number of operations (insertion, deletion, substitution) required to transform one string into another. It's widely used in spell checking and DNA analysis.",
     timeComplexity: "O(m × n)",
@@ -682,6 +713,7 @@ export const algorithmData: AlgorithmData = {
     name: "Activity Selection",
     slug: "activity-selection",
     category: "Greedy",
+    shortDescription: "Greedy scheduling of non-overlapping activities",
     description:
       "Activity Selection Problem involves selecting the maximum number of non-overlapping activities from a set of activities with start and end times. The greedy approach sorts by finish time and selects activities that don't conflict.",
     timeComplexity: "O(n log n)",
@@ -704,6 +736,7 @@ export const algorithmData: AlgorithmData = {
     name: "Huffman Coding",
     slug: "huffman-coding",
     category: "Greedy",
+    shortDescription: "Optimal prefix codes for compression",
     description:
       "Huffman Coding is a lossless data compression algorithm that assigns variable-length codes to characters based on their frequencies. More frequent characters get shorter codes.",
     timeComplexity: "O(n log n)",
@@ -727,6 +760,7 @@ export const algorithmData: AlgorithmData = {
     name: "Fractional Knapsack",
     slug: "fractional-knapsack",
     category: "Greedy",
+    shortDescription: "Greedy knapsack with divisible items",
     description:
       "Fractional Knapsack allows taking fractions of items to maximize value within weight capacity. Unlike 0/1 Knapsack, items can be broken into smaller pieces. The greedy approach sorts by value-to-weight ratio.",
     timeComplexity: "O(n log n)",
@@ -749,6 +783,7 @@ export const algorithmData: AlgorithmData = {
     name: "N-Queens",
     slug: "n-queens",
     category: "Backtracking",
+    shortDescription: "Backtracking placement of queens on a board",
     description:
       "The N-Queens problem involves placing N chess queens on an N×N chessboard so that no two queens attack each other. It uses backtracking to try all possible placements and backtrack when conflicts occur.",
     timeComplexity: "O(N!)",
@@ -772,6 +807,7 @@ export const algorithmData: AlgorithmData = {
     name: "Sudoku Solver",
     slug: "sudoku-solver",
     category: "Backtracking",
+    shortDescription: "Backtracking solver for Sudoku puzzles",
     description:
       "Sudoku Solver uses backtracking to fill a 9×9 grid with digits so that each column, row, and 3×3 subgrid contains all digits from 1 to 9. It tries values and backtracks when constraints are violated.",
     timeComplexity: "O(9^(n²)) worst case",
@@ -795,6 +831,7 @@ export const algorithmData: AlgorithmData = {
     name: "Rat in Maze",
     slug: "rat-in-maze",
     category: "Backtracking",
+    shortDescription: "Backtracking pathfinding through a maze",
     description:
       "Rat in Maze finds a path from the start to the end of a maze. The rat can move in four directions, and backtracking is used when a path leads to a dead end.",
     timeComplexity: "O(2^(n²))",
