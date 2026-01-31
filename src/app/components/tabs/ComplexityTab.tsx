@@ -46,8 +46,8 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
         transition={{ delay: 0.05 }}
       >
         <h3
-          className="text-xl font-medium mb-4"
-          style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+          className="text-xl font-semibold mb-4"
+          style={{ fontFamily: "var(--font-inter), sans-serif" }}
         >
           Complexity
         </h3>
@@ -114,8 +114,8 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
         transition={{ delay: 0.12 }}
       >
         <h4
-          className="text-lg font-medium mb-3"
-          style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+          className="text-lg font-semibold mb-3"
+          style={{ fontFamily: "var(--font-inter), sans-serif" }}
         >
           Complexity Comparison
         </h4>

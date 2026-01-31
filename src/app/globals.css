@@ -40,8 +40,26 @@
   h4,
   h5,
   h6 {
+    font-family: var(--font-inter), sans-serif;
     letter-spacing: -0.02em;
-    font-weight: 300;
+  }
+
+  h1 {
+    font-weight: 500;
+  }
+
+  h2 {
+    font-weight: 600;
+  }
+
+  h3,
+  h4 {
+    font-weight: 600;
+  }
+
+  h5,
+  h6 {
+    font-weight: 500;
   }
 
   @keyframes shimmer-fast {

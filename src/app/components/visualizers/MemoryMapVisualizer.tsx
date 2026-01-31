@@ -907,8 +907,8 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
         {/* Stack */}
         <div className="rounded-2xl p-6" style={containerStyle}>
           <h3
-            className="text-lg font-medium mb-4"
-            style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+            className="text-lg font-semibold mb-4"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Stack
           </h3>
@@ -1099,8 +1099,8 @@ export function MemoryMapVisualizer({ algorithmId }: MemoryMapVisualizerProps) {
         {/* Heap */}
         <div className="rounded-2xl p-6" style={containerStyle}>
           <h3
-            className="text-lg font-medium mb-4"
-            style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+            className="text-lg font-semibold mb-4"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Heap
           </h3>

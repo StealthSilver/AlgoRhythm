@@ -19,8 +19,8 @@ export function AboutTab({ algorithm }: AboutTabProps) {
         transition={{ delay: 0.05 }}
       >
         <h3
-          className="text-xl font-medium mb-3"
-          style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+          className="text-xl font-semibold mb-3"
+          style={{ fontFamily: "var(--font-inter), sans-serif" }}
         >
           What is {algorithm.name}?
         </h3>
@@ -44,8 +44,8 @@ export function AboutTab({ algorithm }: AboutTabProps) {
         }}
       >
         <h3
-          className="text-xl font-medium mb-4 flex items-center gap-2"
-          style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+          className="text-xl font-semibold mb-4 flex items-center gap-2"
+          style={{ fontFamily: "var(--font-inter), sans-serif" }}
         >
           <ListOrdered
             className="w-5 h-5"
@@ -85,8 +85,8 @@ export function AboutTab({ algorithm }: AboutTabProps) {
         transition={{ delay: 0.2 }}
       >
         <h3
-          className="text-xl font-medium mb-4 flex items-center gap-2"
-          style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+          className="text-xl font-semibold mb-4 flex items-center gap-2"
+          style={{ fontFamily: "var(--font-inter), sans-serif" }}
         >
           <CheckCircle2
             className="w-5 h-5"
@@ -140,8 +140,8 @@ export function AboutTab({ algorithm }: AboutTabProps) {
             style={{ color: "rgb(141, 118, 233)" }}
           />
           <h4
-            className="text-lg font-medium"
-            style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+            className="text-lg font-semibold"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Quick Facts
           </h4>

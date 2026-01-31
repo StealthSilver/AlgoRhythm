@@ -58,7 +58,7 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
           </motion.div>
           <h2
             className="text-xl font-semibold mb-2"
-            style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Select an Algorithm
           </h2>
@@ -85,9 +85,9 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-light"
+              className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight"
               style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 background:
                   "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
                 WebkitBackgroundClip: "text",

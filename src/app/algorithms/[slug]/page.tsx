@@ -44,9 +44,9 @@ export default function AlgorithmPage() {
               </div>
 
               <h1
-                className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
+                className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight mb-4"
                 style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                   background:
                     "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
                   WebkitBackgroundClip: "text",
@@ -119,9 +119,9 @@ export default function AlgorithmPage() {
             </div>
 
             <h1
-              className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight mb-4"
               style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 background:
                   "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
                 WebkitBackgroundClip: "text",
@@ -166,9 +166,9 @@ export default function AlgorithmPage() {
 
             <section className="mb-10">
               <h2
-                className="text-2xl font-medium mb-3"
+                className="text-2xl font-semibold mb-3"
                 style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                 }}
               >
                 Description
@@ -183,9 +183,9 @@ export default function AlgorithmPage() {
 
             <section className="mb-10">
               <h2
-                className="text-2xl font-medium mb-4"
+                className="text-2xl font-semibold mb-4"
                 style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                 }}
               >
                 How it Works
@@ -210,9 +210,9 @@ export default function AlgorithmPage() {
 
             <section className="mb-10">
               <h2
-                className="text-2xl font-medium mb-4"
+                className="text-2xl font-semibold mb-4"
                 style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                 }}
               >
                 Use Cases
@@ -234,9 +234,9 @@ export default function AlgorithmPage() {
 
             <section className="mb-8">
               <h2
-                className="text-2xl font-medium mb-4"
+                className="text-2xl font-semibold mb-4"
                 style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                 }}
               >
                 Visualization

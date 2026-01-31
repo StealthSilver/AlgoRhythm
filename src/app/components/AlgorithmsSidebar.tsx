@@ -413,7 +413,7 @@ export default function AlgorithmsSidebar({
               <h2
                 className="text-sm font-semibold tracking-wide"
                 style={{
-                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  fontFamily: "var(--font-inter), sans-serif",
                   color: "rgb(var(--foreground))",
                 }}
               >
@@ -575,9 +575,9 @@ export default function AlgorithmsSidebar({
                         if (isSearching) return;
                         toggleCategory(category.name);
                       }}
-                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-colors"
                       style={{
-                        fontFamily: "var(--font-space-grotesk), sans-serif",
+                        fontFamily: "var(--font-inter), sans-serif",
                         color: "rgb(var(--foreground))",
                         backgroundColor: "transparent",
                       }}
