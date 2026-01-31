@@ -2,7 +2,26 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Cpu,
+  Hash,
+  Layers,
+  Link2,
+  ListOrdered,
+  MousePointerClick,
+  Repeat,
+  Route,
+  Search,
+  Share2,
+  Shuffle,
+  Sparkles,
+  TreePine,
+  Workflow,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -28,6 +47,7 @@ export default function AlgorithmsSidebar({
   isCollapsed = false,
   onToggleCollapse,
 }: AlgorithmsSidebarProps) {
+  const [searchQuery, setSearchQuery] = useState("");
   const categories: AlgorithmCategory[] = [
     {
       name: "Arrays & Basic Operations",
@@ -254,6 +274,37 @@ export default function AlgorithmsSidebar({
     },
   ];
 
+  const categoryIconMap: Record<string, LucideIcon> = {
+    "Arrays & Basic Operations": MousePointerClick,
+    "Searching Algorithms": Search,
+    "Sorting Algorithms": Shuffle,
+    "Recursion Patterns": Repeat,
+    "Linked Lists": Link2,
+    "Stack Algorithms": Layers,
+    "Queue Algorithms": ListOrdered,
+    Hashing: Hash,
+    Trees: TreePine,
+    "Graph Algorithms": Share2,
+    "Dynamic Programming": Workflow,
+    "Greedy Algorithms": Sparkles,
+    Backtracking: Route,
+    "Advanced Algorithms": Cpu,
+  };
+
+  const filteredCategories = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return categories;
+
+    return categories
+      .map((category) => {
+        const algorithms = category.algorithms.filter((algo) =>
+          algo.name.toLowerCase().includes(q),
+        );
+        return { ...category, algorithms };
+      })
+      .filter((category) => category.algorithms.length > 0);
+  }, [categories, searchQuery]);
+
   // Find category containing selected algorithm
   const selectedCategory = useMemo(() => {
     if (!selectedSlug) return null;
@@ -298,7 +349,9 @@ export default function AlgorithmsSidebar({
         className,
       )}
       style={{
-        backgroundColor: "rgba(var(--foreground), 0.02)",
+        background:
+          "linear-gradient(180deg, rgba(141, 118, 233, 0.10) 0%, rgba(138, 77, 152, 0.06) 100%)",
+        border: "1px solid rgba(var(--foreground), 0.08)",
         boxShadow: "0 18px 50px rgba(0, 0, 0, 0.18)",
       }}
     >
@@ -328,88 +381,141 @@ export default function AlgorithmsSidebar({
         className="pointer-events-none absolute inset-0 rounded-2xl"
         style={{
           background:
-            "radial-gradient(circle at top left, rgba(141, 118, 233, 0.14) 0%, transparent 55%), radial-gradient(circle at bottom right, rgba(138, 77, 152, 0.10) 0%, transparent 60%)",
+            "radial-gradient(ellipse at 50% 0%, rgba(141, 118, 233, 0.08) 0%, transparent 70%)",
         }}
       />
-      <div
-        className="relative z-10 p-4 lg:p-5"
-        style={{ fontFamily: "var(--font-inter), sans-serif" }}
-      >
-        <div
-          className={cn(
-            "flex items-center",
-            isCollapsed ? "justify-center" : "justify-between",
-          )}
-        >
+      <div className="relative p-4">
+        <div className={cn("mb-4", isCollapsed ? "space-y-3" : "space-y-3")}>
           <div
-            className={cn("mb-4 rounded-xl px-3 py-2", isCollapsed && "px-2")}
-            style={{
-              backgroundColor: "rgba(var(--foreground), 0.04)",
-              boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.06)",
-            }}
+            className={cn(
+              "flex items-center",
+              isCollapsed ? "justify-center" : "justify-between",
+            )}
           >
-            <h2
+            <div
               className={cn(
-                "text-sm font-medium tracking-wide",
-                isCollapsed && "sr-only",
+                "flex items-center gap-2",
+                isCollapsed ? "justify-center" : "",
               )}
-              style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
-                color: "rgb(var(--foreground))",
-              }}
             >
-              Algorithm Categories
-            </h2>
-            {isCollapsed && (
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{
                   backgroundColor: "rgba(141, 118, 233, 0.10)",
                   border: "1px solid rgba(141, 118, 233, 0.18)",
                 }}
               >
-                <span style={{ color: "rgb(141, 118, 233)", fontWeight: 600 }}>
+                <span style={{ color: "rgb(141, 118, 233)", fontWeight: 700 }}>
                   A
                 </span>
               </div>
+              {!isCollapsed && (
+                <h2
+                  className="text-sm font-semibold tracking-wide"
+                  style={{
+                    fontFamily: "var(--font-space-grotesk), sans-serif",
+                    color: "rgb(var(--foreground))",
+                  }}
+                >
+                  Algorithms
+                </h2>
+              )}
+            </div>
+
+            {onToggleCollapse && (
+              <button
+                type="button"
+                onClick={onToggleCollapse}
+                className={cn(
+                  "rounded-xl p-2 transition-colors",
+                  isCollapsed ? "" : "ml-3",
+                )}
+                style={{
+                  backgroundColor: "rgba(var(--foreground), 0.04)",
+                  border: "1px solid rgba(var(--foreground), 0.08)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "rgba(138, 77, 152, 0.08)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "rgba(var(--foreground), 0.04)";
+                }}
+                aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              >
+                {isCollapsed ? (
+                  <ChevronRight className="w-4 h-4" style={{ opacity: 0.85 }} />
+                ) : (
+                  <ChevronLeft className="w-4 h-4" style={{ opacity: 0.85 }} />
+                )}
+              </button>
             )}
           </div>
 
-          {onToggleCollapse && (
-            <button
-              type="button"
-              onClick={onToggleCollapse}
-              className={cn(
-                "mb-4 rounded-xl p-2 transition-colors",
-                isCollapsed ? "mx-auto" : "ml-3",
-              )}
+          {!isCollapsed && (
+            <div
+              className="rounded-xl px-3 py-2 flex items-center gap-2"
               style={{
                 backgroundColor: "rgba(var(--foreground), 0.04)",
                 border: "1px solid rgba(var(--foreground), 0.08)",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  "rgba(138, 77, 152, 0.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  "rgba(var(--foreground), 0.04)";
-              }}
-              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              {isCollapsed ? (
-                <ChevronRight className="w-4 h-4" style={{ opacity: 0.85 }} />
-              ) : (
-                <ChevronLeft className="w-4 h-4" style={{ opacity: 0.85 }} />
-              )}
-            </button>
+              <Search className="w-4 h-4" style={{ opacity: 0.75 }} />
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search algorithms..."
+                className="w-full bg-transparent outline-none text-sm"
+                style={{ color: "rgb(var(--foreground))" }}
+              />
+            </div>
           )}
         </div>
 
-        {isCollapsed ? null : (
+        {isCollapsed ? (
+          <nav className="space-y-2">
+            {filteredCategories.map((category) => {
+              const Icon = categoryIconMap[category.name] ?? Sparkles;
+              return (
+                <button
+                  key={category.name}
+                  type="button"
+                  className="w-full flex items-center justify-center rounded-xl p-3 transition-colors"
+                  style={{
+                    backgroundColor: "rgba(var(--foreground), 0.03)",
+                    border: "1px solid rgba(var(--foreground), 0.08)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(138, 77, 152, 0.10)";
+                    e.currentTarget.style.borderColor =
+                      "rgba(138, 77, 152, 0.22)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(var(--foreground), 0.03)";
+                    e.currentTarget.style.borderColor =
+                      "rgba(var(--foreground), 0.08)";
+                  }}
+                  onClick={() => {
+                    // Expand and focus this category
+                    onToggleCollapse?.();
+                    setExpandedCategories([category.name]);
+                  }}
+                  aria-label={category.name}
+                  title={category.name}
+                >
+                  <Icon className="w-5 h-5" style={{ opacity: 0.9 }} />
+                </button>
+              );
+            })}
+          </nav>
+        ) : (
           <nav className="space-y-2">
             {categories.map((category) => {
               const isExpanded = expandedCategories.includes(category.name);
+              const Icon = categoryIconMap[category.name] ?? Sparkles;
 
               return (
                 <div
@@ -437,7 +543,11 @@ export default function AlgorithmsSidebar({
                       e.currentTarget.style.backgroundColor = "transparent";
                     }}
                   >
-                    <span className="text-[13px]" style={{ opacity: 0.9 }}>
+                    <span
+                      className="flex items-center gap-2 text-[13px]"
+                      style={{ opacity: 0.9 }}
+                    >
+                      <Icon className="w-4 h-4" style={{ opacity: 0.85 }} />
                       {category.name}
                     </span>
                     <ChevronDown

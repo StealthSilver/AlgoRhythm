@@ -21,7 +21,7 @@ export default function AlgorithmsPage() {
             onSelectAlgorithm={setSelectedAlgorithm}
             isCollapsed={sidebarCollapsed}
             onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
-            className="md:sticky md:top-6 h-[calc(100vh-9.5rem)] md:h-[calc(100vh-11rem)]"
+            className="md:sticky md:top-0 h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)]"
           />
         </div>
 
