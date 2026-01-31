@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import AlgorithmsSidebar from "../../components/AlgorithmsSidebar";
 import { algorithmData } from "@/app/data/algorithmData";
@@ -7,21 +8,41 @@ import { algorithmData } from "@/app/data/algorithmData";
 export default function AlgorithmPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const algorithm = algorithmData[slug];
 
   if (!algorithm) {
     return (
       <div className="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)]">
-        <div className="max-w-6xl mx-auto px-8 md:px-12 py-10 md:py-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 py-8 sm:py-10 md:py-14">
           <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 lg:gap-10 items-start">
-            <AlgorithmsSidebar
-              isOpen={true}
-              selectedSlug={slug}
-              className="md:sticky md:top-6 h-[calc(100vh-9.5rem)] md:h-[calc(100vh-11rem)]"
-            />
+            <div className="hidden md:block">
+              <AlgorithmsSidebar
+                isOpen={true}
+                visibilityClassName="block"
+                selectedSlug={slug}
+                className="md:sticky md:top-6 h-[calc(100vh-9.5rem)] md:h-[calc(100vh-11rem)]"
+              />
+            </div>
 
             <main className="min-w-0">
+              <div className="md:hidden mb-4">
+                <button
+                  type="button"
+                  onClick={() => setMobileSidebarOpen(true)}
+                  className="w-full rounded-xl px-4 py-3 text-sm font-medium flex items-center justify-between"
+                  style={{
+                    backgroundColor: "rgba(var(--foreground), 0.04)",
+                    border: "1px solid rgba(var(--foreground), 0.08)",
+                  }}
+                  aria-label="Open algorithm list"
+                >
+                  <span style={{ opacity: 0.9 }}>Browse algorithms</span>
+                  <span style={{ opacity: 0.6 }}>Tap to open</span>
+                </button>
+              </div>
+
               <h1
                 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
                 style={{
@@ -41,21 +62,62 @@ export default function AlgorithmPage() {
             </main>
           </div>
         </div>
+
+        {/* Mobile sidebar drawer */}
+        {mobileSidebarOpen && (
+          <div className="md:hidden fixed inset-0 z-50">
+            <button
+              type="button"
+              className="absolute inset-0"
+              onClick={() => setMobileSidebarOpen(false)}
+              aria-label="Close algorithm list"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.45)" }}
+            />
+            <div className="absolute inset-y-0 left-0 w-[88vw] max-w-90 p-4">
+              <AlgorithmsSidebar
+                isOpen={true}
+                mode="drawer"
+                visibilityClassName="block"
+                selectedSlug={slug}
+                className="h-[calc(100vh-2rem)]"
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 
   return (
     <div className="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)]">
-      <div className="max-w-6xl mx-auto px-8 md:px-12 py-10 md:py-14">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 py-8 sm:py-10 md:py-14">
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 lg:gap-10 items-start">
-          <AlgorithmsSidebar
-            isOpen={true}
-            selectedSlug={slug}
-            className="md:sticky md:top-6 h-[calc(100vh-9.5rem)] md:h-[calc(100vh-11rem)]"
-          />
+          <div className="hidden md:block">
+            <AlgorithmsSidebar
+              isOpen={true}
+              visibilityClassName="block"
+              selectedSlug={slug}
+              className="md:sticky md:top-6 h-[calc(100vh-9.5rem)] md:h-[calc(100vh-11rem)]"
+            />
+          </div>
 
           <main className="min-w-0">
+            <div className="md:hidden mb-4">
+              <button
+                type="button"
+                onClick={() => setMobileSidebarOpen(true)}
+                className="w-full rounded-xl px-4 py-3 text-sm font-medium flex items-center justify-between"
+                style={{
+                  backgroundColor: "rgba(var(--foreground), 0.04)",
+                  border: "1px solid rgba(var(--foreground), 0.08)",
+                }}
+                aria-label="Open algorithm list"
+              >
+                <span style={{ opacity: 0.9 }}>Browse algorithms</span>
+                <span style={{ opacity: 0.6 }}>Tap to open</span>
+              </button>
+            </div>
+
             <h1
               className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
               style={{
@@ -194,6 +256,28 @@ export default function AlgorithmPage() {
           </main>
         </div>
       </div>
+
+      {/* Mobile sidebar drawer */}
+      {mobileSidebarOpen && (
+        <div className="md:hidden fixed inset-0 z-50">
+          <button
+            type="button"
+            className="absolute inset-0"
+            onClick={() => setMobileSidebarOpen(false)}
+            aria-label="Close algorithm list"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.45)" }}
+          />
+          <div className="absolute inset-y-0 left-0 w-[88vw] max-w-90 p-4">
+            <AlgorithmsSidebar
+              isOpen={true}
+              mode="drawer"
+              visibilityClassName="block"
+              selectedSlug={slug}
+              className="h-[calc(100vh-2rem)]"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

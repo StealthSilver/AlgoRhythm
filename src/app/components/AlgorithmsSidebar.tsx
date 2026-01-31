@@ -35,6 +35,8 @@ interface AlgorithmsSidebarProps {
   isOpen: boolean;
   selectedSlug?: string;
   className?: string;
+  visibilityClassName?: string;
+  mode?: "desktop" | "drawer";
   onSelectAlgorithm?: (slug: string) => void;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
@@ -44,6 +46,8 @@ export default function AlgorithmsSidebar({
   isOpen,
   selectedSlug,
   className,
+  visibilityClassName = "hidden md:block",
+  mode = "desktop",
   onSelectAlgorithm,
   isCollapsed = false,
   onToggleCollapse,
@@ -343,18 +347,25 @@ export default function AlgorithmsSidebar({
     );
   };
 
+  const widthAnimation =
+    mode === "desktop"
+      ? { width: isCollapsed ? collapsedWidth : expandedWidth }
+      : undefined;
+
   return (
     <motion.aside
       className={cn(
-        "hidden md:block",
+        visibilityClassName,
         "custom-scrollbar overflow-y-auto",
         "relative rounded-2xl backdrop-blur-md",
-        "will-change-[width]",
+        mode === "desktop" ? "will-change-[width]" : undefined,
+        mode === "drawer" ? "w-full" : undefined,
         className,
       )}
-      animate={{ width: isCollapsed ? collapsedWidth : expandedWidth }}
+      animate={widthAnimation}
       transition={{ type: "spring", stiffness: 260, damping: 22, mass: 0.9 }}
       style={{
+        width: mode === "drawer" ? "100%" : undefined,
         background:
           "linear-gradient(180deg, rgba(141, 118, 233, 0.10) 0%, rgba(138, 77, 152, 0.06) 100%)",
         border: "1px solid rgba(var(--foreground), 0.08)",

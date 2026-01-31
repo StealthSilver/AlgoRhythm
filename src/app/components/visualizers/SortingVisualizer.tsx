@@ -378,6 +378,12 @@ export function SortingVisualizer({ algorithmId }: SortingVisualizerProps) {
     return Math.max(1, ...array.map((b) => b.value));
   }, [array]);
 
+  const referenceTicks = useMemo(() => {
+    const top = maxValue;
+    const mid = Math.round(maxValue / 2);
+    return [top, mid, 0] as const;
+  }, [maxValue]);
+
   const handlePause = useCallback(() => {
     setIsPlaying(false);
     if (timeoutRef.current) {
@@ -550,29 +556,61 @@ export function SortingVisualizer({ algorithmId }: SortingVisualizerProps) {
 
       {/* Visualization */}
       <div className="rounded-2xl p-6" style={containerStyle}>
-        <div className="flex items-end justify-center gap-1 h-64">
-          {array.map((bar, index) => {
-            const widthPct = Math.max(100 / Math.max(array.length, 1) - 1, 1.8);
+        <div className="relative">
+          {/* Reference scale */}
+          <div
+            className="absolute inset-y-0 left-0 w-9 flex flex-col justify-between text-[10px] tabular-nums"
+            style={{ opacity: 0.6 }}
+            aria-hidden="true"
+          >
+            {referenceTicks.map((tick, idx) => (
+              <div key={`${tick}-${idx}`} className="leading-none">
+                {tick}
+              </div>
+            ))}
+          </div>
 
-            return (
-              <motion.div
-                key={index}
-                layout
-                initial={false}
-                animate={{ height: `${(bar.value / maxValue) * 100}%` }}
-                transition={{ duration: 0.12 }}
-                style={{ width: `${widthPct}%` }}
-                className={cn(
-                  "rounded-t-sm transition-colors duration-100",
-                  bar.state === "default" &&
-                    "bg-[rgb(var(--secondary))] opacity-80",
-                  bar.state === "comparing" && "bg-amber-400",
-                  bar.state === "swapping" && "bg-rose-500",
-                  bar.state === "sorted" && "bg-emerald-500",
-                )}
-              />
-            );
-          })}
+          <div className="pl-9">
+            <div className="flex items-end justify-center gap-1 h-64">
+              {array.map((bar, index) => {
+                const widthPct = Math.max(
+                  100 / Math.max(array.length, 1) - 1,
+                  1.8,
+                );
+
+                return (
+                  <div
+                    key={index}
+                    className="flex flex-col items-center justify-end h-full"
+                    style={{ width: `${widthPct}%` }}
+                  >
+                    <motion.div
+                      layout
+                      initial={false}
+                      animate={{ height: `${(bar.value / maxValue) * 100}%` }}
+                      transition={{ duration: 0.12 }}
+                      className={cn(
+                        "w-full rounded-t-sm transition-colors duration-100",
+                        bar.state === "default" &&
+                          "bg-[rgb(var(--secondary))] opacity-80",
+                        bar.state === "comparing" && "bg-amber-400",
+                        bar.state === "swapping" && "bg-rose-500",
+                        bar.state === "sorted" && "bg-emerald-500",
+                      )}
+                    />
+
+                    <div
+                      className="mt-1 text-[9px] sm:text-[10px] leading-none tabular-nums select-none"
+                      style={{ opacity: 0.7 }}
+                      aria-label={`Value ${bar.value}`}
+                    >
+                      {bar.value}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         {/* Legend */}

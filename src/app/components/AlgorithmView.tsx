@@ -71,7 +71,7 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
   }
 
   return (
-    <div className="flex-1 min-w-0 overflow-y-auto py-6 lg:py-8 pr-6 lg:pr-8 pl-2 sm:pl-4">
+    <div className="flex-1 min-w-0 overflow-visible md:overflow-y-auto py-6 lg:py-8 px-4 sm:px-6 md:px-0 md:pr-6 lg:pr-8 md:pl-2">
       <motion.div
         key={algorithmId}
         initial={{ opacity: 0, y: 18 }}

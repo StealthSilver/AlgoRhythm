@@ -50,7 +50,7 @@ export default function AlgorithmsNavbar() {
         fontFamily: "var(--font-inter), sans-serif",
       }}
     >
-      <div className="max-w-full mx-auto px-8 md:px-12">
+      <div className="max-w-full mx-auto px-4 sm:px-6 md:px-12">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Left: Logo */}
           <div className="flex items-end gap-8">
@@ -210,7 +210,7 @@ export default function AlgorithmsNavbar() {
               borderTop: "1px solid rgba(var(--foreground), 0.1)",
             }}
           >
-            <div className="max-w-full mx-auto px-6 py-6 flex flex-col gap-2">
+            <div className="max-w-full mx-auto px-4 sm:px-6 py-6 flex flex-col gap-2">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
