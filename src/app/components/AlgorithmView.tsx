@@ -7,6 +7,7 @@ import { algorithmData } from "@/app/data/algorithmData";
 import { AboutTab } from "@/app/components/tabs/AboutTab";
 import { ComplexityTab } from "@/app/components/tabs/ComplexityTab";
 import { DataDiagramTab } from "@/app/components/tabs/DataDiagramTab";
+import { MemoryMapTab } from "./tabs/MemoryMapTab";
 import { VisualizeTab } from "@/app/components/tabs/VisualizeTab";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +18,7 @@ interface AlgorithmViewProps {
 const tabs = [
   { id: "about", label: "About" },
   { id: "visualize", label: "Visualize" },
+  { id: "memory", label: "Memory Map" },
   { id: "diagram", label: "Data Diagram" },
   { id: "complexity", label: "Complexity" },
 ] as const;
@@ -188,6 +190,12 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
             {activeTab === "visualize" && (
               <section id="algo-panel-visualize" role="tabpanel">
                 <VisualizeTab algorithm={algorithm} />
+              </section>
+            )}
+
+            {activeTab === "memory" && (
+              <section id="algo-panel-memory" role="tabpanel">
+                <MemoryMapTab algorithm={algorithm} />
               </section>
             )}
 
