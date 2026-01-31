@@ -8,7 +8,10 @@ export interface Algorithm {
   spaceComplexity: string;
   steps: string[];
   useCases: string[];
+  code?: Partial<Record<AlgorithmCodeLanguage, string>>;
 }
+
+export type AlgorithmCodeLanguage = "cpp" | "python" | "java";
 
 type AlgorithmData = {
   [key: string]: Algorithm;
@@ -37,6 +40,76 @@ export const algorithmData: AlgorithmData = {
       "Small datasets where simplicity is more important than efficiency",
       "Nearly sorted data where it can perform better than expected",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+  using namespace std;
+
+  void bubbleSort(vector<int>& a) {
+    int n = (int)a.size();
+    for (int i = 0; i < n - 1; i++) {
+      bool swapped = false;
+      for (int j = 0; j < n - 1 - i; j++) {
+        if (a[j] > a[j + 1]) {
+          swap(a[j], a[j + 1]);
+          swapped = true;
+        }
+      }
+      if (!swapped) break;
+    }
+  }
+
+  int main() {
+    vector<int> a = {5, 1, 4, 2, 8};
+    bubbleSort(a);
+    for (int x : a) cout << x << " ";
+    cout << "\n";
+    return 0;
+  }
+  `,
+      python: `def bubble_sort(a: list[int]) -> None:
+    n = len(a)
+    for i in range(n - 1):
+      swapped = False
+      for j in range(n - 1 - i):
+        if a[j] > a[j + 1]:
+          a[j], a[j + 1] = a[j + 1], a[j]
+          swapped = True
+      if not swapped:
+        break
+
+
+  if __name__ == "__main__":
+    a = [5, 1, 4, 2, 8]
+    bubble_sort(a)
+    print(a)
+  `,
+      java: `import java.util.*;
+
+  public class BubbleSort {
+    static void bubbleSort(int[] a) {
+      int n = a.length;
+      for (int i = 0; i < n - 1; i++) {
+        boolean swapped = false;
+        for (int j = 0; j < n - 1 - i; j++) {
+          if (a[j] > a[j + 1]) {
+            int tmp = a[j];
+            a[j] = a[j + 1];
+            a[j + 1] = tmp;
+            swapped = true;
+          }
+        }
+        if (!swapped) break;
+      }
+    }
+
+    public static void main(String[] args) {
+      int[] a = {5, 1, 4, 2, 8};
+      bubbleSort(a);
+      System.out.println(Arrays.toString(a));
+    }
+  }
+  `,
+    },
   },
   "quick-sort": {
     name: "Quick Sort",
@@ -59,6 +132,99 @@ export const algorithmData: AlgorithmData = {
       "When average-case performance is more important than worst-case",
       "Systems where in-place sorting is required to save memory",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+  using namespace std;
+
+  int partitionLomuto(vector<int>& a, int lo, int hi) {
+    int pivot = a[hi];
+    int i = lo;
+    for (int j = lo; j < hi; j++) {
+      if (a[j] <= pivot) {
+        swap(a[i], a[j]);
+        i++;
+      }
+    }
+    swap(a[i], a[hi]);
+    return i;
+  }
+
+  void quickSort(vector<int>& a, int lo, int hi) {
+    if (lo >= hi) return;
+    int p = partitionLomuto(a, lo, hi);
+    quickSort(a, lo, p - 1);
+    quickSort(a, p + 1, hi);
+  }
+
+  int main() {
+    vector<int> a = {9, 3, 7, 1, 6, 2};
+    quickSort(a, 0, (int)a.size() - 1);
+    for (int x : a) cout << x << " ";
+    cout << "\n";
+    return 0;
+  }
+  `,
+      python: `def _partition(a: list[int], lo: int, hi: int) -> int:
+    pivot = a[hi]
+    i = lo
+    for j in range(lo, hi):
+      if a[j] <= pivot:
+        a[i], a[j] = a[j], a[i]
+        i += 1
+    a[i], a[hi] = a[hi], a[i]
+    return i
+
+
+  def quick_sort(a: list[int], lo: int = 0, hi: int | None = None) -> None:
+    if hi is None:
+      hi = len(a) - 1
+    if lo >= hi:
+      return
+    p = _partition(a, lo, hi)
+    quick_sort(a, lo, p - 1)
+    quick_sort(a, p + 1, hi)
+
+
+  if __name__ == "__main__":
+    a = [9, 3, 7, 1, 6, 2]
+    quick_sort(a)
+    print(a)
+  `,
+      java: `import java.util.*;
+
+  public class QuickSort {
+    static int partition(int[] a, int lo, int hi) {
+      int pivot = a[hi];
+      int i = lo;
+      for (int j = lo; j < hi; j++) {
+        if (a[j] <= pivot) {
+          int tmp = a[i];
+          a[i] = a[j];
+          a[j] = tmp;
+          i++;
+        }
+      }
+      int tmp = a[i];
+      a[i] = a[hi];
+      a[hi] = tmp;
+      return i;
+    }
+
+    static void quickSort(int[] a, int lo, int hi) {
+      if (lo >= hi) return;
+      int p = partition(a, lo, hi);
+      quickSort(a, lo, p - 1);
+      quickSort(a, p + 1, hi);
+    }
+
+    public static void main(String[] args) {
+      int[] a = {9, 3, 7, 1, 6, 2};
+      quickSort(a, 0, a.length - 1);
+      System.out.println(Arrays.toString(a));
+    }
+  }
+  `,
+    },
   },
   "merge-sort": {
     name: "Merge Sort",
@@ -82,6 +248,98 @@ export const algorithmData: AlgorithmData = {
       "External sorting where data doesn't fit in memory",
       "When predictable O(n log n) performance is needed",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+  using namespace std;
+
+  void mergeRange(vector<int>& a, int lo, int mid, int hi, vector<int>& tmp) {
+    int i = lo, j = mid + 1, k = lo;
+    while (i <= mid && j <= hi) {
+      if (a[i] <= a[j]) tmp[k++] = a[i++];
+      else tmp[k++] = a[j++];
+    }
+    while (i <= mid) tmp[k++] = a[i++];
+    while (j <= hi) tmp[k++] = a[j++];
+    for (int p = lo; p <= hi; p++) a[p] = tmp[p];
+  }
+
+  void mergeSort(vector<int>& a, int lo, int hi, vector<int>& tmp) {
+    if (lo >= hi) return;
+    int mid = lo + (hi - lo) / 2;
+    mergeSort(a, lo, mid, tmp);
+    mergeSort(a, mid + 1, hi, tmp);
+    mergeRange(a, lo, mid, hi, tmp);
+  }
+
+  int main() {
+    vector<int> a = {10, 7, 8, 9, 1, 5};
+    vector<int> tmp(a.size());
+    mergeSort(a, 0, (int)a.size() - 1, tmp);
+    for (int x : a) cout << x << " ";
+    cout << "\n";
+    return 0;
+  }
+  `,
+      python: `def merge_sort(a: list[int]) -> list[int]:
+    if len(a) <= 1:
+      return a
+    mid = len(a) // 2
+    left = merge_sort(a[:mid])
+    right = merge_sort(a[mid:])
+
+    i = j = 0
+    out: list[int] = []
+    while i < len(left) and j < len(right):
+      if left[i] <= right[j]:
+        out.append(left[i])
+        i += 1
+      else:
+        out.append(right[j])
+        j += 1
+    out.extend(left[i:])
+    out.extend(right[j:])
+    return out
+
+
+  if __name__ == "__main__":
+    a = [10, 7, 8, 9, 1, 5]
+    print(merge_sort(a))
+  `,
+      java: `import java.util.*;
+
+  public class MergeSort {
+    static void mergeSort(int[] a) {
+      int[] tmp = new int[a.length];
+      mergeSort(a, 0, a.length - 1, tmp);
+    }
+
+    static void mergeSort(int[] a, int lo, int hi, int[] tmp) {
+      if (lo >= hi) return;
+      int mid = lo + (hi - lo) / 2;
+      mergeSort(a, lo, mid, tmp);
+      mergeSort(a, mid + 1, hi, tmp);
+      merge(a, lo, mid, hi, tmp);
+    }
+
+    static void merge(int[] a, int lo, int mid, int hi, int[] tmp) {
+      int i = lo, j = mid + 1, k = lo;
+      while (i <= mid && j <= hi) {
+        if (a[i] <= a[j]) tmp[k++] = a[i++];
+        else tmp[k++] = a[j++];
+      }
+      while (i <= mid) tmp[k++] = a[i++];
+      while (j <= hi) tmp[k++] = a[j++];
+      for (int p = lo; p <= hi; p++) a[p] = tmp[p];
+    }
+
+    public static void main(String[] args) {
+      int[] a = {10, 7, 8, 9, 1, 5};
+      mergeSort(a);
+      System.out.println(Arrays.toString(a));
+    }
+  }
+  `,
+    },
   },
   "insertion-sort": {
     name: "Insertion Sort",
@@ -104,6 +362,69 @@ export const algorithmData: AlgorithmData = {
       "Nearly sorted data (performs in O(n) time)",
       "Online algorithms where data arrives one piece at a time",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+  using namespace std;
+
+  void insertionSort(vector<int>& a) {
+    int n = (int)a.size();
+    for (int i = 1; i < n; i++) {
+      int key = a[i];
+      int j = i - 1;
+      while (j >= 0 && a[j] > key) {
+        a[j + 1] = a[j];
+        j--;
+      }
+      a[j + 1] = key;
+    }
+  }
+
+  int main() {
+    vector<int> a = {12, 11, 13, 5, 6};
+    insertionSort(a);
+    for (int x : a) cout << x << " ";
+    cout << "\n";
+    return 0;
+  }
+  `,
+      python: `def insertion_sort(a: list[int]) -> None:
+    for i in range(1, len(a)):
+      key = a[i]
+      j = i - 1
+      while j >= 0 and a[j] > key:
+        a[j + 1] = a[j]
+        j -= 1
+      a[j + 1] = key
+
+
+  if __name__ == "__main__":
+    a = [12, 11, 13, 5, 6]
+    insertion_sort(a)
+    print(a)
+  `,
+      java: `import java.util.*;
+
+  public class InsertionSort {
+    static void insertionSort(int[] a) {
+      for (int i = 1; i < a.length; i++) {
+        int key = a[i];
+        int j = i - 1;
+        while (j >= 0 && a[j] > key) {
+          a[j + 1] = a[j];
+          j--;
+        }
+        a[j + 1] = key;
+      }
+    }
+
+    public static void main(String[] args) {
+      int[] a = {12, 11, 13, 5, 6};
+      insertionSort(a);
+      System.out.println(Arrays.toString(a));
+    }
+  }
+  `,
+    },
   },
   "selection-sort": {
     name: "Selection Sort",
@@ -126,6 +447,67 @@ export const algorithmData: AlgorithmData = {
       "Small datasets",
       "When the cost of swapping is high (makes minimum number of swaps)",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+  using namespace std;
+
+  void selectionSort(vector<int>& a) {
+    int n = (int)a.size();
+    for (int i = 0; i < n; i++) {
+      int minIdx = i;
+      for (int j = i + 1; j < n; j++) {
+        if (a[j] < a[minIdx]) minIdx = j;
+      }
+      swap(a[i], a[minIdx]);
+    }
+  }
+
+  int main() {
+    vector<int> a = {64, 25, 12, 22, 11};
+    selectionSort(a);
+    for (int x : a) cout << x << " ";
+    cout << "\n";
+    return 0;
+  }
+  `,
+      python: `def selection_sort(a: list[int]) -> None:
+    n = len(a)
+    for i in range(n):
+      min_idx = i
+      for j in range(i + 1, n):
+        if a[j] < a[min_idx]:
+          min_idx = j
+      a[i], a[min_idx] = a[min_idx], a[i]
+
+
+  if __name__ == "__main__":
+    a = [64, 25, 12, 22, 11]
+    selection_sort(a)
+    print(a)
+  `,
+      java: `import java.util.*;
+
+  public class SelectionSort {
+    static void selectionSort(int[] a) {
+      for (int i = 0; i < a.length; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < a.length; j++) {
+          if (a[j] < a[minIdx]) minIdx = j;
+        }
+        int tmp = a[i];
+        a[i] = a[minIdx];
+        a[minIdx] = tmp;
+      }
+    }
+
+    public static void main(String[] args) {
+      int[] a = {64, 25, 12, 22, 11};
+      selectionSort(a);
+      System.out.println(Arrays.toString(a));
+    }
+  }
+  `,
+    },
   },
   "heap-sort": {
     name: "Heap Sort",
@@ -148,6 +530,108 @@ export const algorithmData: AlgorithmData = {
       "Systems with limited memory (in-place sorting)",
       "Priority queue implementations",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+  using namespace std;
+
+  void heapify(vector<int>& a, int n, int i) {
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    if (l < n && a[l] > a[largest]) largest = l;
+    if (r < n && a[r] > a[largest]) largest = r;
+
+    if (largest != i) {
+      swap(a[i], a[largest]);
+      heapify(a, n, largest);
+    }
+  }
+
+  void heapSort(vector<int>& a) {
+    int n = (int)a.size();
+    for (int i = n / 2 - 1; i >= 0; i--) heapify(a, n, i);
+    for (int i = n - 1; i > 0; i--) {
+      swap(a[0], a[i]);
+      heapify(a, i, 0);
+    }
+  }
+
+  int main() {
+    vector<int> a = {12, 11, 13, 5, 6, 7};
+    heapSort(a);
+    for (int x : a) cout << x << " ";
+    cout << "\n";
+    return 0;
+  }
+  `,
+      python: `def _heapify(a: list[int], n: int, i: int) -> None:
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+
+    if l < n and a[l] > a[largest]:
+      largest = l
+    if r < n and a[r] > a[largest]:
+      largest = r
+
+    if largest != i:
+      a[i], a[largest] = a[largest], a[i]
+      _heapify(a, n, largest)
+
+
+  def heap_sort(a: list[int]) -> None:
+    n = len(a)
+    for i in range(n // 2 - 1, -1, -1):
+      _heapify(a, n, i)
+    for i in range(n - 1, 0, -1):
+      a[0], a[i] = a[i], a[0]
+      _heapify(a, i, 0)
+
+
+  if __name__ == "__main__":
+    a = [12, 11, 13, 5, 6, 7]
+    heap_sort(a)
+    print(a)
+  `,
+      java: `import java.util.*;
+
+  public class HeapSort {
+    static void heapify(int[] a, int n, int i) {
+      int largest = i;
+      int l = 2 * i + 1;
+      int r = 2 * i + 2;
+
+      if (l < n && a[l] > a[largest]) largest = l;
+      if (r < n && a[r] > a[largest]) largest = r;
+
+      if (largest != i) {
+        int tmp = a[i];
+        a[i] = a[largest];
+        a[largest] = tmp;
+        heapify(a, n, largest);
+      }
+    }
+
+    static void heapSort(int[] a) {
+      int n = a.length;
+      for (int i = n / 2 - 1; i >= 0; i--) heapify(a, n, i);
+      for (int i = n - 1; i > 0; i--) {
+        int tmp = a[0];
+        a[0] = a[i];
+        a[i] = tmp;
+        heapify(a, i, 0);
+      }
+    }
+
+    public static void main(String[] args) {
+      int[] a = {12, 11, 13, 5, 6, 7};
+      heapSort(a);
+      System.out.println(Arrays.toString(a));
+    }
+  }
+  `,
+    },
   },
   "linear-search": {
     name: "Linear Search",

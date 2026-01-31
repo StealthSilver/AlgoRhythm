@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { algorithmData } from "@/app/data/algorithmData";
 import { AboutTab } from "@/app/components/tabs/AboutTab";
 import { ComplexityTab } from "@/app/components/tabs/ComplexityTab";
-import { DataDiagramTab } from "@/app/components/tabs/DataDiagramTab";
+import { CodeTab } from "@/app/components/tabs/CodeTab";
 import { MemoryMapTab } from "./tabs/MemoryMapTab";
 import { VisualizeTab } from "@/app/components/tabs/VisualizeTab";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,7 @@ const tabs = [
   { id: "about", label: "About" },
   { id: "visualize", label: "Visualize" },
   { id: "memory", label: "Memory Map" },
-  { id: "diagram", label: "Data Diagram" },
+  { id: "code", label: "Code" },
   { id: "complexity", label: "Complexity" },
 ] as const;
 
@@ -199,9 +199,9 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
               </section>
             )}
 
-            {activeTab === "diagram" && (
-              <section id="algo-panel-diagram" role="tabpanel">
-                <DataDiagramTab algorithm={algorithm} />
+            {activeTab === "code" && (
+              <section id="algo-panel-code" role="tabpanel">
+                <CodeTab algorithm={algorithm} />
               </section>
             )}
 
