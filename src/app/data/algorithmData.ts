@@ -654,6 +654,83 @@ export const algorithmData: AlgorithmData = {
       "When data structure doesn't support faster search methods",
       "When simplicity is more important than performance",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+int linearSearch(const vector<int>& arr, int target) {
+    for (int i = 0; i < (int)arr.size(); i++) {
+        if (arr[i] == target) {
+            return i;  // Element found at index i
+        }
+    }
+    return -1;  // Element not found
+}
+
+int main() {
+    vector<int> arr = {64, 25, 12, 22, 11, 90};
+    int target = 22;
+    
+    int result = linearSearch(arr, target);
+    
+    if (result != -1) {
+        cout << "Element found at index " << result << endl;
+    } else {
+        cout << "Element not found" << endl;
+    }
+    
+    return 0;
+}
+`,
+      python: `def linear_search(arr: list[int], target: int) -> int:
+    """
+    Search for target in array sequentially.
+    Returns index if found, -1 otherwise.
+    """
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i  # Element found at index i
+    return -1  # Element not found
+
+
+if __name__ == "__main__":
+    arr = [64, 25, 12, 22, 11, 90]
+    target = 22
+    
+    result = linear_search(arr, target)
+    
+    if result != -1:
+        print(f"Element found at index {result}")
+    else:
+        print("Element not found")
+`,
+      java: `import java.util.*;
+
+public class LinearSearch {
+    static int linearSearch(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target) {
+                return i;  // Element found at index i
+            }
+        }
+        return -1;  // Element not found
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {64, 25, 12, 22, 11, 90};
+        int target = 22;
+        
+        int result = linearSearch(arr, target);
+        
+        if (result != -1) {
+            System.out.println("Element found at index " + result);
+        } else {
+            System.out.println("Element not found");
+        }
+    }
+}
+`,
+    },
   },
   "binary-search": {
     name: "Binary Search",
@@ -676,6 +753,176 @@ export const algorithmData: AlgorithmData = {
       "Database indexing",
       "Finding elements in large sorted datasets efficiently",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+// Iterative Binary Search
+int binarySearch(const vector<int>& arr, int target) {
+    int left = 0;
+    int right = (int)arr.size() - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target) {
+            return mid;  // Element found
+        }
+        
+        if (arr[mid] < target) {
+            left = mid + 1;  // Search right half
+        } else {
+            right = mid - 1;  // Search left half
+        }
+    }
+    
+    return -1;  // Element not found
+}
+
+// Recursive Binary Search
+int binarySearchRecursive(const vector<int>& arr, int target, int left, int right) {
+    if (left > right) {
+        return -1;  // Base case: element not found
+    }
+    
+    int mid = left + (right - left) / 2;
+    
+    if (arr[mid] == target) {
+        return mid;
+    }
+    
+    if (arr[mid] < target) {
+        return binarySearchRecursive(arr, target, mid + 1, right);
+    }
+    
+    return binarySearchRecursive(arr, target, left, mid - 1);
+}
+
+int main() {
+    vector<int> arr = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int target = 23;
+    
+    int result = binarySearch(arr, target);
+    
+    if (result != -1) {
+        cout << "Element found at index " << result << endl;
+    } else {
+        cout << "Element not found" << endl;
+    }
+    
+    return 0;
+}
+`,
+      python: `def binary_search(arr: list[int], target: int) -> int:
+    """
+    Iterative binary search.
+    Returns index if found, -1 otherwise.
+    Requires sorted array.
+    """
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = left + (right - left) // 2
+        
+        if arr[mid] == target:
+            return mid  # Element found
+        
+        if arr[mid] < target:
+            left = mid + 1  # Search right half
+        else:
+            right = mid - 1  # Search left half
+    
+    return -1  # Element not found
+
+
+def binary_search_recursive(arr: list[int], target: int, 
+                           left: int, right: int) -> int:
+    """Recursive binary search implementation."""
+    if left > right:
+        return -1  # Base case: element not found
+    
+    mid = left + (right - left) // 2
+    
+    if arr[mid] == target:
+        return mid
+    
+    if arr[mid] < target:
+        return binary_search_recursive(arr, target, mid + 1, right)
+    
+    return binary_search_recursive(arr, target, left, mid - 1)
+
+
+if __name__ == "__main__":
+    arr = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
+    target = 23
+    
+    result = binary_search(arr, target)
+    
+    if result != -1:
+        print(f"Element found at index {result}")
+    else:
+        print("Element not found")
+`,
+      java: `import java.util.*;
+
+public class BinarySearch {
+    // Iterative Binary Search
+    static int binarySearch(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            if (arr[mid] == target) {
+                return mid;  // Element found
+            }
+            
+            if (arr[mid] < target) {
+                left = mid + 1;  // Search right half
+            } else {
+                right = mid - 1;  // Search left half
+            }
+        }
+        
+        return -1;  // Element not found
+    }
+    
+    // Recursive Binary Search
+    static int binarySearchRecursive(int[] arr, int target, 
+                                      int left, int right) {
+        if (left > right) {
+            return -1;  // Base case: element not found
+        }
+        
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target) {
+            return mid;
+        }
+        
+        if (arr[mid] < target) {
+            return binarySearchRecursive(arr, target, mid + 1, right);
+        }
+        
+        return binarySearchRecursive(arr, target, left, mid - 1);
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+        int target = 23;
+        
+        int result = binarySearch(arr, target);
+        
+        if (result != -1) {
+            System.out.println("Element found at index " + result);
+        } else {
+            System.out.println("Element not found");
+        }
+    }
+}
+`,
+    },
   },
   "jump-search": {
     name: "Jump Search",
@@ -698,6 +945,152 @@ export const algorithmData: AlgorithmData = {
       "Systems where jumping is faster than direct access",
       "Compromise between linear and binary search",
     ],
+    code: {
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+int jumpSearch(const vector<int>& arr, int target) {
+    int n = (int)arr.size();
+    if (n == 0) return -1;
+    
+    // Optimal jump size is sqrt(n)
+    int step = (int)sqrt(n);
+    
+    // Finding the block where element may be present
+    int prev = 0;
+    int curr = step;
+    
+    // Jump until we find a block where target could be
+    while (curr < n && arr[curr] < target) {
+        prev = curr;
+        curr += step;
+    }
+    
+    // Linear search in the identified block
+    for (int i = prev; i < min(curr + 1, n); i++) {
+        if (arr[i] == target) {
+            return i;  // Element found
+        }
+        // If we've passed the target (array is sorted)
+        if (arr[i] > target) {
+            break;
+        }
+    }
+    
+    return -1;  // Element not found
+}
+
+int main() {
+    vector<int> arr = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144};
+    int target = 55;
+    
+    int result = jumpSearch(arr, target);
+    
+    if (result != -1) {
+        cout << "Element found at index " << result << endl;
+    } else {
+        cout << "Element not found" << endl;
+    }
+    
+    return 0;
+}
+`,
+      python: `import math
+
+
+def jump_search(arr: list[int], target: int) -> int:
+    """
+    Jump search algorithm for sorted arrays.
+    Time: O(√n), Space: O(1)
+    Returns index if found, -1 otherwise.
+    """
+    n = len(arr)
+    if n == 0:
+        return -1
+    
+    # Optimal jump size is sqrt(n)
+    step = int(math.sqrt(n))
+    
+    # Finding the block where element may be present
+    prev = 0
+    curr = step
+    
+    # Jump until we find a block where target could be
+    while curr < n and arr[curr] < target:
+        prev = curr
+        curr += step
+    
+    # Linear search in the identified block
+    for i in range(prev, min(curr + 1, n)):
+        if arr[i] == target:
+            return i  # Element found
+        # If we've passed the target (array is sorted)
+        if arr[i] > target:
+            break
+    
+    return -1  # Element not found
+
+
+if __name__ == "__main__":
+    arr = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+    target = 55
+    
+    result = jump_search(arr, target)
+    
+    if result != -1:
+        print(f"Element found at index {result}")
+    else:
+        print("Element not found")
+`,
+      java: `import java.util.*;
+
+public class JumpSearch {
+    static int jumpSearch(int[] arr, int target) {
+        int n = arr.length;
+        if (n == 0) return -1;
+        
+        // Optimal jump size is sqrt(n)
+        int step = (int) Math.sqrt(n);
+        
+        // Finding the block where element may be present
+        int prev = 0;
+        int curr = step;
+        
+        // Jump until we find a block where target could be
+        while (curr < n && arr[curr] < target) {
+            prev = curr;
+            curr += step;
+        }
+        
+        // Linear search in the identified block
+        for (int i = prev; i < Math.min(curr + 1, n); i++) {
+            if (arr[i] == target) {
+                return i;  // Element found
+            }
+            // If we've passed the target (array is sorted)
+            if (arr[i] > target) {
+                break;
+            }
+        }
+        
+        return -1;  // Element not found
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144};
+        int target = 55;
+        
+        int result = jumpSearch(arr, target);
+        
+        if (result != -1) {
+            System.out.println("Element found at index " + result);
+        } else {
+            System.out.println("Element not found");
+        }
+    }
+}
+`,
+    },
   },
   "two-pointers": {
     name: "Two Pointers",

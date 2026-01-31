@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import type { Algorithm } from "@/app/data/algorithmData";
 import { MemoryMapVisualizer } from "../visualizers/MemoryMapVisualizer";
+import { SearchingMemoryMapVisualizer } from "../visualizers/SearchingMemoryMapVisualizer";
 
 interface MemoryMapTabProps {
   algorithm: Algorithm;
@@ -14,6 +15,14 @@ export function MemoryMapTab({ algorithm }: MemoryMapTabProps) {
     return (
       <div className="py-2">
         <MemoryMapVisualizer algorithmId={algorithm.slug} />
+      </div>
+    );
+  }
+
+  if (algorithm.category === "Searching") {
+    return (
+      <div className="py-2">
+        <SearchingMemoryMapVisualizer algorithmId={algorithm.slug} />
       </div>
     );
   }

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import type { Algorithm } from "@/app/data/algorithmData";
 import { SortingVisualizer } from "@/app/components/visualizers/SortingVisualizer";
+import { SearchingVisualizer } from "@/app/components/visualizers/SearchingVisualizer";
 
 interface VisualizeTabProps {
   algorithm: Algorithm;
@@ -14,6 +15,14 @@ export function VisualizeTab({ algorithm }: VisualizeTabProps) {
     return (
       <div className="py-2">
         <SortingVisualizer algorithmId={algorithm.slug} />
+      </div>
+    );
+  }
+
+  if (algorithm.category === "Searching") {
+    return (
+      <div className="py-2">
+        <SearchingVisualizer algorithmId={algorithm.slug} />
       </div>
     );
   }
