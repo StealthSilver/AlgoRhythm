@@ -3,12 +3,21 @@
 import { motion } from "framer-motion";
 
 import type { Algorithm } from "@/app/data/algorithmData";
+import { SortingVisualizer } from "@/app/components/visualizers/SortingVisualizer";
 
 interface VisualizeTabProps {
   algorithm: Algorithm;
 }
 
 export function VisualizeTab({ algorithm }: VisualizeTabProps) {
+  if (algorithm.category === "Sorting") {
+    return (
+      <div className="py-2">
+        <SortingVisualizer algorithmId={algorithm.slug} />
+      </div>
+    );
+  }
+
   return (
     <div className="py-2">
       <motion.div
