@@ -101,7 +101,7 @@ export default function Hero() {
       {/* Smooth Ripple Effects */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
-          className="absolute w-[300px] sm:w-[500px] md:w-[700px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-1"
+          className="absolute w-75 sm:w-125 md:w-175 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-1"
           style={{
             x: mousePosition.x,
             y: mousePosition.y,
@@ -110,7 +110,7 @@ export default function Hero() {
       </div>
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
-          className="absolute w-[400px] sm:w-[600px] md:w-[900px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-2"
+          className="absolute w-100 sm:w-150 md:w-225 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-2"
           style={{
             x: mousePosition.x * 0.5,
             y: mousePosition.y * 0.5,
@@ -119,7 +119,7 @@ export default function Hero() {
       </div>
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
         <motion.div
-          className="absolute w-[500px] sm:w-[700px] md:w-[1100px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-3"
+          className="absolute w-125 sm:w-175 md:w-275 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 hero-ripple-3"
           style={{
             x: mousePosition.x * 0.3,
             y: mousePosition.y * 0.3,
@@ -265,7 +265,7 @@ export default function Hero() {
               e.currentTarget.style.backgroundColor = "#8a4d98";
             }}
           >
-            <span className="absolute inset-y-0 -left-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out" />
+            <span className="absolute inset-y-0 -left-full w-full bg-linear-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out" />
             <span className="relative z-10 flex items-center gap-2">
               <Play className="w-5 h-5" fill="currentColor" />
               Start Learning

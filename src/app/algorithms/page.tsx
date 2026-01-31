@@ -1,79 +1,31 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
+
 import AlgorithmsSidebar from "../components/AlgorithmsSidebar";
+import AlgorithmView from "../components/AlgorithmView";
 
 export default function AlgorithmsPage() {
-  const algorithmCards = [
-    { name: "Bubble Sort", slug: "bubble-sort" },
-    { name: "Quick Sort", slug: "quick-sort" },
-    { name: "Merge Sort", slug: "merge-sort" },
-    { name: "Binary Search", slug: "binary-search" },
-    { name: "Linear Search", slug: "linear-search" },
-    { name: "DFS", slug: "dfs" },
-  ];
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(
+    "bubble-sort",
+  );
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)]">
-      <div className="max-w-6xl mx-auto px-8 md:px-12 py-10 md:py-14">
-        <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 lg:gap-10 items-start">
+    <div className="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] flex flex-col">
+      <div className="flex-1 flex">
+        <div className="shrink-0">
           <AlgorithmsSidebar
             isOpen={true}
+            selectedSlug={selectedAlgorithm ?? undefined}
+            onSelectAlgorithm={setSelectedAlgorithm}
+            isCollapsed={sidebarCollapsed}
+            onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
             className="md:sticky md:top-6 h-[calc(100vh-9.5rem)] md:h-[calc(100vh-11rem)]"
           />
-
-          <main className="min-w-0">
-            <h1
-              className="text-3xl sm:text-4xl md:text-5xl font-light mb-4"
-              style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
-                background:
-                  "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Algorithm Explorer
-            </h1>
-            <p className="text-base sm:text-lg mb-8" style={{ opacity: 0.7 }}>
-              Choose an algorithm from the sidebar to begin exploring.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {algorithmCards.map((algo) => (
-                <Link
-                  key={algo.slug}
-                  href={`/algorithms/${algo.slug}`}
-                  className="group relative p-6 rounded-2xl backdrop-blur-sm cursor-pointer transition-all duration-300 hover:shadow-xl"
-                  style={{
-                    backgroundColor: "rgba(var(--foreground), 0.03)",
-                    border: "1px solid rgba(var(--foreground), 0.1)",
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background:
-                        "radial-gradient(circle at top left, rgba(138, 77, 152, 0.12) 0%, transparent 70%)",
-                    }}
-                  />
-                  <div className="relative z-10">
-                    <h3
-                      className="text-xl font-light mb-2"
-                      style={{
-                        fontFamily: "var(--font-space-grotesk), sans-serif",
-                      }}
-                    >
-                      {algo.name}
-                    </h3>
-                    <p className="text-sm" style={{ opacity: 0.7 }}>
-                      Click to explore and visualize.
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </main>
         </div>
+
+        <AlgorithmView algorithmId={selectedAlgorithm} />
       </div>
     </div>
   );

@@ -76,13 +76,13 @@ export default function CTA() {
       <Meteors number={6} />
       {/* Smooth Ripple Effects - Positioned correctly with wrapper */}
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
-        <div className="absolute w-[600px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-1" />
+        <div className="absolute w-150 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-1" />
       </div>
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
-        <div className="absolute w-[800px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-2" />
+        <div className="absolute w-200 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-2" />
       </div>
       <div className="absolute top-1/2 left-1/2 pointer-events-none">
-        <div className="absolute w-[1000px] aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-3" />
+        <div className="absolute w-250 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-3" />
       </div>
 
       {/* Blinking dots */}
@@ -195,7 +195,7 @@ export default function CTA() {
             }}
           >
             {/* Shimmer sweep */}
-            <span className="pointer-events-none absolute inset-y-0 -left-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-700 ease-out group-hover:left-full" />
+            <span className="pointer-events-none absolute inset-y-0 -left-full w-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-all duration-700 ease-out group-hover:left-full" />
             <span className="relative z-10">Get Started</span>
           </button>
         </motion.div>

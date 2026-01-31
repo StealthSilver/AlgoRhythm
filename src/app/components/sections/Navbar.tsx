@@ -192,7 +192,7 @@ export default function Navbar({
               }}
             >
               {/* Metallic shine overlay */}
-              <span className="absolute inset-y-0 -left-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out"></span>
+              <span className="absolute inset-y-0 -left-full w-full bg-linear-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out"></span>
               <span className="relative z-10">{ctaLabel}</span>
             </motion.button>
 

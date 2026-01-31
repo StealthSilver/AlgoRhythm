@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,12 +15,18 @@ interface AlgorithmsSidebarProps {
   isOpen: boolean;
   selectedSlug?: string;
   className?: string;
+  onSelectAlgorithm?: (slug: string) => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
 export default function AlgorithmsSidebar({
   isOpen,
   selectedSlug,
   className,
+  onSelectAlgorithm,
+  isCollapsed = false,
+  onToggleCollapse,
 }: AlgorithmsSidebarProps) {
   const categories: AlgorithmCategory[] = [
     {
@@ -288,6 +294,7 @@ export default function AlgorithmsSidebar({
         "hidden md:block",
         "custom-scrollbar overflow-y-auto",
         "relative rounded-2xl backdrop-blur-md",
+        isCollapsed ? "w-18" : "w-full",
         className,
       )}
       style={{
@@ -329,96 +336,174 @@ export default function AlgorithmsSidebar({
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
       >
         <div
-          className="mb-4 rounded-xl px-3 py-2"
-          style={{
-            backgroundColor: "rgba(var(--foreground), 0.04)",
-            boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.06)",
-          }}
+          className={cn(
+            "flex items-center",
+            isCollapsed ? "justify-center" : "justify-between",
+          )}
         >
-          <h2
-            className="text-sm font-medium tracking-wide"
+          <div
+            className={cn("mb-4 rounded-xl px-3 py-2", isCollapsed && "px-2")}
             style={{
-              fontFamily: "var(--font-space-grotesk), sans-serif",
-              color: "rgb(var(--foreground))",
+              backgroundColor: "rgba(var(--foreground), 0.04)",
+              boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.06)",
             }}
           >
-            Algorithm Categories
-          </h2>
-        </div>
-
-        <nav className="space-y-2">
-          {categories.map((category) => {
-            const isExpanded = expandedCategories.includes(category.name);
-
-            return (
+            <h2
+              className={cn(
+                "text-sm font-medium tracking-wide",
+                isCollapsed && "sr-only",
+              )}
+              style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+                color: "rgb(var(--foreground))",
+              }}
+            >
+              Algorithm Categories
+            </h2>
+            {isCollapsed && (
               <div
-                key={category.name}
-                className="rounded-xl"
+                className="w-8 h-8 rounded-lg flex items-center justify-center"
                 style={{
-                  backgroundColor: "rgba(var(--background), 0.28)",
-                  boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.04)",
+                  backgroundColor: "rgba(141, 118, 233, 0.10)",
+                  border: "1px solid rgba(141, 118, 233, 0.18)",
                 }}
               >
-                {/* Category Header */}
-                <button
-                  onClick={() => toggleCategory(category.name)}
-                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    color: "rgb(var(--foreground))",
-                    backgroundColor: "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(138, 77, 152, 0.08)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                  }}
-                >
-                  <span className="text-[13px]" style={{ opacity: 0.9 }}>
-                    {category.name}
-                  </span>
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-0" : "-rotate-90"}`}
-                    style={{ opacity: 0.75 }}
-                  />
-                </button>
-
-                {/* Algorithm List */}
-                <div
-                  className={`px-2 pb-2 space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${
-                    isExpanded
-                      ? "max-h-96 opacity-100 mt-1"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  {category.algorithms.map((algorithm) => {
-                    const isSelected = selectedSlug === algorithm.slug;
-                    return (
-                      <Link
-                        key={algorithm.slug}
-                        href={`/algorithms/${algorithm.slug}`}
-                        className={cn(
-                          "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
-                          "text-[rgb(var(--foreground))] opacity-70 visited:text-[rgb(var(--foreground))]",
-                          "hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
-                          isSelected &&
-                            "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
-                        )}
-                        style={{
-                          fontFamily: "var(--font-inter), sans-serif",
-                        }}
-                      >
-                        {algorithm.name}
-                      </Link>
-                    );
-                  })}
-                </div>
+                <span style={{ color: "rgb(141, 118, 233)", fontWeight: 600 }}>
+                  A
+                </span>
               </div>
-            );
-          })}
-        </nav>
+            )}
+          </div>
+
+          {onToggleCollapse && (
+            <button
+              type="button"
+              onClick={onToggleCollapse}
+              className={cn(
+                "mb-4 rounded-xl p-2 transition-colors",
+                isCollapsed ? "mx-auto" : "ml-3",
+              )}
+              style={{
+                backgroundColor: "rgba(var(--foreground), 0.04)",
+                border: "1px solid rgba(var(--foreground), 0.08)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  "rgba(138, 77, 152, 0.08)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  "rgba(var(--foreground), 0.04)";
+              }}
+              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {isCollapsed ? (
+                <ChevronRight className="w-4 h-4" style={{ opacity: 0.85 }} />
+              ) : (
+                <ChevronLeft className="w-4 h-4" style={{ opacity: 0.85 }} />
+              )}
+            </button>
+          )}
+        </div>
+
+        {isCollapsed ? null : (
+          <nav className="space-y-2">
+            {categories.map((category) => {
+              const isExpanded = expandedCategories.includes(category.name);
+
+              return (
+                <div
+                  key={category.name}
+                  className="rounded-xl"
+                  style={{
+                    backgroundColor: "rgba(var(--background), 0.28)",
+                    boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.04)",
+                  }}
+                >
+                  {/* Category Header */}
+                  <button
+                    onClick={() => toggleCategory(category.name)}
+                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors"
+                    style={{
+                      fontFamily: "var(--font-space-grotesk), sans-serif",
+                      color: "rgb(var(--foreground))",
+                      backgroundColor: "transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        "rgba(138, 77, 152, 0.08)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                    }}
+                  >
+                    <span className="text-[13px]" style={{ opacity: 0.9 }}>
+                      {category.name}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-0" : "-rotate-90"}`}
+                      style={{ opacity: 0.75 }}
+                    />
+                  </button>
+
+                  {/* Algorithm List */}
+                  <div
+                    className={`px-2 pb-2 space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${
+                      isExpanded
+                        ? "max-h-96 opacity-100 mt-1"
+                        : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    {category.algorithms.map((algorithm) => {
+                      const isSelected = selectedSlug === algorithm.slug;
+
+                      if (onSelectAlgorithm) {
+                        return (
+                          <button
+                            key={algorithm.slug}
+                            type="button"
+                            onClick={() => onSelectAlgorithm(algorithm.slug)}
+                            className={cn(
+                              "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                              "text-[rgb(var(--foreground))] opacity-70",
+                              "hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
+                              isSelected &&
+                                "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
+                            )}
+                            style={{
+                              fontFamily: "var(--font-inter), sans-serif",
+                            }}
+                          >
+                            {algorithm.name}
+                          </button>
+                        );
+                      }
+
+                      return (
+                        <Link
+                          key={algorithm.slug}
+                          href={`/algorithms/${algorithm.slug}`}
+                          className={cn(
+                            "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                            "text-[rgb(var(--foreground))] opacity-70 visited:text-[rgb(var(--foreground))]",
+                            "hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
+                            isSelected &&
+                              "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
+                          )}
+                          style={{
+                            fontFamily: "var(--font-inter), sans-serif",
+                          }}
+                        >
+                          {algorithm.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </nav>
+        )}
       </div>
     </aside>
   );

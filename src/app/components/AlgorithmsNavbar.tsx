@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 
 import { useTheme } from "../context/ThemeContext";
-import { Button } from "./sections/ui/button";
+import { Button } from "./ui/button";
 
 const navLinks = [
   { name: "Explore", href: "/algorithms" },
@@ -187,7 +187,7 @@ export default function AlgorithmsNavbar() {
                 e.currentTarget.style.backgroundColor = "#8a4d98";
               }}
             >
-              <span className="absolute inset-y-0 -left-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out" />
+              <span className="absolute inset-y-0 -left-full w-full bg-linear-to-r from-transparent via-white/30 to-transparent group-hover:left-full transition-all duration-700 ease-out" />
               <span className="relative z-10">Subscribe</span>
             </motion.button>
 
