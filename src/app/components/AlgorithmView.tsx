@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { algorithmData } from "@/app/data/algorithmData";
@@ -21,6 +21,10 @@ type TabId = (typeof tabs)[number]["id"];
 
 export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
   const [activeTab, setActiveTab] = useState<TabId>("about");
+
+  useEffect(() => {
+    setActiveTab("about");
+  }, [algorithmId]);
 
   const algorithm = useMemo(() => {
     if (!algorithmId) return null;
@@ -87,6 +91,45 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
             {algorithm.name}
           </motion.h1>
 
+          {/* View Toggles */}
+          <div className="mt-3">
+            <div
+              className="inline-flex flex-wrap gap-1 p-1 rounded-xl"
+              style={{
+                backgroundColor: "rgba(var(--background), 0.28)",
+                boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.04)",
+                border: "1px solid rgba(var(--foreground), 0.08)",
+              }}
+              role="tablist"
+              aria-label="Algorithm view"
+            >
+              {tabs.map((tab) => {
+                const isActive = activeTab === tab.id;
+
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveTab(tab.id)}
+                    className={cn(
+                      "px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                      "text-[rgb(var(--foreground))]",
+                      isActive
+                        ? "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100"
+                        : "opacity-70 hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
+                    )}
+                    style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls={`algo-panel-${tab.id}`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="flex flex-wrap gap-3 mb-4">
             <span
               className="px-3 py-1 rounded-full text-sm font-medium"
@@ -130,44 +173,6 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
           </motion.p>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-6">
-          <div
-            className="flex items-center gap-1 p-1 rounded-lg w-fit"
-            style={{
-              backgroundColor: "rgba(var(--foreground), 0.03)",
-              border: "1px solid rgba(var(--foreground), 0.08)",
-            }}
-          >
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={cn(
-                  "relative px-4 py-2 text-sm font-medium rounded-md transition-colors",
-                  activeTab === tab.id
-                    ? "text-[rgb(var(--foreground))]"
-                    : "text-[rgb(var(--foreground))] opacity-70 hover:opacity-100",
-                )}
-                style={{ fontFamily: "var(--font-inter), sans-serif" }}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="algo-view-tab-indicator"
-                    className="absolute inset-0 rounded-md shadow-sm"
-                    style={{
-                      backgroundColor: "rgba(var(--background), 0.75)",
-                      border: "1px solid rgba(var(--foreground), 0.08)",
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Tab Content */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -184,6 +189,8 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                   backgroundColor: "rgba(var(--foreground), 0.02)",
                   border: "1px solid rgba(var(--foreground), 0.08)",
                 }}
+                id="algo-panel-about"
+                role="tabpanel"
               >
                 <h2
                   className="text-2xl font-medium mb-4"
@@ -241,6 +248,8 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                   backgroundColor: "rgba(var(--foreground), 0.02)",
                   border: "1px solid rgba(var(--foreground), 0.08)",
                 }}
+                id="algo-panel-visualize"
+                role="tabpanel"
               >
                 <p style={{ opacity: 0.7 }}>
                   Interactive visualization coming soon...
@@ -255,6 +264,8 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                   backgroundColor: "rgba(var(--foreground), 0.02)",
                   border: "1px solid rgba(var(--foreground), 0.08)",
                 }}
+                id="algo-panel-diagram"
+                role="tabpanel"
               >
                 <p style={{ opacity: 0.7 }}>Data diagram coming soon...</p>
               </section>
@@ -267,6 +278,8 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                   backgroundColor: "rgba(var(--foreground), 0.02)",
                   border: "1px solid rgba(var(--foreground), 0.08)",
                 }}
+                id="algo-panel-complexity"
+                role="tabpanel"
               >
                 <h2
                   className="text-2xl font-medium mb-4"
