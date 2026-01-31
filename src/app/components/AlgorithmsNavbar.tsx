@@ -97,16 +97,16 @@ export default function AlgorithmsNavbar() {
             </Link>
 
             {/* Center nav - Desktop */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-end gap-1">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="relative px-4 py-2 text-sm font-medium transition-colors"
+                    className="relative px-4 pt-3 pb-1 text-sm font-medium transition-colors"
                     style={{
-                      color: "rgb(var(--foreground))",
+                      color: isActive ? "#8a4d98" : "rgb(var(--foreground))",
                       opacity: isActive ? 1 : 0.7,
                     }}
                     onMouseEnter={(e) => {
@@ -122,18 +122,6 @@ export default function AlgorithmsNavbar() {
                     aria-current={isActive ? "page" : undefined}
                   >
                     {link.name}
-                    {isActive && (
-                      <motion.div
-                        layoutId="algorithms-navbar-indicator"
-                        className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full"
-                        style={{ backgroundColor: "#8a4d98" }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      />
-                    )}
                   </Link>
                 );
               })}
