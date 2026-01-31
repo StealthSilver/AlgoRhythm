@@ -164,14 +164,17 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
                   <span className="w-24 text-xs" style={{ opacity: 0.6 }}>
                     {item.desc}
                   </span>
-                  {isCurrent && (
-                    <span
-                      className="text-xs font-medium"
-                      style={{ color: "rgb(141, 118, 233)" }}
-                    >
-                      ← this algo
-                    </span>
-                  )}
+                  <span
+                    className="w-20 text-xs font-medium whitespace-nowrap"
+                    style={
+                      isCurrent
+                        ? { color: "rgb(141, 118, 233)", opacity: 1 }
+                        : { opacity: 0 }
+                    }
+                    aria-hidden={!isCurrent}
+                  >
+                     this algo
+                  </span>
                 </div>
               );
             })}
