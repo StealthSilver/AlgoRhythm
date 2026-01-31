@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import {
   ChevronDown,
@@ -48,6 +49,8 @@ export default function AlgorithmsSidebar({
   onToggleCollapse,
 }: AlgorithmsSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const expandedWidth = 320;
+  const collapsedWidth = 72;
   const categories: AlgorithmCategory[] = [
     {
       name: "Arrays & Basic Operations",
@@ -340,14 +343,16 @@ export default function AlgorithmsSidebar({
   };
 
   return (
-    <aside
+    <motion.aside
       className={cn(
         "hidden md:block",
         "custom-scrollbar overflow-y-auto",
         "relative rounded-2xl backdrop-blur-md",
-        isCollapsed ? "w-18" : "w-full",
+        "will-change-[width]",
         className,
       )}
+      animate={{ width: isCollapsed ? collapsedWidth : expandedWidth }}
+      transition={{ type: "spring", stiffness: 260, damping: 22, mass: 0.9 }}
       style={{
         background:
           "linear-gradient(180deg, rgba(141, 118, 233, 0.10) 0%, rgba(138, 77, 152, 0.06) 100%)",
@@ -392,35 +397,17 @@ export default function AlgorithmsSidebar({
               isCollapsed ? "justify-center" : "justify-between",
             )}
           >
-            <div
-              className={cn(
-                "flex items-center gap-2",
-                isCollapsed ? "justify-center" : "",
-              )}
-            >
-              <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center"
+            {!isCollapsed && (
+              <h2
+                className="text-sm font-semibold tracking-wide"
                 style={{
-                  backgroundColor: "rgba(141, 118, 233, 0.10)",
-                  border: "1px solid rgba(141, 118, 233, 0.18)",
+                  fontFamily: "var(--font-space-grotesk), sans-serif",
+                  color: "rgb(var(--foreground))",
                 }}
               >
-                <span style={{ color: "rgb(141, 118, 233)", fontWeight: 700 }}>
-                  A
-                </span>
-              </div>
-              {!isCollapsed && (
-                <h2
-                  className="text-sm font-semibold tracking-wide"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk), sans-serif",
-                    color: "rgb(var(--foreground))",
-                  }}
-                >
-                  Algorithms
-                </h2>
-              )}
-            </div>
+                Algorithms
+              </h2>
+            )}
 
             {onToggleCollapse && (
               <button
@@ -453,129 +440,171 @@ export default function AlgorithmsSidebar({
             )}
           </div>
 
-          {!isCollapsed && (
-            <div
-              className="rounded-xl px-3 py-2 flex items-center gap-2"
-              style={{
-                backgroundColor: "rgba(var(--foreground), 0.04)",
-                border: "1px solid rgba(var(--foreground), 0.08)",
-              }}
-            >
-              <Search className="w-4 h-4" style={{ opacity: 0.75 }} />
-              <input
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search algorithms..."
-                className="w-full bg-transparent outline-none text-sm"
-                style={{ color: "rgb(var(--foreground))" }}
-              />
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {!isCollapsed && (
+              <motion.div
+                key="sidebar-search"
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                className="rounded-xl px-3 py-2 flex items-center gap-2"
+                style={{
+                  backgroundColor: "rgba(var(--foreground), 0.04)",
+                  border: "1px solid rgba(var(--foreground), 0.08)",
+                }}
+              >
+                <Search className="w-4 h-4" style={{ opacity: 0.75 }} />
+                <input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search algorithms..."
+                  className="w-full bg-transparent outline-none text-sm"
+                  style={{ color: "rgb(var(--foreground))" }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {isCollapsed ? (
-          <nav className="space-y-2">
-            {filteredCategories.map((category) => {
-              const Icon = categoryIconMap[category.name] ?? Sparkles;
-              return (
-                <button
-                  key={category.name}
-                  type="button"
-                  className="w-full flex items-center justify-center rounded-xl p-3 transition-colors"
-                  style={{
-                    backgroundColor: "rgba(var(--foreground), 0.03)",
-                    border: "1px solid rgba(var(--foreground), 0.08)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(138, 77, 152, 0.10)";
-                    e.currentTarget.style.borderColor =
-                      "rgba(138, 77, 152, 0.22)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(var(--foreground), 0.03)";
-                    e.currentTarget.style.borderColor =
-                      "rgba(var(--foreground), 0.08)";
-                  }}
-                  onClick={() => {
-                    // Expand and focus this category
-                    onToggleCollapse?.();
-                    setExpandedCategories([category.name]);
-                  }}
-                  aria-label={category.name}
-                  title={category.name}
-                >
-                  <Icon className="w-5 h-5" style={{ opacity: 0.9 }} />
-                </button>
-              );
-            })}
-          </nav>
-        ) : (
-          <nav className="space-y-2">
-            {categories.map((category) => {
-              const isExpanded = expandedCategories.includes(category.name);
-              const Icon = categoryIconMap[category.name] ?? Sparkles;
-
-              return (
-                <div
-                  key={category.name}
-                  className="rounded-xl"
-                  style={{
-                    backgroundColor: "rgba(var(--background), 0.28)",
-                    boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.04)",
-                  }}
-                >
-                  {/* Category Header */}
+        <AnimatePresence mode="wait" initial={false}>
+          {isCollapsed ? (
+            <motion.nav
+              key="collapsed-nav"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="space-y-2"
+            >
+              {filteredCategories.map((category) => {
+                const Icon = categoryIconMap[category.name] ?? Sparkles;
+                return (
                   <button
-                    onClick={() => toggleCategory(category.name)}
-                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors"
+                    key={category.name}
+                    type="button"
+                    className="w-full flex items-center justify-center rounded-xl p-3 transition-colors"
                     style={{
-                      fontFamily: "var(--font-space-grotesk), sans-serif",
-                      color: "rgb(var(--foreground))",
-                      backgroundColor: "transparent",
+                      backgroundColor: "rgba(var(--foreground), 0.03)",
+                      border: "1px solid rgba(var(--foreground), 0.08)",
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.backgroundColor =
-                        "rgba(138, 77, 152, 0.08)";
+                        "rgba(138, 77, 152, 0.10)";
+                      e.currentTarget.style.borderColor =
+                        "rgba(138, 77, 152, 0.22)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "transparent";
+                      e.currentTarget.style.backgroundColor =
+                        "rgba(var(--foreground), 0.03)";
+                      e.currentTarget.style.borderColor =
+                        "rgba(var(--foreground), 0.08)";
+                    }}
+                    onClick={() => {
+                      // Expand and focus this category
+                      onToggleCollapse?.();
+                      setExpandedCategories([category.name]);
+                    }}
+                    aria-label={category.name}
+                    title={category.name}
+                  >
+                    <Icon className="w-5 h-5" style={{ opacity: 0.9 }} />
+                  </button>
+                );
+              })}
+            </motion.nav>
+          ) : (
+            <motion.nav
+              key="expanded-nav"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="space-y-2"
+            >
+              {categories.map((category) => {
+                const isExpanded = expandedCategories.includes(category.name);
+                const Icon = categoryIconMap[category.name] ?? Sparkles;
+
+                return (
+                  <div
+                    key={category.name}
+                    className="rounded-xl"
+                    style={{
+                      backgroundColor: "rgba(var(--background), 0.28)",
+                      boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.04)",
                     }}
                   >
-                    <span
-                      className="flex items-center gap-2 text-[13px]"
-                      style={{ opacity: 0.9 }}
+                    {/* Category Header */}
+                    <button
+                      onClick={() => toggleCategory(category.name)}
+                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors"
+                      style={{
+                        fontFamily: "var(--font-space-grotesk), sans-serif",
+                        color: "rgb(var(--foreground))",
+                        backgroundColor: "transparent",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          "rgba(138, 77, 152, 0.08)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
                     >
-                      <Icon className="w-4 h-4" style={{ opacity: 0.85 }} />
-                      {category.name}
-                    </span>
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-0" : "-rotate-90"}`}
-                      style={{ opacity: 0.75 }}
-                    />
-                  </button>
+                      <span
+                        className="flex items-center gap-2 text-[13px]"
+                        style={{ opacity: 0.9 }}
+                      >
+                        <Icon className="w-4 h-4" style={{ opacity: 0.85 }} />
+                        {category.name}
+                      </span>
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? "rotate-0" : "-rotate-90"}`}
+                        style={{ opacity: 0.75 }}
+                      />
+                    </button>
 
-                  {/* Algorithm List */}
-                  <div
-                    className={`px-2 pb-2 space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${
-                      isExpanded
-                        ? "max-h-96 opacity-100 mt-1"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    {category.algorithms.map((algorithm) => {
-                      const isSelected = selectedSlug === algorithm.slug;
+                    {/* Algorithm List */}
+                    <div
+                      className={`px-2 pb-2 space-y-1 overflow-hidden transition-all duration-300 ease-in-out ${
+                        isExpanded
+                          ? "max-h-96 opacity-100 mt-1"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      {category.algorithms.map((algorithm) => {
+                        const isSelected = selectedSlug === algorithm.slug;
 
-                      if (onSelectAlgorithm) {
+                        if (onSelectAlgorithm) {
+                          return (
+                            <button
+                              key={algorithm.slug}
+                              type="button"
+                              onClick={() => onSelectAlgorithm(algorithm.slug)}
+                              className={cn(
+                                "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
+                                "text-[rgb(var(--foreground))] opacity-70",
+                                "hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
+                                isSelected &&
+                                  "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
+                              )}
+                              style={{
+                                fontFamily: "var(--font-inter), sans-serif",
+                              }}
+                            >
+                              {algorithm.name}
+                            </button>
+                          );
+                        }
+
                         return (
-                          <button
+                          <Link
                             key={algorithm.slug}
-                            type="button"
-                            onClick={() => onSelectAlgorithm(algorithm.slug)}
+                            href={`/algorithms/${algorithm.slug}`}
                             className={cn(
                               "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
-                              "text-[rgb(var(--foreground))] opacity-70",
+                              "text-[rgb(var(--foreground))] opacity-70 visited:text-[rgb(var(--foreground))]",
                               "hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
                               isSelected &&
                                 "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
@@ -585,36 +614,17 @@ export default function AlgorithmsSidebar({
                             }}
                           >
                             {algorithm.name}
-                          </button>
+                          </Link>
                         );
-                      }
-
-                      return (
-                        <Link
-                          key={algorithm.slug}
-                          href={`/algorithms/${algorithm.slug}`}
-                          className={cn(
-                            "block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200",
-                            "text-[rgb(var(--foreground))] opacity-70 visited:text-[rgb(var(--foreground))]",
-                            "hover:text-[rgb(141,118,233)] hover:bg-[rgba(141,118,233,0.08)] hover:opacity-100",
-                            isSelected &&
-                              "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
-                          )}
-                          style={{
-                            fontFamily: "var(--font-inter), sans-serif",
-                          }}
-                        >
-                          {algorithm.name}
-                        </Link>
-                      );
-                    })}
+                      })}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </nav>
-        )}
+                );
+              })}
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </div>
-    </aside>
+    </motion.aside>
   );
 }

@@ -13,19 +13,21 @@ export default function AlgorithmsPage() {
 
   return (
     <div className="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] flex flex-col">
-      <div className="flex-1 flex">
-        <div className="shrink-0">
-          <AlgorithmsSidebar
-            isOpen={true}
-            selectedSlug={selectedAlgorithm ?? undefined}
-            onSelectAlgorithm={setSelectedAlgorithm}
-            isCollapsed={sidebarCollapsed}
-            onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
-            className="md:sticky md:top-0 h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)]"
-          />
-        </div>
+      <div className="flex-1 w-full">
+        <div className="max-w-full mx-auto px-8 md:px-12 flex h-full gap-8">
+          <div className="shrink-0">
+            <AlgorithmsSidebar
+              isOpen={true}
+              selectedSlug={selectedAlgorithm ?? undefined}
+              onSelectAlgorithm={setSelectedAlgorithm}
+              isCollapsed={sidebarCollapsed}
+              onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
+              className="md:sticky md:top-0 h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)]"
+            />
+          </div>
 
-        <AlgorithmView algorithmId={selectedAlgorithm} />
+          <AlgorithmView algorithmId={selectedAlgorithm} />
+        </div>
       </div>
     </div>
   );
