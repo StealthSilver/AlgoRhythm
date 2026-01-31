@@ -65,31 +65,65 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
   }
 
   return (
-    <div className="flex-1 p-6 lg:p-8 overflow-y-auto">
+    <div className="flex-1 min-w-0 overflow-y-auto py-6 lg:py-8 pr-6 lg:pr-8 pl-2 sm:pl-4">
       <motion.div
         key={algorithmId}
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="max-w-4xl mx-auto"
+        className="max-w-none"
       >
         {/* Header */}
         <div className="mb-8">
-          <motion.h1
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-light mb-3"
-            style={{
-              fontFamily: "var(--font-space-grotesk), sans-serif",
-              background:
-                "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            {algorithm.name}
-          </motion.h1>
+          <div className="flex flex-wrap items-end gap-3">
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-3xl sm:text-4xl md:text-5xl font-light"
+              style={{
+                fontFamily: "var(--font-space-grotesk), sans-serif",
+                background:
+                  "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {algorithm.name}
+            </motion.h1>
+
+            <div className="flex flex-wrap gap-2 pb-1">
+              <span
+                className="px-2 py-0.5 rounded-full text-xs font-medium"
+                style={{
+                  background: "rgba(141, 118, 233, 0.12)",
+                  color: "rgb(141, 118, 233)",
+                }}
+              >
+                {algorithm.category}
+              </span>
+              <span
+                className="px-2 py-0.5 rounded-full text-xs font-medium"
+                style={{
+                  backgroundColor: "rgba(var(--foreground), 0.04)",
+                  border: "1px solid rgba(var(--foreground), 0.08)",
+                  opacity: 0.9,
+                }}
+              >
+                Time: {algorithm.timeComplexity}
+              </span>
+              <span
+                className="px-2 py-0.5 rounded-full text-xs font-medium"
+                style={{
+                  backgroundColor: "rgba(var(--foreground), 0.04)",
+                  border: "1px solid rgba(var(--foreground), 0.08)",
+                  opacity: 0.9,
+                }}
+              >
+                Space: {algorithm.spaceComplexity}
+              </span>
+            </div>
+          </div>
 
           {/* View Toggles */}
           <div className="mt-3">
@@ -129,48 +163,6 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
               })}
             </div>
           </div>
-
-          <div className="flex flex-wrap gap-3 mb-4">
-            <span
-              className="px-3 py-1 rounded-full text-sm font-medium"
-              style={{
-                background: "rgba(141, 118, 233, 0.12)",
-                color: "rgb(141, 118, 233)",
-              }}
-            >
-              {algorithm.category}
-            </span>
-            <span
-              className="px-3 py-1 rounded-full text-sm font-medium"
-              style={{
-                backgroundColor: "rgba(var(--foreground), 0.04)",
-                border: "1px solid rgba(var(--foreground), 0.08)",
-                opacity: 0.9,
-              }}
-            >
-              Time: {algorithm.timeComplexity}
-            </span>
-            <span
-              className="px-3 py-1 rounded-full text-sm font-medium"
-              style={{
-                backgroundColor: "rgba(var(--foreground), 0.04)",
-                border: "1px solid rgba(var(--foreground), 0.08)",
-                opacity: 0.9,
-              }}
-            >
-              Space: {algorithm.spaceComplexity}
-            </span>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08 }}
-            className="text-base sm:text-lg"
-            style={{ opacity: 0.75 }}
-          >
-            {algorithm.description}
-          </motion.p>
         </div>
 
         {/* Tab Content */}
@@ -192,6 +184,23 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                 id="algo-panel-about"
                 role="tabpanel"
               >
+                <section className="mb-8">
+                  <h2
+                    className="text-2xl font-medium mb-3"
+                    style={{
+                      fontFamily: "var(--font-space-grotesk), sans-serif",
+                    }}
+                  >
+                    Description
+                  </h2>
+                  <p
+                    className="text-base sm:text-lg leading-relaxed"
+                    style={{ opacity: 0.75 }}
+                  >
+                    {algorithm.description}
+                  </p>
+                </section>
+
                 <h2
                   className="text-2xl font-medium mb-4"
                   style={{
