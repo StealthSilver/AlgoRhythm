@@ -8,25 +8,21 @@ interface ComplexityTabProps {
   algorithm: Algorithm;
 }
 
-const complexityColors: Record<string, string> = {
-  "O(1)": "bg-emerald-500/20 text-emerald-500 border-emerald-500/30",
-  "O(log n)": "bg-green-500/20 text-green-500 border-green-500/30",
-  "O(n)": "bg-cyan-500/20 text-cyan-500 border-cyan-500/30",
-  "O(n log n)": "bg-blue-500/20 text-blue-500 border-blue-500/30",
-  "O(n²)": "bg-amber-500/20 text-amber-500 border-amber-500/30",
-  "O(2^n)": "bg-rose-500/20 text-rose-500 border-rose-500/30",
-  "O(h)": "bg-cyan-500/20 text-cyan-500 border-cyan-500/30",
-  "O(V)": "bg-cyan-500/20 text-cyan-500 border-cyan-500/30",
-  "O(V + E)": "bg-blue-500/20 text-blue-500 border-blue-500/30",
-  "O((V + E) log V)": "bg-blue-500/20 text-blue-500 border-blue-500/30",
-  "O(n) or O(1)": "bg-emerald-500/20 text-emerald-500 border-emerald-500/30",
-};
+function getTokenBadgeStyle(isCurrent: boolean): React.CSSProperties {
+  if (isCurrent) {
+    return {
+      background:
+        "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
+      color: "rgba(255, 255, 255, 0.92)",
+      borderColor: "rgba(141, 118, 233, 0.35)",
+    };
+  }
 
-function getComplexityColor(complexity: string): string {
-  return (
-    complexityColors[complexity] ||
-    "bg-muted text-muted-foreground border-border"
-  );
+  return {
+    backgroundColor: "rgba(var(--foreground), 0.04)",
+    color: "rgba(var(--foreground), 0.62)",
+    borderColor: "rgba(var(--foreground), 0.10)",
+  };
 }
 
 function extractBigOTokens(text: string): string[] {
@@ -75,14 +71,18 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
             </p>
             {timeTokens.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
-                {timeTokens.map((token) => (
-                  <span
-                    key={token}
-                    className={`inline-flex items-center px-2.5 py-1 rounded-lg border text-xs font-mono ${getComplexityColor(token)}`}
-                  >
-                    {token}
-                  </span>
-                ))}
+                {timeTokens.map((token) => {
+                  const isCurrent = worstGuess === token;
+                  return (
+                    <span
+                      key={token}
+                      className="inline-flex items-center px-2.5 py-1 rounded-lg border text-xs font-mono"
+                      style={getTokenBadgeStyle(isCurrent)}
+                    >
+                      {token}
+                    </span>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -147,7 +147,7 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
                   </span>
                   <div
                     className="flex-1 h-6 rounded-lg overflow-hidden"
-                    style={{ backgroundColor: "rgba(var(--foreground), 0.06)" }}
+                    style={{ backgroundColor: "rgba(120, 120, 120, 0.14)" }}
                   >
                     <motion.div
                       initial={{ width: 0 }}
@@ -157,7 +157,7 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
                       style={{
                         background: isCurrent
                           ? "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)"
-                          : "rgba(var(--foreground), 0.16)",
+                          : "linear-gradient(135deg, rgba(110, 110, 110, 0.55) 0%, rgba(80, 80, 80, 0.55) 100%)",
                       }}
                     />
                   </div>
