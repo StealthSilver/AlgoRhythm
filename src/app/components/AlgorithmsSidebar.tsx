@@ -49,6 +49,7 @@ export default function AlgorithmsSidebar({
   onToggleCollapse,
 }: AlgorithmsSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const isSearching = searchQuery.trim().length > 0;
   const expandedWidth = 320;
   const collapsedWidth = 72;
   const categories: AlgorithmCategory[] = [
@@ -522,8 +523,30 @@ export default function AlgorithmsSidebar({
               transition={{ duration: 0.15 }}
               className="space-y-2"
             >
-              {categories.map((category) => {
-                const isExpanded = expandedCategories.includes(category.name);
+              {filteredCategories.length === 0 && isSearching ? (
+                <div
+                  className="rounded-xl px-3 py-3 text-sm"
+                  style={{
+                    backgroundColor: "rgba(var(--foreground), 0.03)",
+                    border: "1px solid rgba(var(--foreground), 0.08)",
+                    color: "rgb(var(--foreground))",
+                    opacity: 0.8,
+                  }}
+                >
+                  No matching algorithms.
+                  <button
+                    type="button"
+                    className="ml-2 underline underline-offset-2"
+                    onClick={() => setSearchQuery("")}
+                  >
+                    Clear
+                  </button>
+                </div>
+              ) : null}
+
+              {filteredCategories.map((category) => {
+                const isExpanded =
+                  isSearching || expandedCategories.includes(category.name);
                 const Icon = categoryIconMap[category.name] ?? Sparkles;
 
                 return (
@@ -537,7 +560,10 @@ export default function AlgorithmsSidebar({
                   >
                     {/* Category Header */}
                     <button
-                      onClick={() => toggleCategory(category.name)}
+                      onClick={() => {
+                        if (isSearching) return;
+                        toggleCategory(category.name);
+                      }}
                       className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors"
                       style={{
                         fontFamily: "var(--font-space-grotesk), sans-serif",

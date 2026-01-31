@@ -104,7 +104,7 @@ export default function AlgorithmsNavbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="relative px-4 pt-3 pb-1 text-sm font-medium transition-colors"
+                    className="relative px-4 pt-3 pb-0 text-sm font-medium transition-colors"
                     style={{
                       color: isActive ? "#8a4d98" : "rgb(var(--foreground))",
                       opacity: isActive ? 1 : 0.7,
