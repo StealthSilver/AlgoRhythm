@@ -88,11 +88,7 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
               className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight"
               style={{
                 fontFamily: "var(--font-inter), sans-serif",
-                background:
-                  "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                color: "rgb(var(--foreground))",
               }}
             >
               {algorithm.name}
@@ -110,14 +106,9 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
           </motion.p>
 
           {/* View Toggles */}
-          <div className="mt-3">
+          <div className="mt-6">
             <div
-              className="inline-flex flex-wrap gap-1 p-1 rounded-xl"
-              style={{
-                backgroundColor: "rgba(var(--background), 0.28)",
-                boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(var(--foreground), 0.08)",
-              }}
+              className="inline-flex flex-wrap gap-2"
               role="tablist"
               aria-label="Algorithm view"
             >
@@ -130,41 +121,44 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
                     className={cn(
-                      "relative px-3 py-2 rounded-lg text-sm transition-colors",
-                      "text-[rgb(var(--foreground))]",
-                      isActive
-                        ? "opacity-100"
-                        : "opacity-70 hover:text-[rgb(141,118,233)] hover:opacity-100",
+                      "relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200",
                     )}
-                    style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                    style={{
+                      fontFamily: "var(--font-inter), sans-serif",
+                      backgroundColor: isActive
+                        ? "rgba(138, 77, 152, 0.12)"
+                        : "rgba(var(--foreground), 0.03)",
+                      border: isActive
+                        ? "1px solid rgba(138, 77, 152, 0.25)"
+                        : "1px solid rgba(var(--foreground), 0.08)",
+                      color: isActive
+                        ? "rgb(138, 77, 152)"
+                        : "rgb(var(--foreground))",
+                      opacity: isActive ? 1 : 0.7,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor =
+                          "rgba(138, 77, 152, 0.08)";
+                        e.currentTarget.style.borderColor =
+                          "rgba(138, 77, 152, 0.15)";
+                        e.currentTarget.style.opacity = "1";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor =
+                          "rgba(var(--foreground), 0.03)";
+                        e.currentTarget.style.borderColor =
+                          "rgba(var(--foreground), 0.08)";
+                        e.currentTarget.style.opacity = "0.7";
+                      }
+                    }}
                     role="tab"
                     aria-selected={isActive}
                     aria-controls={`algo-panel-${tab.id}`}
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="algo-tab-indicator"
-                        className="absolute inset-0 rounded-lg"
-                        transition={{
-                          type: "spring",
-                          stiffness: 320,
-                          damping: 32,
-                        }}
-                        style={{
-                          background: "rgba(141, 118, 233, 0.12)",
-                          boxShadow: "0 10px 30px rgba(141, 118, 233, 0.10)",
-                          border: "1px solid rgba(141, 118, 233, 0.18)",
-                        }}
-                      />
-                    )}
-                    <span
-                      className={cn(
-                        "relative z-10",
-                        isActive ? "text-[rgb(141,118,233)]" : undefined,
-                      )}
-                    >
-                      {tab.label}
-                    </span>
+                    {tab.label}
                   </button>
                 );
               })}
