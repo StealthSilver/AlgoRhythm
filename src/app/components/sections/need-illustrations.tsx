@@ -359,7 +359,7 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
           onClick={() => setPlaying((p) => !p)}
           aria-label={playing ? "Pause bubble sort" : "Play bubble sort"}
           className={cn(
-            "absolute left-1/2 bottom-0 flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full ring-0 outline-none",
+            "absolute left-1/2 bottom-0 flex h-7 w-7 -translate-x-1/2 cursor-pointer items-center justify-center rounded-full ring-0 outline-none",
             "transition-opacity duration-150",
             "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
             playing

@@ -8,22 +8,22 @@ const painPoints = [
   {
     title: "Theory alone doesn't build intuition",
     description:
-      "Reading definitions rarely translates into deep understanding of how an algorithm behaves.",
+      "You can read every definition and still not really feel how an algorithm behaves.",
   },
   {
     title: "Static diagrams hide state changes",
     description:
-      "Textbook images can't show how data transforms from one step to the next.",
+      "Textbook images never show you how data actually shifts from one step to the next.",
   },
   {
-    title: "Memorizing code ≠ understanding",
+    title: "Memorizing code is not understanding",
     description:
-      "Pattern-matching solutions breaks the moment a problem shifts shape.",
+      "Copying patterns works until the problem changes shape on you.",
   },
   {
     title: "Interviews demand real intuition",
     description:
-      "Confidence comes from seeing the process — not reciting it from memory.",
+      "Confidence comes from seeing the process unfold, not from reciting it from memory.",
   },
 ];
 
