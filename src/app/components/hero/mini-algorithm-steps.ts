@@ -470,6 +470,7 @@ export type DfsStep = {
   visited: number[];
   stack: number[];
   treeEdge: string | null;
+  treeEdges: string[];
   hint: string;
 };
 
@@ -478,6 +479,7 @@ export function buildDFSSteps(): DfsStep[] {
   const stack: number[] = [0];
   const visited: number[] = [];
   const parent: Record<number, number | null> = { 0: null };
+  const treeEdges: string[] = [];
 
   while (stack.length > 0) {
     const u = stack.pop()!;
@@ -487,12 +489,14 @@ export function buildDFSSteps(): DfsStep[] {
       parent[u] !== null && parent[u] !== undefined
         ? edgeKey(parent[u]!, u)
         : null;
+    if (treeEdge) treeEdges.push(treeEdge);
 
     steps.push({
       active: u,
       visited: [...visited],
       stack: [...stack],
       treeEdge,
+      treeEdges: [...treeEdges],
       hint:
         treeEdge === null
           ? `visit ${GRAPH_LABELS[u]} (root)`
@@ -513,6 +517,7 @@ export function buildDFSSteps(): DfsStep[] {
       visited: [...visited],
       stack: [...stack],
       treeEdge,
+      treeEdges: [...treeEdges],
       hint: `push neighbors onto stack · [${stack.map((n) => GRAPH_LABELS[n]).join(",") || "∅"}]`,
     });
   }
@@ -522,6 +527,7 @@ export function buildDFSSteps(): DfsStep[] {
     visited: [...visited],
     stack: [],
     treeEdge: null,
+    treeEdges: [...treeEdges],
     hint: "DFS complete · stack empty",
   });
   return steps;
@@ -758,7 +764,7 @@ export const AVL_STEPS: AvlStep[] = [
 export const STACK_VALUES = [12, 24, 36, 48] as const;
 
 export type StackStep =
-  | { op: "push"; items: number[]; incoming: number; hint: string }
+  | { op: "push"; items: number[]; incoming?: number; hint: string }
   | { op: "pop"; items: number[]; hint: string };
 
 export function buildStackSteps(): StackStep[] {

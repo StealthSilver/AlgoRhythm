@@ -19,16 +19,14 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[calc(100vh-4rem)] items-start justify-start overflow-hidden px-4 pt-16 sm:px-6 sm:pt-20 md:pt-24"
+      className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="hero-radial-glow absolute inset-0" />
-        <div className="hero-grid-bg absolute inset-0" />
-        <HeroGridAnimations />
       </div>
 
-      <motion.div className="relative z-10 max-w-7xl px-4 text-left sm:px-8 md:px-12">
+      <motion.div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 pt-16 text-left sm:px-5 sm:pt-20 md:pt-24">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -37,10 +35,18 @@ export default function Hero() {
         >
           Visualize Algorithms
           <br />
-          <span className="font-extralight" style={{ color: "#8a4d98" }}>
-            Master Data Structures
-          </span>
+          Master Data Structures
         </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="mb-8 max-w-xl text-base font-extralight tracking-wide sm:mb-10"
+        >
+          Interactive visualizations that transform complex concepts into intuitive
+          understanding
+        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -65,6 +71,13 @@ export default function Hero() {
           </button>
         </motion.div>
       </motion.div>
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 bottom-0 z-[1] pb-4"
+      >
+        <HeroGridAnimations />
+      </div>
     </section>
   );
 }

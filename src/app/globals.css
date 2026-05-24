@@ -207,25 +207,65 @@ html[data-magicui-theme-vt="active"]::view-transition-new(root) {
 
   /* Hero grid background — matches navbar border (border-black/[0.08] / border-white/[0.08]) */
   .hero-grid-bg {
-    --hero-grid-line: rgb(0 0 0 / 0.12);
+    --hero-grid-line: rgb(0 0 0 / 0.08);
     background-image:
       linear-gradient(to right, var(--hero-grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--hero-grid-line) 1px, transparent 1px);
-    background-size: calc(100% / 4) calc(100% / 3);
-    border-right: 1px solid var(--hero-grid-line);
-    border-bottom: 1px solid var(--hero-grid-line);
+      linear-gradient(to bottom, var(--hero-grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hero-grid-line), var(--hero-grid-line)),
+      linear-gradient(to right, var(--hero-grid-line), var(--hero-grid-line));
+    background-size:
+      calc(100% / 4) calc(100% / 3),
+      calc(100% / 4) calc(100% / 3),
+      1px 100%,
+      100% 1px;
+    background-position:
+      0 0,
+      0 0,
+      calc(100% - 1px) 0,
+      0 calc(100% - 1px);
+    background-repeat: repeat, repeat, no-repeat, no-repeat;
   }
 
   html.dark .hero-grid-bg {
-    --hero-grid-line: rgb(255 255 255 / 0.12);
+    --hero-grid-line: rgb(255 255 255 / 0.08);
+  }
+
+  /* Hero grid cells are larger than the mini viz canvas — viz stays compact, centered in each cell */
+  .hero-mini-viz {
+    transform: scale(0.78);
+    transform-origin: center;
+  }
+
+  @media (min-width: 640px) {
+    .hero-mini-viz {
+      transform: scale(0.82);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-mini-viz {
+      transform: scale(0.85);
+    }
+  }
+
+  .hero-viz-fade {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--background)) 0%,
+      rgb(var(--background) / 0.92) 20%,
+      rgb(var(--background) / 0.62) 40%,
+      rgb(var(--background) / 0.22) 58%,
+      transparent 72%
+    );
+    pointer-events: none;
   }
 
   .hero-radial-glow {
     background: radial-gradient(
-      ellipse 75% 60% at top left,
-      rgb(138 77 152 / 0.34) 0%,
-      rgb(138 77 152 / 0.14) 22%,
-      rgb(var(--background)) 50%
+      ellipse 65% 58% at 0% 0%,
+      rgb(138 77 152 / 0.44) 0%,
+      rgb(138 77 152 / 0.2) 32%,
+      rgb(var(--background)) 62%
     );
   }
 

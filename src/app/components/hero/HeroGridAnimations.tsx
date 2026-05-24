@@ -39,15 +39,18 @@ const HERO_ANIMATIONS = [
 
 export function HeroGridAnimations() {
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 grid grid-cols-4 grid-rows-3 opacity-[0.72] dark:opacity-[0.65]"
-    >
+    <div className="hero-grid-bg relative grid w-[min(100vw,1280px)] shrink-0 grid-cols-4 grid-rows-3 opacity-[0.62] dark:opacity-[0.55]">
       {HERO_ANIMATIONS.map(({ id, Component }) => (
-        <div key={id} className="relative overflow-hidden">
-          <Component />
+        <div
+          key={id}
+          className="relative flex min-h-[210px] items-center justify-center overflow-hidden sm:min-h-[230px] lg:min-h-[260px]"
+        >
+          <div className="hero-mini-viz shrink-0">
+            <Component />
+          </div>
         </div>
       ))}
+      <div aria-hidden className="hero-viz-fade absolute inset-0" />
     </div>
   );
 }

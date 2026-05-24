@@ -18,9 +18,7 @@ import {
   buildStackSteps,
   DIJKSTRA_EDGES,
   GRAPH_ADJ,
-  GRAPH_LABELS,
   LINEAR_VALUES,
-  type BarState,
 } from "./mini-algorithm-steps";
 import {
   BAR_DEFAULT,
@@ -392,7 +390,7 @@ export function TowerOfHanoiMini() {
 // ─── DFS ─────────────────────────────────────────────────────────────────────
 export function DFSMini() {
   const step = useMiniLoop(DFS_STEPS.length, MINI_SPEED.graph);
-  const { active, visited, treeEdge, hint } = DFS_STEPS[step];
+  const { active, visited, treeEdge, treeEdges, hint } = DFS_STEPS[step];
 
   const nodeStates: Record<number, "default" | "active" | "visited" | "path"> = {};
   GRAPH_NODES.forEach((n) => {
@@ -404,10 +402,10 @@ export function DFSMini() {
   if (active >= 0) nodeStates[active] = "active";
 
   const edgeStates: Record<string, "default" | "active" | "path"> = {};
+  treeEdges.forEach((e) => {
+    edgeStates[e] = "path";
+  });
   if (treeEdge) edgeStates[treeEdge] = "active";
-  for (let i = 1; i < visited.length; i++) {
-    edgeStates[edgeKey(visited[i - 1], visited[i])] = "path";
-  }
 
   const visitOrder: Record<number, number> = {};
   visited.forEach((id, i) => {
@@ -427,8 +425,8 @@ export function BFSMini() {
   const step = useMiniLoop(BFS_STEPS.length, MINI_SPEED.graph);
   const { active, visited, queue, enqueued, hint } = BFS_STEPS[step];
 
-  const visitedIds = visited.map((label) => GRAPH_LABELS.indexOf(label)).filter((i) => i >= 0);
-  const activeId = active >= 0 ? active : -1;
+  const visitedIds = visited;
+  const activeId = active;
   const frontierIds = enqueued;
 
   const nodeStates: Record<number, "default" | "active" | "visited" | "frontier"> = {};
@@ -556,7 +554,7 @@ export function AVLRotationMini() {
             )}
           </motion.g>
         ))}
-        {step === 3 && (
+        {step === 2 && (
           <motion.path
             d="M 58 32 A 14 14 0 0 1 42 50"
             fill="none"
@@ -599,13 +597,15 @@ export function StackOperationsMini() {
                 {val}
               </div>
             ))}
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="absolute -top-6 flex h-4 w-full items-center justify-center rounded-sm bg-amber-400 text-[8px] font-medium text-white"
-            >
-              {incoming}
-            </motion.div>
+            {incoming !== undefined && (
+              <motion.div
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute -top-6 flex h-4 w-full items-center justify-center rounded-sm bg-amber-400 text-[8px] font-medium text-white"
+              >
+                {incoming}
+              </motion.div>
+            )}
           </div>
           <MiniChip tone="active">push</MiniChip>
         </div>
