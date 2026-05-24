@@ -205,6 +205,30 @@ html[data-magicui-theme-vt="active"]::view-transition-new(root) {
     cursor: pointer;
   }
 
+  /* Hero grid background — matches navbar border (border-black/[0.08] / border-white/[0.08]) */
+  .hero-grid-bg {
+    --hero-grid-line: rgb(0 0 0 / 0.12);
+    background-image:
+      linear-gradient(to right, var(--hero-grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hero-grid-line) 1px, transparent 1px);
+    background-size: calc(100% / 4) calc(100% / 3);
+    border-right: 1px solid var(--hero-grid-line);
+    border-bottom: 1px solid var(--hero-grid-line);
+  }
+
+  html.dark .hero-grid-bg {
+    --hero-grid-line: rgb(255 255 255 / 0.12);
+  }
+
+  .hero-radial-glow {
+    background: radial-gradient(
+      ellipse 75% 60% at top right,
+      rgb(138 77 152 / 0.34) 0%,
+      rgb(138 77 152 / 0.14) 22%,
+      rgb(var(--background)) 50%
+    );
+  }
+
   /* Hero Gradient Background */
   .hero-gradient {
     background: radial-gradient(

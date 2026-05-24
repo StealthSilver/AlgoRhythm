@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Github, Linkedin } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { SiX } from "@icons-pack/react-simple-icons";
-import { Meteors } from "../ui/meteors";
 
 const socialLinks = [
   {
@@ -27,163 +26,56 @@ export default function Footer() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-  const [dots, setDots] = useState<
-    Array<{ left: number; top: number; duration: number; delay: number }>
-  >([]);
-  const [floatingElements, setFloatingElements] = useState<
-    Array<{
-      left: number;
-      top: number;
-      duration: number;
-      delay: number;
-      size: number;
-    }>
-  >([]);
 
   useEffect(() => {
     setMounted(true);
-
-    // Generate random positions only on client side to avoid hydration mismatch
-    setDots(
-      Array.from({ length: 25 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 5 + Math.random() * 4,
-        delay: Math.random() * 4,
-      })),
-    );
-
-    setFloatingElements(
-      Array.from({ length: 8 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 15 + Math.random() * 10,
-        delay: Math.random() * 5,
-        size: 40 + Math.random() * 80,
-      })),
-    );
   }, []);
-
-  const codeSnippets = [
-    "quickSort(arr)",
-    "bfs(graph)",
-    "dijkstra()",
-    "mergeSort()",
-    "dfs(node)",
-  ];
 
   return (
     <footer
       id="connect"
       ref={ref}
-      className="relative overflow-hidden pt-24 pb-8"
+      className="relative pt-24 pb-8"
       style={{
         fontFamily: "var(--font-outfit), sans-serif",
         backgroundColor: "rgb(var(--background))",
         borderTop: "1px solid rgba(var(--foreground), 0.1)",
       }}
     >
-      <Meteors number={6} />
-      {/* Blinking dots */}
-      {dots.map((dot, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1.5 h-1.5 rounded-full"
-          style={{
-            left: `${dot.left}%`,
-            top: `${dot.top}%`,
-            backgroundColor: isDark ? "#00c8fc" : "#1e465c",
-            opacity: 0,
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
-          }}
-          transition={{
-            duration: dot.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: dot.delay,
-          }}
-        />
-      ))}
-
-      {/* Floating code elements */}
-      {floatingElements.map((element, i) => (
-        <motion.div
-          key={i}
-          className="absolute pointer-events-none"
-          style={{
-            left: `${element.left}%`,
-            top: `${element.top}%`,
-            width: element.size,
-            height: element.size,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 15, 0],
-            rotate: [0, 10, 0],
-            opacity: [0.05, 0.15, 0.05],
-          }}
-          transition={{
-            duration: element.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: element.delay,
-          }}
-        >
-          <div
-            className="w-full h-full rounded-lg flex items-center justify-center text-xs font-mono"
-            style={{
-              backgroundColor: "rgba(138, 77, 152, 0.08)",
-              border: "1px solid rgba(138, 77, 152, 0.2)",
-            }}
-          >
-            {codeSnippets[i % codeSnippets.length]}
-          </div>
-        </motion.div>
-      ))}
-
-      <div className="relative max-w-7xl mx-auto px-8 md:px-12">
-        {/* Main footer content - Centered */}
-        <div className="flex flex-col items-center text-center mb-12">
-          {/* Brand section */}
+      <motion.div className="relative mx-auto max-w-7xl px-8 md:px-12">
+        <div className="mb-12 flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
             className="max-w-md"
           >
-            {/* Logo */}
-            {mounted && (
+            {mounted ? (
               <Image
                 src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
                 alt="AlgoRhythm Logo"
                 width={130}
                 height={32}
-                className="h-8 w-auto mb-4 mx-auto"
+                className="mx-auto mb-4 h-8 w-auto"
               />
-            )}
-            {!mounted && (
+            ) : (
               <Image
                 src="/algo-light.svg"
                 alt="AlgoRhythm Logo"
                 width={130}
                 height={32}
-                className="h-8 w-auto mb-4 mx-auto"
+                className="mx-auto mb-4 h-8 w-auto"
               />
             )}
 
             <p
-              className="text-sm leading-relaxed mb-6"
+              className="mb-6 text-sm leading-relaxed"
               style={{ opacity: 0.7 }}
             >
               Master algorithms through interactive visualizations. Learn,
               practice, and understand the way algorithms actually work.
             </p>
 
-            {/* Social links */}
             <div className="flex items-center justify-center gap-3">
               {socialLinks.map((social, index) => (
                 <motion.a
@@ -194,7 +86,7 @@ export default function Footer() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300"
                   style={{
                     backgroundColor: "rgba(var(--foreground), 0.05)",
                     border: "1px solid rgba(var(--foreground), 0.1)",
@@ -213,21 +105,20 @@ export default function Footer() {
                   }}
                   aria-label={social.label}
                 >
-                  <social.icon className="w-4 h-4" style={{ opacity: 0.7 }} />
+                  <social.icon className="h-4 w-4" style={{ opacity: 0.7 }} />
                 </motion.a>
               ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Bottom bar */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
+          className="flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row"
           style={{
-            borderTop: "1px solid rgba(var(--foreground), 0.1)",
+            borderColor: "rgba(var(--foreground), 0.1)",
           }}
         >
           <p className="text-sm" style={{ opacity: 0.6 }}>
@@ -267,7 +158,7 @@ export default function Footer() {
             </a>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

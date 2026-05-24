@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import {
   Eye,
   Zap,
@@ -10,8 +10,6 @@ import {
   GraduationCap,
   Clock,
 } from "lucide-react";
-import { Meteors } from "../ui/meteors";
-import { useTheme } from "../../context/ThemeContext";
 
 const features = [
   {
@@ -55,129 +53,23 @@ const features = [
 export default function Features() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-  const [dots, setDots] = useState<
-    Array<{ left: number; top: number; duration: number; delay: number }>
-  >([]);
-  const [floatingElements, setFloatingElements] = useState<
-    Array<{
-      left: number;
-      top: number;
-      duration: number;
-      delay: number;
-      size: number;
-    }>
-  >([]);
-
-  useEffect(() => {
-    // Generate random positions only on client side to avoid hydration mismatch
-    setDots(
-      Array.from({ length: 25 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 5 + Math.random() * 4,
-        delay: Math.random() * 4,
-      })),
-    );
-
-    setFloatingElements(
-      Array.from({ length: 8 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 15 + Math.random() * 10,
-        delay: Math.random() * 5,
-        size: 40 + Math.random() * 80,
-      })),
-    );
-  }, []);
-
-  const codeSnippets = [
-    "quickSort(arr)",
-    "bfs(graph)",
-    "dijkstra()",
-    "mergeSort()",
-    "dfs(node)",
-  ];
 
   return (
     <section
       id="features"
-      className="relative overflow-hidden py-16 sm:py-20 md:py-24 lg:py-32"
+      className="relative py-16 sm:py-20 md:py-24 lg:py-32"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
-      <Meteors number={6} />
-      {/* Blinking dots */}
-      {dots.map((dot, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1.5 h-1.5 rounded-full"
-          style={{
-            left: `${dot.left}%`,
-            top: `${dot.top}%`,
-            backgroundColor: isDark ? "#00c8fc" : "#1e465c",
-            opacity: 0,
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
-          }}
-          transition={{
-            duration: dot.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: dot.delay,
-          }}
-        />
-      ))}
-
-      {/* Floating code elements */}
-      {floatingElements.map((element, i) => (
-        <motion.div
-          key={i}
-          className="absolute pointer-events-none"
-          style={{
-            left: `${element.left}%`,
-            top: `${element.top}%`,
-            width: element.size,
-            height: element.size,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 15, 0],
-            rotate: [0, 10, 0],
-            opacity: [0.05, 0.15, 0.05],
-          }}
-          transition={{
-            duration: element.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: element.delay,
-          }}
-        >
-          <div
-            className="w-full h-full rounded-lg flex items-center justify-center text-xs font-mono"
-            style={{
-              backgroundColor: "rgba(138, 77, 152, 0.08)",
-              border: "1px solid rgba(138, 77, 152, 0.2)",
-            }}
-          >
-            {codeSnippets[i % codeSnippets.length]}
-          </div>
-        </motion.div>
-      ))}
-
-      <div
-        className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12"
+      <motion.div
         ref={ref}
+        className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12"
       >
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
+        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-4 sm:mb-6 text-xs sm:text-sm"
+            className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs sm:mb-6 sm:px-4 sm:py-2 sm:text-sm"
             style={{
               backgroundColor: "rgba(var(--foreground), 0.05)",
               border: "1px solid rgba(var(--foreground), 0.1)",
@@ -190,7 +82,7 @@ export default function Features() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] mb-4 sm:mb-6"
+            className="mb-4 text-2xl font-light leading-[1.15] tracking-tight sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl"
           >
             Learn Through{" "}
             <span className="font-light" style={{ color: "#8a4d98" }}>
@@ -202,7 +94,7 @@ export default function Features() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg leading-relaxed"
+            className="text-sm leading-relaxed sm:text-base md:text-lg"
             style={{ opacity: 0.8 }}
           >
             More than just theory. Experience algorithms in action with
@@ -211,8 +103,7 @@ export default function Features() {
           </motion.p>
         </div>
 
-        {/* Features grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -222,33 +113,28 @@ export default function Features() {
               className="feature-card group"
             >
               <div
-                className="w-11 h-11 rounded-lg flex items-center justify-center mb-4 transition-all duration-300"
+                className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg transition-all duration-300"
                 style={{
                   backgroundColor: "rgba(138, 77, 152, 0.12)",
                 }}
               >
                 <feature.icon
-                  className="w-5 h-5"
+                  className="h-5 w-5"
                   style={{ color: "#8a4d98" }}
                 />
               </div>
 
-              <h3 className="text-base font-light mb-2.5 transition-colors duration-300 group-hover:text-[#8a4d98]">
+              <h3 className="mb-2.5 text-base font-light transition-colors duration-300 group-hover:text-[#8a4d98]">
                 {feature.title}
               </h3>
 
-              <p
-                className="text-sm leading-relaxed"
-                style={{
-                  opacity: 0.75,
-                }}
-              >
+              <p className="text-sm leading-relaxed" style={{ opacity: 0.75 }}>
                 {feature.description}
               </p>
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

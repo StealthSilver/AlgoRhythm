@@ -1,145 +1,27 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Meteors } from "../ui/meteors";
-import { useTheme } from "../../context/ThemeContext";
 
 export default function CTA() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-  const [dots, setDots] = useState<
-    Array<{ left: number; top: number; duration: number; delay: number }>
-  >([]);
-  const [floatingElements, setFloatingElements] = useState<
-    Array<{
-      left: number;
-      top: number;
-      duration: number;
-      delay: number;
-      size: number;
-    }>
-  >([]);
-  useEffect(() => {
-    // Generate random positions only on client side to avoid hydration mismatch
-    setDots(
-      Array.from({ length: 25 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 5 + Math.random() * 4,
-        delay: Math.random() * 4,
-      })),
-    );
-
-    setFloatingElements(
-      Array.from({ length: 8 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 15 + Math.random() * 10,
-        delay: Math.random() * 5,
-        size: 40 + Math.random() * 80,
-      })),
-    );
-  }, []);
-
-  const codeSnippets = [
-    "quickSort(arr)",
-    "bfs(graph)",
-    "dijkstra()",
-    "mergeSort()",
-    "dfs(node)",
-  ];
 
   return (
     <section
       id="cta"
       ref={ref}
-      className="relative overflow-hidden py-24 md:py-32"
+      className="relative py-24 md:py-32"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
-      <Meteors number={6} />
-      {/* Smooth Ripple Effects - Positioned correctly with wrapper */}
-      <div className="absolute top-1/2 left-1/2 pointer-events-none">
-        <div className="absolute w-150 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-1" />
-      </div>
-      <div className="absolute top-1/2 left-1/2 pointer-events-none">
-        <div className="absolute w-200 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-2" />
-      </div>
-      <div className="absolute top-1/2 left-1/2 pointer-events-none">
-        <div className="absolute w-250 aspect-square rounded-full -translate-x-1/2 -translate-y-1/2 cta-ripple-3" />
-      </div>
-
-      {/* Blinking dots */}
-      {dots.map((dot, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1.5 h-1.5 rounded-full"
-          style={{
-            left: `${dot.left}%`,
-            top: `${dot.top}%`,
-            backgroundColor: isDark ? "#00c8fc" : "#1e465c",
-            opacity: 0,
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
-          }}
-          transition={{
-            duration: dot.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: dot.delay,
-          }}
-        />
-      ))}
-
-      {/* Floating code elements */}
-      {floatingElements.map((element, i) => (
-        <motion.div
-          key={i}
-          className="absolute pointer-events-none"
-          style={{
-            left: `${element.left}%`,
-            top: `${element.top}%`,
-            width: element.size,
-            height: element.size,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 15, 0],
-            rotate: [0, 10, 0],
-            opacity: [0.05, 0.15, 0.05],
-          }}
-          transition={{
-            duration: element.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: element.delay,
-          }}
-        >
-          <div
-            className="w-full h-full rounded-lg flex items-center justify-center text-xs font-mono"
-            style={{
-              backgroundColor: "rgba(138, 77, 152, 0.08)",
-              border: "1px solid rgba(138, 77, 152, 0.2)",
-            }}
-          >
-            {codeSnippets[i % codeSnippets.length]}
-          </div>
-        </motion.div>
-      ))}
-
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-8 md:px-12 text-center">
+      <motion.div className="relative mx-auto max-w-7xl px-8 text-center md:px-12">
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] mb-6"
+          className="mb-6 text-3xl font-light leading-[1.15] tracking-tight md:text-4xl lg:text-5xl"
         >
           Learn Algorithms the Way
           <br />
@@ -152,13 +34,12 @@ export default function CTA() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="max-w-2xl mx-auto text-lg leading-relaxed opacity-80 mb-12"
+          className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed opacity-80"
         >
           Follow each step visually, observe state changes, and build a deep
           understanding of algorithms through interactive execution.
         </motion.p>
 
-        {/* CTA Button – SAME AS NAVBAR */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -166,7 +47,7 @@ export default function CTA() {
           className="flex justify-center"
         >
           <button
-            className="relative group px-6 py-2 text-sm font-light rounded-lg overflow-hidden cursor-pointer"
+            className="group relative cursor-pointer overflow-hidden rounded-lg px-6 py-2 text-sm font-light"
             style={{
               backgroundColor: "#8a4d98",
               color: "#ffffff",
@@ -182,7 +63,6 @@ export default function CTA() {
               e.currentTarget.style.backgroundColor = "#8a4d98";
             }}
           >
-            {/* Shimmer sweep */}
             <span className="pointer-events-none absolute inset-y-0 -left-full w-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-all duration-700 ease-out group-hover:left-full" />
             <span className="relative z-10">Get Started</span>
           </button>
@@ -196,7 +76,7 @@ export default function CTA() {
         >
           Designed for focus, clarity, and real understanding.
         </motion.p>
-      </div>
+      </motion.div>
     </section>
   );
 }

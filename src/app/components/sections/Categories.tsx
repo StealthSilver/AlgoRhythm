@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import {
   ArrowUpDown,
   Search,
@@ -10,8 +10,6 @@ import {
   Boxes,
   RotateCcw,
 } from "lucide-react";
-import { Meteors } from "../ui/meteors";
-import { useTheme } from "../../context/ThemeContext";
 
 const categories = [
   {
@@ -58,129 +56,23 @@ const categories = [
 export default function Categories() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-  const [dots, setDots] = useState<
-    Array<{ left: number; top: number; duration: number; delay: number }>
-  >([]);
-  const [floatingElements, setFloatingElements] = useState<
-    Array<{
-      left: number;
-      top: number;
-      duration: number;
-      delay: number;
-      size: number;
-    }>
-  >([]);
-
-  useEffect(() => {
-    // Generate random positions only on client side to avoid hydration mismatch
-    setDots(
-      Array.from({ length: 25 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 5 + Math.random() * 4,
-        delay: Math.random() * 4,
-      })),
-    );
-
-    setFloatingElements(
-      Array.from({ length: 8 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        duration: 15 + Math.random() * 10,
-        delay: Math.random() * 5,
-        size: 40 + Math.random() * 80,
-      })),
-    );
-  }, []);
-
-  const codeSnippets = [
-    "quickSort(arr)",
-    "bfs(graph)",
-    "dijkstra()",
-    "mergeSort()",
-    "dfs(node)",
-  ];
 
   return (
     <section
       id="categories"
-      className="relative overflow-hidden py-16 sm:py-20 md:py-24 lg:py-32"
+      className="relative py-16 sm:py-20 md:py-24 lg:py-32"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
-      <Meteors number={6} />
-      {/* Blinking dots */}
-      {dots.map((dot, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1.5 h-1.5 rounded-full"
-          style={{
-            left: `${dot.left}%`,
-            top: `${dot.top}%`,
-            backgroundColor: isDark ? "#00c8fc" : "#1e465c",
-            opacity: 0,
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: isDark ? [0.06, 0.14, 0.06] : [0.1, 0.22, 0.1],
-          }}
-          transition={{
-            duration: dot.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: dot.delay,
-          }}
-        />
-      ))}
-
-      {/* Floating code elements */}
-      {floatingElements.map((element, i) => (
-        <motion.div
-          key={i}
-          className="absolute pointer-events-none"
-          style={{
-            left: `${element.left}%`,
-            top: `${element.top}%`,
-            width: element.size,
-            height: element.size,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 15, 0],
-            rotate: [0, 10, 0],
-            opacity: [0.05, 0.15, 0.05],
-          }}
-          transition={{
-            duration: element.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: element.delay,
-          }}
-        >
-          <div
-            className="w-full h-full rounded-lg flex items-center justify-center text-xs font-mono"
-            style={{
-              backgroundColor: "rgba(138, 77, 152, 0.08)",
-              border: "1px solid rgba(138, 77, 152, 0.2)",
-            }}
-          >
-            {codeSnippets[i % codeSnippets.length]}
-          </div>
-        </motion.div>
-      ))}
-
-      <div
-        className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12"
+      <motion.div
         ref={ref}
+        className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12"
       >
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
+        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-4 sm:mb-6 text-xs sm:text-sm"
+            className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs sm:mb-6 sm:px-4 sm:py-2 sm:text-sm"
             style={{
               backgroundColor: "rgba(var(--foreground), 0.05)",
               border: "1px solid rgba(var(--foreground), 0.1)",
@@ -193,7 +85,7 @@ export default function Categories() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] mb-4 sm:mb-6"
+            className="mb-4 text-2xl font-light leading-[1.15] tracking-tight sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl"
           >
             Comprehensive{" "}
             <span className="font-light" style={{ color: "#8a4d98" }}>
@@ -205,7 +97,7 @@ export default function Categories() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg leading-relaxed"
+            className="text-sm leading-relaxed sm:text-base md:text-lg"
             style={{ opacity: 0.8 }}
           >
             From fundamental sorting algorithms to advanced graph theory,
@@ -213,30 +105,29 @@ export default function Categories() {
           </motion.p>
         </div>
 
-        {/* Categories grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        <motion.div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className="category-card cursor-pointer group"
+              className="category-card group cursor-pointer"
             >
-              <div className="flex items-start justify-between mb-3">
+              <div className="mb-3 flex items-start justify-between">
                 <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300"
                   style={{
                     backgroundColor: "rgba(138, 77, 152, 0.12)",
                   }}
                 >
                   <category.icon
-                    className="w-5 h-5"
+                    className="h-5 w-5"
                     style={{ color: "#8a4d98" }}
                   />
                 </div>
                 <span
-                  className="text-xs font-medium px-2.5 py-1 rounded-full"
+                  className="rounded-full px-2.5 py-1 text-xs font-medium"
                   style={{
                     backgroundColor: "rgba(138, 77, 152, 0.1)",
                     color: "#8a4d98",
@@ -246,26 +137,24 @@ export default function Categories() {
                 </span>
               </div>
 
-              <h3 className="text-base font-light mb-2 transition-colors duration-300 group-hover:text-[#8a4d98]">
+              <h3 className="mb-2 text-base font-light transition-colors duration-300 group-hover:text-[#8a4d98]">
                 {category.title}
               </h3>
 
               <p
-                className="text-sm leading-relaxed mb-3"
-                style={{
-                  opacity: 0.75,
-                }}
+                className="mb-3 text-sm leading-relaxed"
+                style={{ opacity: 0.75 }}
               >
                 {category.description}
               </p>
 
               <div
-                className="flex items-center text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="flex items-center text-sm font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 style={{ color: "#8a4d98" }}
               >
                 <span>Explore</span>
                 <svg
-                  className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
+                  className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -280,8 +169,8 @@ export default function Categories() {
               </div>
             </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
