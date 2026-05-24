@@ -4,8 +4,7 @@ import Navbar from "./components/sections/Navbar";
 import Hero from "./components/sections/Hero";
 import Need from "./components/sections/Need";
 import Features from "./components/sections/Features";
-import CTA from "./components/sections/CTA";
-import Categories from "./components/sections/Categories";
+import Library from "./components/sections/Library";
 import Footer from "./components/sections/Footer";
 
 export default function Home() {
@@ -16,8 +15,7 @@ export default function Home() {
         <Hero />
         <Need />
         <Features />
-        <Categories />
-        <CTA />
+        <Library />
         <Footer />
       </main>
     </>

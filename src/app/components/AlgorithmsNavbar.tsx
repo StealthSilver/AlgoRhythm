@@ -166,7 +166,7 @@ export default function AlgorithmsNavbar() {
                 boxShadow:
                   "0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)",
               }}
-              onClick={() => router.push("/#cta")}
+              onClick={() => router.push("/#connect")}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor =
                   "rgba(138, 77, 152, 0.85)";
@@ -238,7 +238,7 @@ export default function AlgorithmsNavbar() {
               <motion.button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  router.push("/#cta");
+                  router.push("/#connect");
                 }}
                 className="relative px-6 py-3 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer mt-3"
                 style={{
