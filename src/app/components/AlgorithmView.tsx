@@ -58,7 +58,7 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
           </motion.div>
           <h2
             className="text-xl font-semibold mb-2"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            style={{ fontFamily: "var(--font-outfit), sans-serif" }}
           >
             Select an Algorithm
           </h2>
@@ -87,7 +87,7 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
               animate={{ opacity: 1, y: 0 }}
               className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight"
               style={{
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-outfit), sans-serif",
                 color: "rgb(var(--foreground))",
               }}
             >
@@ -124,7 +124,7 @@ export default function AlgorithmView({ algorithmId }: AlgorithmViewProps) {
                       "relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200",
                     )}
                     style={{
-                      fontFamily: "var(--font-inter), sans-serif",
+                      fontFamily: "var(--font-outfit), sans-serif",
                       backgroundColor: isActive
                         ? "rgba(138, 77, 152, 0.12)"
                         : "rgba(var(--foreground), 0.03)",

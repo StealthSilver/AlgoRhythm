@@ -27,6 +27,7 @@ export default function Footer() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [dots, setDots] = useState<
     Array<{ left: number; top: number; duration: number; delay: number }>
   >([]);
@@ -39,7 +40,6 @@ export default function Footer() {
       size: number;
     }>
   >([]);
-  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -63,20 +63,6 @@ export default function Footer() {
         size: 40 + Math.random() * 80,
       })),
     );
-
-    // Check theme
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   const codeSnippets = [
@@ -93,7 +79,7 @@ export default function Footer() {
       ref={ref}
       className="relative overflow-hidden pt-24 pb-8"
       style={{
-        fontFamily: "var(--font-inter), sans-serif",
+        fontFamily: "var(--font-outfit), sans-serif",
         backgroundColor: "rgb(var(--background))",
         borderTop: "1px solid rgba(var(--foreground), 0.1)",
       }}
@@ -159,7 +145,7 @@ export default function Footer() {
         </motion.div>
       ))}
 
-      <div className="relative max-w-6xl mx-auto px-8 md:px-12">
+      <div className="relative max-w-7xl mx-auto px-8 md:px-12">
         {/* Main footer content - Centered */}
         <div className="flex flex-col items-center text-center mb-12">
           {/* Brand section */}

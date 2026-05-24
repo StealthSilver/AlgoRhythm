@@ -51,7 +51,7 @@ export function MemoryMapTab({ algorithm }: MemoryMapTabProps) {
           </div>
           <h3
             className="text-lg font-semibold"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            style={{ fontFamily: "var(--font-outfit), sans-serif" }}
           >
             Memory Map Coming Soon
           </h3>

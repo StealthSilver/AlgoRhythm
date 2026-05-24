@@ -11,6 +11,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { Meteors } from "../ui/meteors";
+import { useTheme } from "../../context/ThemeContext";
 
 const categories = [
   {
@@ -57,6 +58,8 @@ const categories = [
 export default function Categories() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [dots, setDots] = useState<
     Array<{ left: number; top: number; duration: number; delay: number }>
   >([]);
@@ -69,7 +72,6 @@ export default function Categories() {
       size: number;
     }>
   >([]);
-  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     // Generate random positions only on client side to avoid hydration mismatch
@@ -91,20 +93,6 @@ export default function Categories() {
         size: 40 + Math.random() * 80,
       })),
     );
-
-    // Check theme
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   const codeSnippets = [
@@ -119,7 +107,7 @@ export default function Categories() {
     <section
       id="categories"
       className="relative overflow-hidden py-16 sm:py-20 md:py-24 lg:py-32"
-      style={{ fontFamily: "var(--font-inter), sans-serif" }}
+      style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <Meteors number={6} />
       {/* Blinking dots */}
@@ -183,7 +171,7 @@ export default function Categories() {
       ))}
 
       <div
-        className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12"
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12"
         ref={ref}
       >
         {/* Header */}

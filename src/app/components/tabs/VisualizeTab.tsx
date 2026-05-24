@@ -51,7 +51,7 @@ export function VisualizeTab({ algorithm }: VisualizeTabProps) {
           </div>
           <h3
             className="text-lg font-semibold"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            style={{ fontFamily: "var(--font-outfit), sans-serif" }}
           >
             Visualization Coming Soon
           </h3>

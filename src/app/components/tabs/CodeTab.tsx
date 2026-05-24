@@ -46,7 +46,7 @@ export function CodeTab({ algorithm }: CodeTabProps) {
       >
         <h3
           className="text-lg font-semibold mb-2"
-          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          style={{ fontFamily: "var(--font-outfit), sans-serif" }}
         >
           Code
         </h3>

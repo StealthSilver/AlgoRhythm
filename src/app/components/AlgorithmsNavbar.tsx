@@ -47,7 +47,7 @@ export default function AlgorithmsNavbar() {
         backgroundColor: isScrolled
           ? "rgba(var(--background), 0.8)"
           : "transparent",
-        fontFamily: "var(--font-inter), sans-serif",
+        fontFamily: "var(--font-outfit), sans-serif",
       }}
     >
       <div className="max-w-full mx-auto px-4 sm:px-6 md:px-12">
@@ -67,7 +67,7 @@ export default function AlgorithmsNavbar() {
               )}
               {!mounted && (
                 <Image
-                  src="/dicon.svg"
+                  src="/licon.svg"
                   alt="AlgoRhythm Logo"
                   width={24}
                   height={24}

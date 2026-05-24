@@ -122,7 +122,7 @@ export function CodeEditor({
             <p
               className="text-sm font-medium truncate"
               style={{
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-outfit), sans-serif",
                 opacity: 0.9,
               }}
               title={fileName ?? undefined}

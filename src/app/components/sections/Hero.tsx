@@ -2,12 +2,15 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Play, Code2, Sparkles } from "lucide-react";
+import { Play } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Meteors } from "../ui/meteors";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Hero() {
   const router = useRouter();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -29,7 +32,6 @@ export default function Hero() {
       size: number;
     }>
   >([]);
-  const [isDark, setIsDark] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -52,22 +54,6 @@ export default function Hero() {
         size: 40 + Math.random() * 80,
       })),
     );
-
-    // Check theme
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => {
-      observer.disconnect();
-    };
   }, []);
 
   useEffect(() => {
@@ -94,8 +80,8 @@ export default function Hero() {
     <section
       ref={ref}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 px-4 sm:pt-20 sm:px-6"
-      style={{ fontFamily: "var(--font-inter), sans-serif" }}
+      className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden px-4 sm:px-6"
+      style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <Meteors number={6} />
       {/* Smooth Ripple Effects */}
@@ -190,36 +176,19 @@ export default function Hero() {
       {/* Main content */}
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 md:px-12 text-center"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 md:px-12 text-center"
       >
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-6 sm:mb-8 text-xs sm:text-sm"
-          style={{
-            backgroundColor: "rgba(var(--foreground), 0.05)",
-            border: "1px solid rgba(var(--foreground), 0.1)",
-          }}
-        >
-          <Sparkles className="w-4 h-4" style={{ color: "#8a4d98" }} />
-          <span style={{ opacity: 0.8 }}>
-            Interactive Algorithm Learning Platform
-          </span>
-        </motion.div>
-
         {/* Main headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight leading-[1.1] mb-4 sm:mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight tracking-tight leading-[1.1] mb-8 sm:mb-10"
         >
           Visualize Algorithms
           <br />
           <span
-            className="font-light"
+            className="font-extralight"
             style={{
               color: "#8a4d98",
             }}
@@ -228,26 +197,13 @@ export default function Hero() {
           </span>
         </motion.h1>
 
-        {/* Subheadline */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto mb-8 sm:mb-12"
-          style={{ opacity: 0.8 }}
-        >
-          Watch algorithms come to life with step-by-step visualizations. Build
-          intuition, understand complexity, and ace your coding interviews.
-        </motion.p>
-
-        {/* CTA Buttons */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full sm:w-auto"
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="flex items-center justify-center w-full sm:w-auto"
         >
-          {/* Primary CTA */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             className="relative group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base font-semibold rounded-lg overflow-hidden cursor-pointer"

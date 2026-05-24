@@ -710,7 +710,7 @@ export function SearchingMemoryMapVisualizer({
         <div className="rounded-2xl p-6" style={containerStyle}>
           <h3
             className="text-lg font-semibold mb-4"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            style={{ fontFamily: "var(--font-outfit), sans-serif" }}
           >
             Stack
           </h3>
@@ -834,7 +834,7 @@ export function SearchingMemoryMapVisualizer({
         <div className="rounded-2xl p-6" style={containerStyle}>
           <h3
             className="text-lg font-semibold mb-4"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            style={{ fontFamily: "var(--font-outfit), sans-serif" }}
           >
             Heap
           </h3>

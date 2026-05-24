@@ -46,7 +46,7 @@ export default function AlgorithmPage() {
               <h1
                 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight mb-4"
                 style={{
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                   background:
                     "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
                   WebkitBackgroundClip: "text",
@@ -121,7 +121,7 @@ export default function AlgorithmPage() {
             <h1
               className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight mb-4"
               style={{
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-outfit), sans-serif",
                 background:
                   "linear-gradient(135deg, rgb(141, 118, 233) 0%, rgb(200, 180, 255) 100%)",
                 WebkitBackgroundClip: "text",
@@ -168,7 +168,7 @@ export default function AlgorithmPage() {
               <h2
                 className="text-2xl font-semibold mb-3"
                 style={{
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                 }}
               >
                 Description
@@ -185,7 +185,7 @@ export default function AlgorithmPage() {
               <h2
                 className="text-2xl font-semibold mb-4"
                 style={{
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                 }}
               >
                 How it Works
@@ -212,7 +212,7 @@ export default function AlgorithmPage() {
               <h2
                 className="text-2xl font-semibold mb-4"
                 style={{
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                 }}
               >
                 Use Cases
@@ -236,7 +236,7 @@ export default function AlgorithmPage() {
               <h2
                 className="text-2xl font-semibold mb-4"
                 style={{
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                 }}
               >
                 Visualization

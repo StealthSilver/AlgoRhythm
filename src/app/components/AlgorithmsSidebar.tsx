@@ -377,21 +377,22 @@ export default function AlgorithmsSidebar({
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(141, 118, 233, 0.05);
-          border-radius: 4px;
+          background: transparent;
+          border-radius: 9999px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(141, 118, 233, 0.4);
-          border-radius: 4px;
-          transition: background 0.2s;
+          background-color: rgba(211, 222, 233, 0.16);
+          border-radius: 9999px;
+          border: 2px solid transparent;
+          background-clip: padding-box;
+          transition: background-color 0.2s;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(141, 118, 233, 0.6);
+          background-color: rgba(211, 222, 233, 0.28);
         }
-        /* Firefox */
         .custom-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: rgba(141, 118, 233, 0.4) rgba(141, 118, 233, 0.05);
+          scrollbar-color: rgba(211, 222, 233, 0.18) transparent;
         }
       `}</style>
       <div
@@ -413,7 +414,7 @@ export default function AlgorithmsSidebar({
               <h2
                 className="text-sm font-semibold tracking-wide"
                 style={{
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-outfit), sans-serif",
                   color: "rgb(var(--foreground))",
                 }}
               >
@@ -577,7 +578,7 @@ export default function AlgorithmsSidebar({
                       }}
                       className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-colors"
                       style={{
-                        fontFamily: "var(--font-inter), sans-serif",
+                        fontFamily: "var(--font-outfit), sans-serif",
                         color: "rgb(var(--foreground))",
                         backgroundColor: "transparent",
                       }}
@@ -627,7 +628,7 @@ export default function AlgorithmsSidebar({
                                   "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
                               )}
                               style={{
-                                fontFamily: "var(--font-inter), sans-serif",
+                                fontFamily: "var(--font-outfit), sans-serif",
                               }}
                             >
                               {algorithm.name}
@@ -647,7 +648,7 @@ export default function AlgorithmsSidebar({
                                 "text-[rgb(141,118,233)] bg-[rgba(141,118,233,0.12)] opacity-100",
                             )}
                             style={{
-                              fontFamily: "var(--font-inter), sans-serif",
+                              fontFamily: "var(--font-outfit), sans-serif",
                             }}
                           >
                             {algorithm.name}

@@ -4,11 +4,14 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Meteors } from "../ui/meteors";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function CTA() {
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [dots, setDots] = useState<
     Array<{ left: number; top: number; duration: number; delay: number }>
   >([]);
@@ -21,7 +24,6 @@ export default function CTA() {
       size: number;
     }>
   >([]);
-  const [isDark, setIsDark] = useState(false);
   useEffect(() => {
     // Generate random positions only on client side to avoid hydration mismatch
     setDots(
@@ -42,20 +44,6 @@ export default function CTA() {
         size: 40 + Math.random() * 80,
       })),
     );
-
-    // Check theme
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   const codeSnippets = [
@@ -71,7 +59,7 @@ export default function CTA() {
       id="cta"
       ref={ref}
       className="relative overflow-hidden py-24 md:py-32"
-      style={{ fontFamily: "var(--font-inter), sans-serif" }}
+      style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <Meteors number={6} />
       {/* Smooth Ripple Effects - Positioned correctly with wrapper */}
@@ -146,7 +134,7 @@ export default function CTA() {
       ))}
 
       {/* Content */}
-      <div className="relative max-w-4xl mx-auto px-8 md:px-12 text-center">
+      <div className="relative max-w-7xl mx-auto px-8 md:px-12 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

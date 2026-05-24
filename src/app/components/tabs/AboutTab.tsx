@@ -20,7 +20,7 @@ export function AboutTab({ algorithm }: AboutTabProps) {
       >
         <h3
           className="text-xl font-semibold mb-3"
-          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          style={{ fontFamily: "var(--font-outfit), sans-serif" }}
         >
           What is {algorithm.name}?
         </h3>
@@ -45,7 +45,7 @@ export function AboutTab({ algorithm }: AboutTabProps) {
       >
         <h3
           className="text-xl font-semibold mb-4 flex items-center gap-2"
-          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          style={{ fontFamily: "var(--font-outfit), sans-serif" }}
         >
           <ListOrdered
             className="w-5 h-5"
@@ -86,7 +86,7 @@ export function AboutTab({ algorithm }: AboutTabProps) {
       >
         <h3
           className="text-xl font-semibold mb-4 flex items-center gap-2"
-          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          style={{ fontFamily: "var(--font-outfit), sans-serif" }}
         >
           <CheckCircle2
             className="w-5 h-5"
@@ -141,7 +141,7 @@ export function AboutTab({ algorithm }: AboutTabProps) {
           />
           <h4
             className="text-lg font-semibold"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+            style={{ fontFamily: "var(--font-outfit), sans-serif" }}
           >
             Quick Facts
           </h4>

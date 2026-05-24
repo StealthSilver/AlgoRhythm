@@ -1,0 +1,17 @@
+{
+  "name": "AlgoRhythm - Where Algorithms Find Their Flow",
+  "short_name": "AlgoRhythm",
+  "description": "Interactive algorithm and data structures learning platform with step-by-step visualizations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08090a",
+  "theme_color": "#08090a",
+  "icons": [
+    {
+      "src": "/licon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

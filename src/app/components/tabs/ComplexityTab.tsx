@@ -47,7 +47,7 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
       >
         <h3
           className="text-xl font-semibold mb-4"
-          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          style={{ fontFamily: "var(--font-outfit), sans-serif" }}
         >
           Complexity
         </h3>
@@ -115,7 +115,7 @@ export function ComplexityTab({ algorithm }: ComplexityTabProps) {
       >
         <h4
           className="text-lg font-semibold mb-3"
-          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          style={{ fontFamily: "var(--font-outfit), sans-serif" }}
         >
           Complexity Comparison
         </h4>

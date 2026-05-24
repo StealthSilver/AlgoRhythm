@@ -10,22 +10,12 @@ import Footer from "./components/sections/Footer";
 export default function Home() {
   return (
     <>
+      <Navbar />
       <main className="relative flex-1 overflow-x-hidden">
-        <Navbar />
-
-        {/* Hero Section */}
         <Hero />
-
-        {/* Features Section */}
         <Features />
-
-        {/* Categories Section */}
         <Categories />
-
-        {/* CTA Section */}
         <CTA />
-
-        {/* Footer */}
         <Footer />
       </main>
     </>
