@@ -222,7 +222,7 @@ html[data-magicui-theme-vt="active"]::view-transition-new(root) {
 
   .hero-radial-glow {
     background: radial-gradient(
-      ellipse 75% 60% at top right,
+      ellipse 75% 60% at top left,
       rgb(138 77 152 / 0.34) 0%,
       rgb(138 77 152 / 0.14) 22%,
       rgb(var(--background)) 50%

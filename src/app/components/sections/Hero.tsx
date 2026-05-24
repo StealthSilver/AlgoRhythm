@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { NoiseTexture } from "../ui/noise-texture";
+import { HeroGridAnimations } from "../hero/HeroGridAnimations";
 
 const ctaButtonClass =
   "group relative inline-flex h-11 cursor-pointer items-center justify-center overflow-hidden rounded-full px-7 text-base font-medium leading-none text-white transition-colors duration-150 sm:h-12 sm:px-8";
@@ -19,22 +19,16 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden px-4 sm:px-6"
+      className="relative flex min-h-[calc(100vh-4rem)] items-start justify-start overflow-hidden px-4 pt-16 sm:px-6 sm:pt-20 md:pt-24"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="hero-radial-glow absolute inset-0">
-          <NoiseTexture
-            frequency={0.85}
-            octaves={8}
-            noiseOpacity={0.35}
-            className="opacity-30 dark:opacity-40"
-          />
-        </div>
+        <div className="hero-radial-glow absolute inset-0" />
         <div className="hero-grid-bg absolute inset-0" />
+        <HeroGridAnimations />
       </div>
 
-      <motion.div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-8 md:px-12">
+      <motion.div className="relative z-10 max-w-7xl px-4 text-left sm:px-8 md:px-12">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,7 +46,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="flex items-center justify-center"
+          className="flex items-center justify-start"
         >
           <button
             type="button"
