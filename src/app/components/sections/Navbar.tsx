@@ -19,9 +19,9 @@ interface NavbarProps {
 }
 
 const defaultNavLinks: NavbarLink[] = [
-  { name: "Need", href: "/#home" },
-  { name: "Product", href: "/#categories" },
+  { name: "Need", href: "/#need" },
   { name: "Features", href: "/#features" },
+  { name: "Library", href: "/#library" },
   { name: "Students", href: "/learn" },
   { name: "Contact", href: "/#connect" },
 ];

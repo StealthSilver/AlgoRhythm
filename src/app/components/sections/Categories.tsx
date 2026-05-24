@@ -59,7 +59,7 @@ export default function Categories() {
 
   return (
     <section
-      id="categories"
+      id="library"
       className="relative py-16 sm:py-20 md:py-24 lg:py-32"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >

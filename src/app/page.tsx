@@ -2,6 +2,7 @@
 
 import Navbar from "./components/sections/Navbar";
 import Hero from "./components/sections/Hero";
+import Need from "./components/sections/Need";
 import Features from "./components/sections/Features";
 import CTA from "./components/sections/CTA";
 import Categories from "./components/sections/Categories";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <main className="relative flex-1 overflow-x-hidden">
         <Hero />
+        <Need />
         <Features />
         <Categories />
         <CTA />
