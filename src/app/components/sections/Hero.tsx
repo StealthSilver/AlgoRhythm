@@ -26,7 +26,7 @@ export default function Hero() {
         <div className="hero-radial-glow absolute inset-0" />
       </div>
 
-      <motion.div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 pt-28 text-left sm:px-5 sm:pt-20 md:pt-24">
+      <motion.div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 pt-20 text-left sm:px-5 sm:pt-20 md:pt-24">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

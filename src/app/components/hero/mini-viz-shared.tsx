@@ -56,7 +56,7 @@ export function MiniVizShell({
   return (
     <div
       className={cn(
-        "flex h-full w-full items-center justify-center p-2 sm:p-3",
+        "flex h-full w-full items-center justify-center p-2 max-sm:p-4 sm:p-3",
         className,
       )}
     >
