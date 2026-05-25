@@ -220,12 +220,12 @@ function DraggableTestimonialCanvas() {
     }
   }, []);
 
-  const gridLine = "rgba(255, 255, 255, 0.08)";
+  const gridLine = "rgba(255, 255, 255, 0.06)";
 
   const meshStyle = {
     backgroundImage: `
-      linear-gradient(to right, ${gridLine} 0.5px, transparent 0.5px),
-      linear-gradient(to bottom, ${gridLine} 0.5px, transparent 0.5px)
+      linear-gradient(to right, ${gridLine} 1px, transparent 1px),
+      linear-gradient(to bottom, ${gridLine} 1px, transparent 1px)
     `,
     backgroundSize: `${MESH_SIZE}px ${MESH_SIZE}px`,
     backgroundPosition: `${pan.x}px ${pan.y}px`,
