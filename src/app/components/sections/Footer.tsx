@@ -51,7 +51,7 @@ export default function Footer() {
             alt="AlgoRhythm Logo"
             width={130}
             height={32}
-            className="h-7 w-auto sm:h-8"
+            className="h-7 w-auto self-start sm:h-8 sm:self-auto"
           />
 
           <motion.div

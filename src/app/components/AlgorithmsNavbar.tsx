@@ -50,14 +50,22 @@ export default function AlgorithmsNavbar() {
           {/* Left: Logo */}
           <div className="flex items-end gap-8">
             <Link href="/" className="flex items-end shrink-0">
-              {/* Mobile logo - theme-based */}
-              <Image
-                src="/licon.svg"
-                alt="AlgoRhythm Logo"
-                width={24}
-                height={24}
-                className="h-6 w-6 sm:hidden"
-              />
+              <span className="inline-flex items-center gap-2 sm:hidden">
+                <Image
+                  src="/licon.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="h-6 w-6"
+                  aria-hidden
+                />
+                <span
+                  className="text-[15px] font-semibold tracking-tight text-[rgb(var(--foreground))]"
+                  style={{ fontFamily: "var(--font-outfit), sans-serif" }}
+                >
+                  AlgoRhythm
+                </span>
+              </span>
               <Image
                 src="/algo-light.svg"
                 alt="AlgoRhythm Logo"

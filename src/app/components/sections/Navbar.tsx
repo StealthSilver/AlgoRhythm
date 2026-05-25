@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -81,7 +82,7 @@ export default function Navbar({
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[rgb(var(--background))]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[rgb(var(--background))]/95 backdrop-blur-md relative">
       <nav
         className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-5"
         aria-label="Main"
@@ -91,40 +92,38 @@ export default function Navbar({
           className="inline-flex shrink-0 items-center"
           aria-label="Navigate to home"
         >
+          <span className="inline-flex items-center gap-2 sm:hidden">
+            <Image
+              src="/licon.svg"
+              alt=""
+              width={20}
+              height={20}
+              className="h-5 w-5"
+              aria-hidden
+            />
+            <span
+              className="text-[15px] font-semibold tracking-tight text-[#e6e6e6]"
+              style={{ fontFamily: "var(--font-outfit), sans-serif" }}
+            >
+              AlgoRhythm
+            </span>
+          </span>
           {mounted ? (
-            <>
-              <Image
-                src="/licon.svg"
-                alt="AlgoRhythm Logo"
-                width={20}
-                height={20}
-                className="h-5 w-5 sm:hidden"
-              />
-              <Image
-                src="/algo-light.svg"
-                alt="AlgoRhythm Logo"
-                width={110}
-                height={28}
-                className="hidden h-7 w-auto sm:block"
-              />
-            </>
+            <Image
+              src="/algo-light.svg"
+              alt="AlgoRhythm Logo"
+              width={110}
+              height={28}
+              className="hidden h-7 w-auto sm:block"
+            />
           ) : (
-            <>
-              <Image
-                src="/licon.svg"
-                alt="AlgoRhythm Logo"
-                width={20}
-                height={20}
-                className="h-5 w-5 sm:hidden"
-              />
-              <Image
-                src="/algo-light.svg"
-                alt="AlgoRhythm Logo"
-                width={110}
-                height={28}
-                className="hidden h-7 w-auto sm:block"
-              />
-            </>
+            <Image
+              src="/algo-light.svg"
+              alt="AlgoRhythm Logo"
+              width={110}
+              height={28}
+              className="hidden h-7 w-auto sm:block"
+            />
           )}
         </Link>
 
@@ -170,34 +169,45 @@ export default function Navbar({
         </div>
       </nav>
 
-      {isMobileMenuOpen && (
-        <div className="border-t border-white/[0.08] bg-[rgb(var(--background))] md:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4 sm:px-5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={cn(
-                  "rounded-md px-2 py-2.5 text-[13px] font-medium text-[#e6e6e6]/90 transition-colors duration-150 hover:bg-white/5 hover:text-white",
-                  activeLinkName === link.name && "text-white",
-                )}
-                aria-current={activeLinkName === link.name ? "page" : undefined}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <NavbarCtaButton
-              label={ctaLabel}
-              className="mt-2 w-fit"
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                router.push(ctaHref);
-              }}
-            />
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+            className="absolute top-full right-0 left-0 z-50 overflow-hidden border-t border-white/[0.08] bg-[rgb(var(--background))]/95 shadow-lg shadow-black/25 backdrop-blur-md md:hidden"
+          >
+            <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4 sm:px-5">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={cn(
+                    "rounded-md px-2 py-2.5 text-[13px] font-medium text-[#e6e6e6]/90 transition-colors duration-150 hover:bg-white/5 hover:text-white",
+                    activeLinkName === link.name && "text-white",
+                  )}
+                  aria-current={
+                    activeLinkName === link.name ? "page" : undefined
+                  }
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <NavbarCtaButton
+                label={ctaLabel}
+                className="mt-2 w-fit"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  router.push(ctaHref);
+                }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

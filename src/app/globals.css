@@ -202,6 +202,20 @@ body::-webkit-scrollbar-thumb:hover {
     background-repeat: repeat, repeat, no-repeat, no-repeat;
   }
 
+  @media (max-width: 639px) {
+    .hero-grid-mobile {
+      background-image: none;
+    }
+
+    .hero-grid-mobile > .relative.flex {
+      border: 1px solid rgb(255 255 255 / 0.08);
+    }
+
+    .hero-mini-viz {
+      transform: scale(0.72);
+    }
+  }
+
   /* Hero grid cells are larger than the mini viz canvas — viz stays compact, centered in each cell */
   .hero-mini-viz {
     transform: scale(0.78);
