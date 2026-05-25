@@ -2,12 +2,9 @@
 
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Github } from "lucide-react";
 import { SiX } from "@icons-pack/react-simple-icons";
-
-import { useTheme } from "../../context/ThemeContext";
-import { cn } from "@/lib/utils";
 
 const socialLinks = [
   {
@@ -21,21 +18,11 @@ const socialLinks = [
 export default function Footer() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const logoSrc =
-    mounted && theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg";
-  const isDark = theme === "dark";
 
   return (
     <footer
       id="connect"
-      className="relative overflow-hidden py-20 sm:py-24 md:py-28 lg:py-32"
+      className="relative overflow-hidden pt-8 pb-20 sm:pt-10 sm:pb-24 md:pt-12 md:pb-28 lg:pt-14 lg:pb-32"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <div ref={ref} className="relative z-10 w-full">
@@ -51,10 +38,7 @@ export default function Footer() {
           </p>
         </motion.div>
 
-        <div
-          aria-hidden
-          className="w-full border-t border-black/[0.08] dark:border-white/[0.08]"
-        />
+        <div aria-hidden className="landing-border w-full border-t" />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,7 +47,7 @@ export default function Footer() {
           className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-10"
         >
           <Image
-            src={mounted ? logoSrc : "/algo-dark.svg"}
+            src="/algo-light.svg"
             alt="AlgoRhythm Logo"
             width={130}
             height={32}
@@ -85,7 +69,7 @@ export default function Footer() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.45, delay: 0.18 + index * 0.05 }}
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-300/60 bg-neutral-50/80 text-neutral-700 transition-colors duration-200 hover:border-[#8a4d98]/40 hover:bg-[#8a4d98]/[0.04] dark:border-neutral-600/50 dark:bg-neutral-900/40 dark:text-neutral-200 dark:hover:border-[#8a4d98]/50 dark:hover:bg-[#8a4d98]/[0.08]"
+                className="landing-icon-box flex h-10 w-10 items-center justify-center rounded-lg text-neutral-200 transition-[border-color] duration-200 hover:border-white"
                 aria-label={social.label}
               >
                 <social.icon className="h-4 w-4" strokeWidth={1.5} />
@@ -99,7 +83,7 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="w-full border-t border-black/[0.08] dark:border-white/[0.08]"
+          className="landing-border w-full border-t"
         />
 
         <motion.div
@@ -108,20 +92,17 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mx-auto flex w-full max-w-7xl flex-col items-start gap-4 px-4 pt-8 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:pt-10"
         >
-          <p className="text-sm font-extralight tracking-wide opacity-60">
+          <p className="landing-muted text-sm font-extralight tracking-wide">
             © {new Date().getFullYear()} AlgoRhythm. All rights reserved.
           </p>
 
           <p className="text-sm font-extralight tracking-wide">
-            <span className="opacity-60">Built by </span>
+            <span className="landing-muted">Built by </span>
             <a
               href="https://silverstudios.art"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "font-medium underline-offset-2 transition-[text-decoration] duration-150 hover:underline",
-                isDark ? "text-[#e6e6e6]/90" : "text-[#1a1a1a]/80",
-              )}
+              className="font-medium text-[#e6e6e6]/90 underline-offset-2 transition-[text-decoration] duration-150 hover:underline"
             >
               Silver Studios
             </a>

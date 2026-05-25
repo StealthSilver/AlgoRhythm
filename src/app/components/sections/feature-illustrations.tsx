@@ -1,25 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 
-const INK = "fill-neutral-800 dark:fill-neutral-100";
-const INK_MID = "fill-neutral-500 dark:fill-neutral-400";
-const INK_SOFT = "fill-neutral-400 dark:fill-neutral-500";
-const INK_FAINT = "fill-neutral-300 dark:fill-neutral-600";
-const STROKE = "stroke-neutral-500 dark:stroke-neutral-400";
-const STROKE_FAINT = "stroke-neutral-300 dark:stroke-neutral-600";
-const STROKE_STRONG = "stroke-neutral-700 dark:stroke-neutral-200";
-const LABEL = "fill-neutral-500 dark:fill-neutral-400";
+const INK = "fill-neutral-100";
+const INK_MID = "fill-neutral-400";
+const INK_SOFT = "fill-neutral-500";
+const INK_FAINT = "fill-neutral-600";
+const STROKE = "stroke-neutral-400";
+const STROKE_FAINT = "stroke-neutral-600";
+const STROKE_STRONG = "stroke-neutral-200";
+const LABEL = "fill-neutral-400";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 const TICK_SLOW = 2200;
 const TICK_MED = 1900;
 const MOTION = { duration: 0.85, ease: EASE };
-const ILLUSTRATION_VB_W = 220;
-const ILLUSTRATION_VB_H = 112;
-/** Uniform scale — slightly larger than default, fits inside each bento cell */
-const ILLUSTRATION_SCALE = 1.12;
+const ILLUSTRATION_VB_W = 240;
+const ILLUSTRATION_VB_H = 140;
 
 function MiniSvg({
   children,
@@ -30,34 +28,24 @@ function MiniSvg({
   label: string;
   viewBox?: string;
 }) {
-  const parts = viewBox.split(/\s+/).map(Number);
-  const vbW = parts[2] ?? ILLUSTRATION_VB_W;
-  const vbH = parts[3] ?? ILLUSTRATION_VB_H;
-  const cx = vbW / 2;
-  const cy = vbH / 2;
-
   return (
     <svg
       viewBox={viewBox}
-      className="h-full w-full max-h-[148px] max-w-[272px]"
+      className="mx-auto h-auto w-full max-w-[270px] sm:max-w-[300px] md:max-w-[340px] lg:max-w-[380px]"
       role="img"
       aria-label={label}
       preserveAspectRatio="xMidYMid meet"
     >
-      <g
-        transform={`translate(${cx} ${cy}) scale(${ILLUSTRATION_SCALE}) translate(${-cx} ${-cy})`}
-      >
-        {children}
-      </g>
+      {children}
     </svg>
   );
 }
 
 const STEP_SPRING = { type: "spring" as const, stiffness: 90, damping: 16, mass: 0.8 };
 
-const STEP_CELL_W = 28;
-const STEP_CELL_H = 34;
-const STEP_CELL_GAP = 6;
+const STEP_CELL_W = 26;
+const STEP_CELL_H = 30;
+const STEP_CELL_GAP = 10;
 const STEP_CELL_STEP = STEP_CELL_W + STEP_CELL_GAP;
 const STEP_COUNT = 5;
 const STEP_ARRAY_W =
@@ -65,13 +53,11 @@ const STEP_ARRAY_W =
 const STEP_VB_W = ILLUSTRATION_VB_W;
 const STEP_VB_H = ILLUSTRATION_VB_H;
 const STEP_ORIGIN_X = (STEP_VB_W - STEP_ARRAY_W) / 2;
-const STEP_ROW_Y = 34;
-const STEP_CONTAINER_PAD = 10;
-const STEP_CONTAINER_X = STEP_ORIGIN_X - STEP_CONTAINER_PAD;
-const STEP_CONTAINER_Y = STEP_ROW_Y - STEP_CONTAINER_PAD;
-const STEP_CONTAINER_W = STEP_ARRAY_W + STEP_CONTAINER_PAD * 2;
-const STEP_CONTAINER_H = STEP_CELL_H + STEP_CONTAINER_PAD * 2 + 18;
-const STEP_BASELINE_Y = STEP_ROW_Y + STEP_CELL_H + 12;
+const STEP_ROW_Y = 50;
+const STEP_BASELINE_Y = 92;
+const LABEL_Y = 12;
+const CONTENT_X = 24;
+const CONTENT_W = ILLUSTRATION_VB_W - CONTENT_X * 2;
 
 const stepCellX = (i: number) => STEP_ORIGIN_X + i * STEP_CELL_STEP;
 
@@ -88,7 +74,6 @@ const STEP_SEQUENCE: StepAction[] = [
 ];
 
 export function StepThroughMini({ isInView }: { isInView: boolean }) {
-  const clipId = useId().replace(/:/g, "");
   const [values, setValues] = useState([38, 52, 21, 47, 15]);
   const [stepIdx, setStepIdx] = useState(0);
   const [swapping, setSwapping] = useState(false);
@@ -132,7 +117,8 @@ export function StepThroughMini({ isInView }: { isInView: boolean }) {
     >
       <motion.text
         x={STEP_VB_W / 2}
-        y="14"
+        y={LABEL_Y}
+        dominantBaseline="hanging"
         textAnchor="middle"
         fontSize="6.5"
         className={LABEL}
@@ -143,26 +129,6 @@ export function StepThroughMini({ isInView }: { isInView: boolean }) {
         {swapping ? "swap" : isCompare ? `compare · ${a} & ${b}` : "next"}
       </motion.text>
 
-      <rect
-        x={STEP_CONTAINER_X}
-        y={STEP_CONTAINER_Y}
-        width={STEP_CONTAINER_W}
-        height={STEP_CONTAINER_H}
-        rx="8"
-        className={INK_FAINT}
-        fillOpacity="0.06"
-      />
-      <rect
-        x={STEP_CONTAINER_X}
-        y={STEP_CONTAINER_Y}
-        width={STEP_CONTAINER_W}
-        height={STEP_CONTAINER_H}
-        rx="8"
-        fill="none"
-        className={STROKE_FAINT}
-        strokeWidth="1"
-      />
-
       <line
         x1={STEP_ORIGIN_X}
         y1={STEP_BASELINE_Y}
@@ -171,20 +137,7 @@ export function StepThroughMini({ isInView }: { isInView: boolean }) {
         className={STROKE_FAINT}
         strokeWidth="1"
       />
-
-      <defs>
-        <clipPath id={clipId}>
-          <rect
-            x={STEP_CONTAINER_X + 1}
-            y={STEP_CONTAINER_Y + 1}
-            width={STEP_CONTAINER_W - 2}
-            height={STEP_CONTAINER_H - 14}
-            rx="7"
-          />
-        </clipPath>
-      </defs>
-
-      <g clipPath={`url(#${clipId})`}>
+      <g>
         {isCompare && (
           <motion.rect
             x={pairLeft}
@@ -213,25 +166,15 @@ export function StepThroughMini({ isInView }: { isInView: boolean }) {
 
           return (
             <motion.g key={i} animate={{ x }} transition={STEP_SPRING}>
-              <rect
-                x={1}
-                y={STEP_ROW_Y + 1}
-                width={STEP_CELL_W - 2}
-                height={STEP_CELL_H - 2}
-                rx="4"
-                className={INK_FAINT}
-                fillOpacity={active ? 0.12 : swapping && inPair ? 0.16 : 0.05}
-              />
               <motion.rect
                 x={0}
                 y={STEP_ROW_Y}
                 width={STEP_CELL_W}
                 height={STEP_CELL_H}
-                rx="5"
-                fill="none"
-                className={active || (swapping && inPair) ? STROKE_STRONG : STROKE_FAINT}
-                strokeWidth={active || (swapping && inPair) ? 1 : 0.5}
-                animate={{ opacity: active ? 1 : swapping && inPair ? 0.9 : 0.4 }}
+                rx="2"
+                className={active || (swapping && inPair) ? INK : INK_FAINT}
+                fillOpacity={active ? 0.95 : swapping && inPair ? 0.75 : 0.35}
+                animate={{ opacity: active || (swapping && inPair) ? 1 : 0.55 }}
                 transition={{ duration: 0.45, ease: EASE }}
               />
               <motion.text
@@ -239,7 +182,9 @@ export function StepThroughMini({ isInView }: { isInView: boolean }) {
                 y={STEP_ROW_Y + STEP_CELL_H / 2 + 4}
                 textAnchor="middle"
                 fontSize="10"
-                className={active || (swapping && inPair) ? INK : INK_SOFT}
+                className={
+                  active || (swapping && inPair) ? "fill-neutral-900" : INK_SOFT
+                }
                 fontFamily="var(--font-outfit), sans-serif"
                 fontWeight="300"
                 animate={{ opacity: active || (swapping && inPair) ? 1 : 0.45 }}
@@ -280,14 +225,10 @@ export function StepThroughMini({ isInView }: { isInView: boolean }) {
 
 const CTRL_VB_W = STEP_VB_W;
 const CTRL_VB_H = STEP_VB_H;
-const CTRL_CONTAINER_X = STEP_CONTAINER_X;
-const CTRL_CONTAINER_Y = 22;
-const CTRL_CONTAINER_W = STEP_CONTAINER_W;
-const CTRL_CONTAINER_H = 72;
 const CTRL_TRACK_X = STEP_ORIGIN_X;
 const CTRL_TRACK_W = STEP_ARRAY_W;
-const CTRL_TRACK_Y = 36;
-const CTRL_BTN_Y = 76;
+const CTRL_TRACK_Y = 56;
+const CTRL_BTN_Y = 114;
 const CTRL_BTN_W = 30;
 const CTRL_BTN_H = 26;
 const CTRL_PLAY_CX = CTRL_VB_W / 2;
@@ -322,7 +263,8 @@ export function InteractiveControlsMini({ isInView }: { isInView: boolean }) {
     >
       <motion.text
         x={CTRL_VB_W / 2}
-        y="14"
+        y={LABEL_Y}
+        dominantBaseline="hanging"
         textAnchor="middle"
         fontSize="6.5"
         className={LABEL}
@@ -332,26 +274,6 @@ export function InteractiveControlsMini({ isInView }: { isInView: boolean }) {
       >
         {playing ? `playing · frame ${frame}` : `paused · frame ${frame}`}
       </motion.text>
-
-      <rect
-        x={CTRL_CONTAINER_X}
-        y={CTRL_CONTAINER_Y}
-        width={CTRL_CONTAINER_W}
-        height={CTRL_CONTAINER_H}
-        rx="8"
-        className={INK_FAINT}
-        fillOpacity="0.06"
-      />
-      <rect
-        x={CTRL_CONTAINER_X}
-        y={CTRL_CONTAINER_Y}
-        width={CTRL_CONTAINER_W}
-        height={CTRL_CONTAINER_H}
-        rx="8"
-        fill="none"
-        className={STROKE_FAINT}
-        strokeWidth="1"
-      />
 
       <line
         x1={CTRL_TRACK_X}
@@ -449,18 +371,9 @@ export function InteractiveControlsMini({ isInView }: { isInView: boolean }) {
           width={CTRL_BTN_W}
           height={CTRL_BTN_H}
           rx="5"
-          className={INK_FAINT}
-          fillOpacity="0.05"
-        />
-        <rect
-          x={playX}
-          y={playY}
-          width={CTRL_BTN_W}
-          height={CTRL_BTN_H}
-          rx="5"
           fill="none"
           className={STROKE_FAINT}
-          strokeWidth="0.5"
+          strokeWidth="0.75"
         />
         {playing ? (
           <>
@@ -480,22 +393,17 @@ export function InteractiveControlsMini({ isInView }: { isInView: boolean }) {
 
 const CODE_VB_W = STEP_VB_W;
 const CODE_VB_H = STEP_VB_H;
-const CODE_CONTAINER_X = STEP_CONTAINER_X;
-const CODE_CONTAINER_Y = 22;
-const CODE_CONTAINER_W = STEP_CONTAINER_W;
-const CODE_CONTAINER_H = 72;
-const CODE_HEADER_H = 13;
-const CODE_BODY_X = CODE_CONTAINER_X + 8;
-const CODE_BODY_W = CODE_CONTAINER_W - 16;
+const CODE_BODY_X = CONTENT_X;
+const CODE_BODY_W = CONTENT_W;
 const CODE_GUTTER_W = 14;
-const CODE_LINE_X = CODE_BODY_X + CODE_GUTTER_W + 4;
-const CODE_LINE_W = CODE_BODY_W - CODE_GUTTER_W - 8;
-const CODE_LINE_STEP = 11.5;
-const CODE_LINES_TOP = CODE_CONTAINER_Y + CODE_HEADER_H + 10;
-const CODE_BADGE_W = 22;
-const CODE_BADGE_H = 7;
-const CODE_BADGE_X = CODE_CONTAINER_X + CODE_CONTAINER_W - CODE_BADGE_W;
-const CODE_BADGE_Y = CODE_CONTAINER_Y + 3;
+const CODE_LINE_X = CODE_BODY_X + CODE_GUTTER_W + 6;
+const CODE_LINE_W = CODE_BODY_W - CODE_GUTTER_W - 10;
+const CODE_LINE_STEP = 13.5;
+const CODE_LINES_TOP = 36;
+const CODE_BADGE_W = 24;
+const CODE_BADGE_H = 8;
+const CODE_BADGE_X = CONTENT_X + CONTENT_W - CODE_BADGE_W;
+const CODE_BADGE_Y = LABEL_Y;
 
 const CODE_LINES = [
   "def search(arr, x):",
@@ -525,7 +433,8 @@ export function CodeExamplesMini({ isInView }: { isInView: boolean }) {
     >
       <text
         x={CODE_VB_W / 2}
-        y="14"
+        y={LABEL_Y}
+        dominantBaseline="hanging"
         textAnchor="middle"
         fontSize="6.5"
         className={LABEL}
@@ -534,62 +443,11 @@ export function CodeExamplesMini({ isInView }: { isInView: boolean }) {
         search.py · line {highlight + 1}
       </text>
 
-      <rect
-        x={CODE_CONTAINER_X}
-        y={CODE_CONTAINER_Y}
-        width={CODE_CONTAINER_W}
-        height={CODE_CONTAINER_H}
-        rx="8"
-        className={INK_FAINT}
-        fillOpacity="0.06"
-      />
-      <rect
-        x={CODE_CONTAINER_X}
-        y={CODE_CONTAINER_Y}
-        width={CODE_CONTAINER_W}
-        height={CODE_CONTAINER_H}
-        rx="8"
-        fill="none"
-        className={STROKE_FAINT}
-        strokeWidth="1"
-      />
-
-      <rect
-        x={CODE_CONTAINER_X}
-        y={CODE_CONTAINER_Y}
-        width={CODE_CONTAINER_W}
-        height={CODE_HEADER_H}
-        rx="8"
-        className={INK_FAINT}
-        fillOpacity="0.08"
-      />
-      <line
-        x1={CODE_CONTAINER_X}
-        y1={CODE_CONTAINER_Y + CODE_HEADER_H}
-        x2={CODE_CONTAINER_X + CODE_CONTAINER_W}
-        y2={CODE_CONTAINER_Y + CODE_HEADER_H}
-        className={STROKE_FAINT}
-        strokeWidth="1"
-      />
-
-      <circle cx={CODE_BODY_X + 6} cy={CODE_CONTAINER_Y + 8} r="2" className={INK_SOFT} />
-      <circle cx={CODE_BODY_X + 13} cy={CODE_CONTAINER_Y + 8} r="2" className={INK_FAINT} />
-      <circle cx={CODE_BODY_X + 20} cy={CODE_CONTAINER_Y + 8} r="2" className={INK_FAINT} />
-      <text
-        x={CODE_BODY_X + 28}
-        y={CODE_CONTAINER_Y + 10}
-        fontSize="6"
-        className={LABEL}
-        fontFamily="ui-monospace, monospace"
-      >
-        search.py
-      </text>
-
       <line
         x1={CODE_LINE_X - 3}
-        y1={CODE_CONTAINER_Y + CODE_HEADER_H + 4}
+        y1={CODE_LINES_TOP - 6}
         x2={CODE_LINE_X - 3}
-        y2={CODE_CONTAINER_Y + CODE_CONTAINER_H - 6}
+        y2={CODE_LINES_TOP + CODE_LINE_STEP * (CODE_LINES.length - 1) + 8}
         className={STROKE_FAINT}
         strokeWidth="1"
       />
@@ -649,30 +507,11 @@ export function CodeExamplesMini({ isInView }: { isInView: boolean }) {
         );
       })}
 
-      <rect
-        x={CODE_BADGE_X}
-        y={CODE_BADGE_Y}
-        width={CODE_BADGE_W}
-        height={CODE_BADGE_H}
-        rx="2"
-        className={INK_FAINT}
-        fillOpacity="0.06"
-      />
-      <rect
-        x={CODE_BADGE_X}
-        y={CODE_BADGE_Y}
-        width={CODE_BADGE_W}
-        height={CODE_BADGE_H}
-        rx="2"
-        fill="none"
-        className={STROKE_FAINT}
-        strokeWidth="0.5"
-      />
       <text
         x={CODE_BADGE_X + CODE_BADGE_W / 2}
-        y={CODE_BADGE_Y + 5}
+        y={CODE_BADGE_Y + 6}
         textAnchor="middle"
-        fontSize="4.5"
+        fontSize="5"
         className={INK_MID}
         fontFamily="var(--font-outfit), sans-serif"
       >
@@ -684,32 +523,26 @@ export function CodeExamplesMini({ isInView }: { isInView: boolean }) {
 
 const INPUT_VB_W = STEP_VB_W;
 const INPUT_VB_H = STEP_VB_H;
-const INPUT_CONTAINER_X = STEP_CONTAINER_X;
-const INPUT_CONTAINER_Y = 22;
-const INPUT_CONTAINER_W = STEP_CONTAINER_W;
-const INPUT_CONTAINER_H = 72;
-const INPUT_INSET = 10;
-const INPUT_FIELD_X = INPUT_CONTAINER_X + INPUT_INSET;
-const INPUT_FIELD_W = INPUT_CONTAINER_W - INPUT_INSET * 2;
-const INPUT_FIELD_Y = INPUT_CONTAINER_Y + 14;
-const INPUT_FIELD_H = 16;
+const INPUT_FIELD_X = CONTENT_X;
+const INPUT_FIELD_W = CONTENT_W;
+const INPUT_FIELD_Y = 40;
+const INPUT_FIELD_H = 18;
 const INPUT_CELL_W = 26;
-const INPUT_CELL_H = 22;
-const INPUT_CELL_GAP = 5;
+const INPUT_CELL_H = 24;
+const INPUT_CELL_GAP = 10;
 const INPUT_CELL_STEP = INPUT_CELL_W + INPUT_CELL_GAP;
 const INPUT_VALUES = [3, 1, 4] as const;
 const INPUT_TEXT = "3, 1, 4";
 const INPUT_CELL_COUNT = INPUT_VALUES.length;
 const INPUT_ARRAY_W =
   INPUT_CELL_COUNT * INPUT_CELL_W + (INPUT_CELL_COUNT - 1) * INPUT_CELL_GAP;
-const INPUT_ARRAY_X = INPUT_CONTAINER_X + (INPUT_CONTAINER_W - INPUT_ARRAY_W) / 2;
-const INPUT_ARRAY_Y = INPUT_CONTAINER_Y + 38;
-const INPUT_CONNECTOR_X = INPUT_CONTAINER_X + INPUT_CONTAINER_W / 2;
+const INPUT_ARRAY_X = (ILLUSTRATION_VB_W - INPUT_ARRAY_W) / 2;
+const INPUT_ARRAY_Y = 92;
+const INPUT_CONNECTOR_X = ILLUSTRATION_VB_W / 2;
 
 type InputPhase = "typing" | "run" | "show";
 
 export function CustomInputMini({ isInView }: { isInView: boolean }) {
-  const clipId = useId().replace(/:/g, "");
   const [phase, setPhase] = useState<InputPhase>("typing");
   const [charCount, setCharCount] = useState(0);
   const [visibleCells, setVisibleCells] = useState(0);
@@ -758,7 +591,7 @@ export function CustomInputMini({ isInView }: { isInView: boolean }) {
       ? "run →"
       : `visualized · [${INPUT_VALUES.slice(0, visibleCells).join(", ")}]`;
 
-  const inputCellX = (i: number) => INPUT_ARRAY_X + i * STEP_CELL_STEP;
+  const inputCellX = (i: number) => INPUT_ARRAY_X + i * INPUT_CELL_STEP;
 
   return (
     <MiniSvg
@@ -767,7 +600,8 @@ export function CustomInputMini({ isInView }: { isInView: boolean }) {
     >
       <motion.text
         x={INPUT_VB_W / 2}
-        y="14"
+        y={LABEL_Y}
+        dominantBaseline="hanging"
         textAnchor="middle"
         fontSize="6.5"
         className={LABEL}
@@ -777,40 +611,7 @@ export function CustomInputMini({ isInView }: { isInView: boolean }) {
       >
         {statusLabel}
       </motion.text>
-
-      <rect
-        x={INPUT_CONTAINER_X}
-        y={INPUT_CONTAINER_Y}
-        width={INPUT_CONTAINER_W}
-        height={INPUT_CONTAINER_H}
-        rx="8"
-        className={INK_FAINT}
-        fillOpacity="0.06"
-      />
-      <rect
-        x={INPUT_CONTAINER_X}
-        y={INPUT_CONTAINER_Y}
-        width={INPUT_CONTAINER_W}
-        height={INPUT_CONTAINER_H}
-        rx="8"
-        fill="none"
-        className={STROKE_FAINT}
-        strokeWidth="1"
-      />
-
-      <defs>
-        <clipPath id={clipId}>
-          <rect
-            x={INPUT_CONTAINER_X + 1}
-            y={INPUT_CONTAINER_Y + 1}
-            width={INPUT_CONTAINER_W - 2}
-            height={INPUT_CONTAINER_H - 2}
-            rx="7"
-          />
-        </clipPath>
-      </defs>
-
-      <g clipPath={`url(#${clipId})`}>
+      <g>
       <text
         x={INPUT_FIELD_X}
         y={INPUT_FIELD_Y - 3}
@@ -830,15 +631,7 @@ export function CustomInputMini({ isInView }: { isInView: boolean }) {
         className={isTyping || isRun ? STROKE_STRONG : STROKE_FAINT}
         strokeWidth={isTyping ? 1 : 0.5}
       />
-      <rect
-        x={INPUT_FIELD_X + 1}
-        y={INPUT_FIELD_Y + 1}
-        width={INPUT_FIELD_W - 2}
-        height={INPUT_FIELD_H - 2}
-        rx="4"
-        className={INK_FAINT}
-        fillOpacity="0.05"
-      />
+
       <text
         x={INPUT_FIELD_X + 8}
         y={INPUT_FIELD_Y + 12}
@@ -886,29 +679,19 @@ export function CustomInputMini({ isInView }: { isInView: boolean }) {
               y={INPUT_ARRAY_Y}
               width={INPUT_CELL_W}
               height={INPUT_CELL_H}
-              rx="5"
-              fill="none"
-              className={visible ? STROKE_STRONG : STROKE_FAINT}
-              strokeWidth={visible ? 1 : 0.5}
+              rx="2"
+              className={visible ? INK : INK_FAINT}
+              fillOpacity={visible ? 0.9 : 0.3}
               initial={false}
-              animate={{ opacity: visible ? 1 : 0.28 }}
+              animate={{ opacity: visible ? 1 : 0.35 }}
               transition={{ duration: 0.65, ease: EASE }}
-            />
-            <rect
-              x={x + 1}
-              y={INPUT_ARRAY_Y + 1}
-              width={INPUT_CELL_W - 2}
-              height={INPUT_CELL_H - 2}
-              rx="4"
-              className={INK_FAINT}
-              fillOpacity={visible ? 0.12 : 0.04}
             />
             <motion.text
               x={x + INPUT_CELL_W / 2}
               y={INPUT_ARRAY_Y + INPUT_CELL_H / 2 + 3}
               textAnchor="middle"
               fontSize="9"
-              className={visible ? INK : INK_SOFT}
+              className={visible ? "fill-neutral-900" : INK_SOFT}
               fontFamily="var(--font-outfit), sans-serif"
               fontWeight="300"
               initial={{ opacity: 0, scale: 0.92 }}
@@ -930,16 +713,12 @@ export function CustomInputMini({ isInView }: { isInView: boolean }) {
 
 const CONCEPT_VB_W = STEP_VB_W;
 const CONCEPT_VB_H = STEP_VB_H;
-const CONCEPT_CONTAINER_X = STEP_CONTAINER_X;
-const CONCEPT_CONTAINER_Y = 22;
-const CONCEPT_CONTAINER_W = STEP_CONTAINER_W;
-const CONCEPT_CONTAINER_H = 72;
-const CONCEPT_CARD_X = CONCEPT_CONTAINER_X + 10;
-const CONCEPT_CARD_W = CONCEPT_CONTAINER_W - 20;
-const CONCEPT_RAIL_X = CONCEPT_CARD_X + 6;
-const CONCEPT_ROW_H = 16;
-const CONCEPT_ROW_GAP = 5;
-const CONCEPT_ROWS_TOP = CONCEPT_CONTAINER_Y + 11;
+const CONCEPT_CARD_X = CONTENT_X + 16;
+const CONCEPT_CARD_W = CONTENT_W - 16;
+const CONCEPT_RAIL_X = CONTENT_X + 6;
+const CONCEPT_ROW_H = 18;
+const CONCEPT_ROW_GAP = 12;
+const CONCEPT_ROWS_TOP = 36;
 const CONCEPT_LAYERS = [
   { label: "Problem", detail: "define the goal clearly" },
   { label: "Strategy", detail: "pick the right approach" },
@@ -968,7 +747,8 @@ export function ConceptBreakdownMini({ isInView }: { isInView: boolean }) {
     >
       <text
         x={CONCEPT_VB_W / 2}
-        y="14"
+        y={LABEL_Y}
+        dominantBaseline="hanging"
         textAnchor="middle"
         fontSize="6.5"
         className={LABEL}
@@ -976,26 +756,6 @@ export function ConceptBreakdownMini({ isInView }: { isInView: boolean }) {
       >
         concept · {layer.label.toLowerCase()}
       </text>
-
-      <rect
-        x={CONCEPT_CONTAINER_X}
-        y={CONCEPT_CONTAINER_Y}
-        width={CONCEPT_CONTAINER_W}
-        height={CONCEPT_CONTAINER_H}
-        rx="8"
-        className={INK_FAINT}
-        fillOpacity="0.06"
-      />
-      <rect
-        x={CONCEPT_CONTAINER_X}
-        y={CONCEPT_CONTAINER_Y}
-        width={CONCEPT_CONTAINER_W}
-        height={CONCEPT_CONTAINER_H}
-        rx="8"
-        fill="none"
-        className={STROKE_FAINT}
-        strokeWidth="1"
-      />
 
       {CONCEPT_LAYERS.map((item, i) => {
         const isActive = i === active;
@@ -1013,25 +773,14 @@ export function ConceptBreakdownMini({ isInView }: { isInView: boolean }) {
               transition={{ duration: 0.55, ease: EASE }}
             />
 
-            <rect
-              x={CONCEPT_CARD_X}
-              y={rowY}
-              width={CONCEPT_CARD_W}
-              height={CONCEPT_ROW_H}
-              rx="5"
-              className={INK_FAINT}
-              fillOpacity={isActive ? 0.1 : 0.04}
-            />
-            <motion.rect
-              x={CONCEPT_CARD_X}
-              y={rowY}
-              width={CONCEPT_CARD_W}
-              height={CONCEPT_ROW_H}
-              rx="5"
-              fill="none"
+            <motion.line
+              x1={CONCEPT_CARD_X}
+              y1={rowY + CONCEPT_ROW_H}
+              x2={CONCEPT_CARD_X + CONCEPT_CARD_W}
+              y2={rowY + CONCEPT_ROW_H}
               className={isActive ? STROKE_STRONG : STROKE_FAINT}
               strokeWidth={isActive ? 1 : 0.5}
-              animate={{ opacity: isActive ? 1 : 0.45 }}
+              animate={{ opacity: isActive ? 1 : 0.35 }}
               transition={{ duration: 0.55, ease: EASE }}
             />
 
@@ -1071,17 +820,15 @@ export function ConceptBreakdownMini({ isInView }: { isInView: boolean }) {
 
 const PERF_VB_W = STEP_VB_W;
 const PERF_VB_H = STEP_VB_H;
-const PERF_CONTAINER_X = STEP_CONTAINER_X;
-const PERF_CONTAINER_Y = 22;
-const PERF_CONTAINER_W = STEP_CONTAINER_W;
-const PERF_CONTAINER_H = 72;
-const PERF_PLOT_X = PERF_CONTAINER_X + 10;
-const PERF_PLOT_Y = PERF_CONTAINER_Y + 10;
-const PERF_PLOT_W = 106;
-const PERF_PLOT_H = 48;
+const PERF_PLOT_X = CONTENT_X + 4;
+const PERF_PLOT_Y = 32;
+const PERF_PLOT_W = 112;
+const PERF_PLOT_H = 58;
+const PERF_LINEAR_AMP = 38;
+const PERF_QUAD_AMP = 49;
 const PERF_ORIGIN_X = PERF_PLOT_X;
 const PERF_ORIGIN_Y = PERF_PLOT_Y + PERF_PLOT_H;
-const PERF_LEGEND_X = PERF_PLOT_X + PERF_PLOT_W + 14;
+const PERF_LEGEND_X = PERF_PLOT_X + PERF_PLOT_W + 18;
 const PERF_LEGEND_LINE_W = 14;
 
 function perfCurvePath(
@@ -1094,8 +841,8 @@ function perfCurvePath(
     const x = PERF_ORIGIN_X + p * PERF_PLOT_W;
     const y =
       curve === "linear"
-        ? PERF_ORIGIN_Y - p * 34
-        : PERF_ORIGIN_Y - p * p * 44;
+        ? PERF_ORIGIN_Y - p * PERF_LINEAR_AMP
+        : PERF_ORIGIN_Y - p * p * PERF_QUAD_AMP;
     return `${i === 0 ? "M" : "L"} ${x} ${y}`;
   });
   return points.join(" ");
@@ -1107,15 +854,15 @@ export function PerformanceMini({ isInView }: { isInView: boolean }) {
   useEffect(() => {
     if (!isInView) return;
     const id = window.setInterval(() => {
-      setPhase((p) => (p >= 100 ? 0 : p + 0.5));
-    }, 130);
+      setPhase((p) => (p >= 100 ? 0 : p + 0.55));
+    }, 115);
     return () => window.clearInterval(id);
   }, [isInView]);
 
   const t = phase / 100;
   const xEnd = PERF_ORIGIN_X + t * PERF_PLOT_W;
-  const linearY = PERF_ORIGIN_Y - t * 34;
-  const quadY = PERF_ORIGIN_Y - t * t * 44;
+  const linearY = PERF_ORIGIN_Y - t * PERF_LINEAR_AMP;
+  const quadY = PERF_ORIGIN_Y - t * t * PERF_QUAD_AMP;
 
   return (
     <MiniSvg
@@ -1124,7 +871,8 @@ export function PerformanceMini({ isInView }: { isInView: boolean }) {
     >
       <text
         x={PERF_VB_W / 2}
-        y="14"
+        y={LABEL_Y}
+        dominantBaseline="hanging"
         textAnchor="middle"
         fontSize="6.5"
         className={LABEL}
@@ -1132,36 +880,6 @@ export function PerformanceMini({ isInView }: { isInView: boolean }) {
       >
         growth over input size
       </text>
-
-      <rect
-        x={PERF_CONTAINER_X}
-        y={PERF_CONTAINER_Y}
-        width={PERF_CONTAINER_W}
-        height={PERF_CONTAINER_H}
-        rx="8"
-        className={INK_FAINT}
-        fillOpacity="0.06"
-      />
-      <rect
-        x={PERF_CONTAINER_X}
-        y={PERF_CONTAINER_Y}
-        width={PERF_CONTAINER_W}
-        height={PERF_CONTAINER_H}
-        rx="8"
-        fill="none"
-        className={STROKE_FAINT}
-        strokeWidth="1"
-      />
-
-      <rect
-        x={PERF_PLOT_X - 2}
-        y={PERF_PLOT_Y - 2}
-        width={PERF_PLOT_W + 4}
-        height={PERF_PLOT_H + 4}
-        rx="4"
-        className={INK_FAINT}
-        fillOpacity="0.04"
-      />
 
       {[0.33, 0.66].map((ratio) => {
         const gy = PERF_ORIGIN_Y - ratio * PERF_PLOT_H;

@@ -6,8 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "../../context/ThemeContext";
-import { AnimatedThemeToggler } from "../ui/animated-theme-toggler";
 
 type NavbarLink = { name: string; href: string };
 
@@ -22,7 +20,7 @@ const defaultNavLinks: NavbarLink[] = [
   { name: "Need", href: "/#need" },
   { name: "Features", href: "/#features" },
   { name: "Library", href: "/#library" },
-  { name: "Students", href: "/learn" },
+  { name: "Students", href: "/#students" },
   { name: "Contact", href: "/#connect" },
 ];
 
@@ -63,6 +61,9 @@ function NavbarCtaButton({
   );
 }
 
+const navLinkClass =
+  "text-[13px] font-medium leading-none text-[#e6e6e6]/90 transition-colors duration-150 hover:text-white";
+
 export default function Navbar({
   linksOverride,
   activeLinkName,
@@ -72,38 +73,15 @@ export default function Navbar({
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
 
   const navLinks = linksOverride ?? defaultNavLinks;
-
-  const themeToggleClassName = cn(
-    "inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors duration-150",
-    isDark
-      ? "text-[#e6e6e6]/75 hover:bg-white/10 hover:text-white"
-      : "text-[#1a1a1a]/75 hover:bg-black/5 hover:text-[#0e0e10]",
-  );
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const navLinkClass = cn(
-    "text-[13px] font-medium leading-none transition-colors duration-150",
-    isDark
-      ? "text-[#e6e6e6]/90 hover:text-white"
-      : "text-[#1a1a1a]/80 hover:text-[#0e0e10]",
-  );
-
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full border-b",
-        isDark
-          ? "border-white/[0.08] bg-[rgb(var(--background))]/95 backdrop-blur-md"
-          : "border-black/[0.08] bg-[rgb(var(--background))]/95 backdrop-blur-md",
-      )}
-    >
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[rgb(var(--background))]/95 backdrop-blur-md">
       <nav
         className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-5"
         aria-label="Main"
@@ -116,18 +94,18 @@ export default function Navbar({
           {mounted ? (
             <>
               <Image
-                src={isDark ? "/licon.svg" : "/dicon.svg"}
+                src="/licon.svg"
                 alt="AlgoRhythm Logo"
                 width={20}
                 height={20}
                 className="h-5 w-5 sm:hidden"
               />
               <Image
-                src={isDark ? "/algo-light.svg" : "/algo-dark.svg"}
+                src="/algo-light.svg"
                 alt="AlgoRhythm Logo"
                 width={110}
                 height={28}
-                className="hidden sm:block h-7 w-auto"
+                className="hidden h-7 w-auto sm:block"
               />
             </>
           ) : (
@@ -144,7 +122,7 @@ export default function Navbar({
                 alt="AlgoRhythm Logo"
                 width={110}
                 height={28}
-                className="hidden sm:block h-7 w-auto"
+                className="hidden h-7 w-auto sm:block"
               />
             </>
           )}
@@ -158,8 +136,7 @@ export default function Navbar({
                 href={link.href}
                 className={cn(
                   navLinkClass,
-                  activeLinkName === link.name &&
-                    (isDark ? "text-white" : "text-[#0e0e10]"),
+                  activeLinkName === link.name && "text-white",
                 )}
                 aria-current={activeLinkName === link.name ? "page" : undefined}
               >
@@ -168,16 +145,7 @@ export default function Navbar({
             ))}
           </li>
 
-          <li
-            className={cn(
-              "h-4 w-px",
-              isDark ? "bg-white/15" : "bg-black/15",
-            )}
-            aria-hidden
-          />
-
           <li className="flex items-center gap-2.5 lg:gap-3">
-            <AnimatedThemeToggler className={themeToggleClassName} />
             <NavbarCtaButton
               label={ctaLabel}
               onClick={() => router.push(ctaHref)}
@@ -186,16 +154,10 @@ export default function Navbar({
         </ul>
 
         <div className="flex items-center gap-2 md:hidden">
-          <AnimatedThemeToggler className={themeToggleClassName} />
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={cn(
-              "inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors duration-150",
-              isDark
-                ? "text-[#e6e6e6]/75 hover:bg-white/10 hover:text-white"
-                : "text-[#1a1a1a]/75 hover:bg-black/5 hover:text-[#0e0e10]",
-            )}
+            className="inline-flex h-7 w-7 items-center justify-center rounded-full text-[#e6e6e6]/75 transition-colors duration-150 hover:bg-white/10 hover:text-white"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
           >
@@ -209,14 +171,7 @@ export default function Navbar({
       </nav>
 
       {isMobileMenuOpen && (
-        <div
-          className={cn(
-            "border-t md:hidden",
-            isDark
-              ? "border-white/[0.08] bg-[rgb(var(--background))]"
-              : "border-black/[0.08] bg-[rgb(var(--background))]",
-          )}
-        >
+        <div className="border-t border-white/[0.08] bg-[rgb(var(--background))] md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4 sm:px-5">
             {navLinks.map((link) => (
               <Link
@@ -224,12 +179,8 @@ export default function Navbar({
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
-                  "rounded-md px-2 py-2.5 text-[13px] font-medium transition-colors duration-150",
-                  isDark
-                    ? "text-[#e6e6e6]/90 hover:bg-white/5 hover:text-white"
-                    : "text-[#1a1a1a]/80 hover:bg-black/5 hover:text-[#0e0e10]",
-                  activeLinkName === link.name &&
-                    (isDark ? "text-white" : "text-[#0e0e10]"),
+                  "rounded-md px-2 py-2.5 text-[13px] font-medium text-[#e6e6e6]/90 transition-colors duration-150 hover:bg-white/5 hover:text-white",
+                  activeLinkName === link.name && "text-white",
                 )}
                 aria-current={activeLinkName === link.name ? "page" : undefined}
               >

@@ -68,10 +68,10 @@ export default function Features() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-10 max-w-2xl text-xl font-extralight leading-snug tracking-tight sm:mb-12 sm:text-2xl md:text-3xl"
+          className="mb-10 max-w-3xl text-xl font-extralight leading-snug tracking-tight sm:mb-12 sm:text-2xl md:text-3xl"
         >
-          Built to turn abstract logic into something you can{" "}
-          <span className="text-neutral-900 dark:text-white">follow</span>.
+          The complete{" "}
+          <span style={{ color: "#8a4d98" }}>visual toolkit</span>
         </motion.p>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
@@ -81,22 +81,20 @@ export default function Features() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.08 + index * 0.06 }}
-              className="flex h-[300px] flex-col rounded-xl border border-neutral-300/60 p-5 dark:border-neutral-600/50 sm:h-[320px] sm:p-6 md:h-full md:min-h-[300px]"
+              className="landing-surface flex min-h-[360px] flex-col rounded-xl p-5 sm:min-h-[400px] sm:p-6 md:min-h-[430px]"
             >
-              <div className="flex flex-1 items-center justify-center px-1 py-2">
-                <div className="flex h-full w-full items-center justify-center">
-                  <FeatureBentoIllustration
-                    id={feature.illustration}
-                    isInView={isInView}
-                  />
-                </div>
+              <div className="flex flex-1 items-center justify-center px-2 py-6 sm:px-3 sm:py-8 md:px-4 md:py-8">
+                <FeatureBentoIllustration
+                  id={feature.illustration}
+                  isInView={isInView}
+                />
               </div>
 
-              <div className="shrink-0 border-t border-black/[0.06] pt-4 dark:border-white/[0.06] sm:pt-5">
+              <div className="landing-border shrink-0 border-t pt-4 sm:pt-5">
                 <h3 className="mb-2 text-base font-extralight leading-snug tracking-tight sm:text-lg">
                   {feature.title}
                 </h3>
-                <p className="text-sm font-extralight leading-relaxed tracking-wide opacity-75">
+                <p className="landing-body text-sm font-extralight leading-relaxed tracking-wide">
                   {feature.description}
                 </p>
               </div>

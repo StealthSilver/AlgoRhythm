@@ -39,7 +39,7 @@ const HERO_ANIMATIONS = [
 
 export function HeroGridAnimations() {
   return (
-    <div className="hero-grid-bg relative grid w-[min(100vw,1280px)] shrink-0 grid-cols-4 grid-rows-3 opacity-[0.62] dark:opacity-[0.55]">
+    <div className="hero-grid-bg relative grid w-[min(100vw,1280px)] shrink-0 grid-cols-4 grid-rows-3 opacity-[0.55]">
       {HERO_ANIMATIONS.map(({ id, Component }) => (
         <div
           key={id}

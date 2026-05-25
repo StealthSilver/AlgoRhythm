@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./context/ThemeContext";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -111,16 +110,14 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"){document.documentElement.classList.remove("dark");}else{document.documentElement.classList.add("dark");}}catch(e){}})();`,
+            __html: `(function(){try{document.documentElement.classList.add("dark");localStorage.setItem("theme","dark");}catch(e){}})();`,
           }}
         />
       </head>
       <body
         className={`${outfit.variable} ${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <ThemeProvider>
-          <div className="flex flex-col min-h-screen">{children}</div>
-        </ThemeProvider>
+        <div className="flex flex-col min-h-screen">{children}</div>
       </body>
     </html>
   );

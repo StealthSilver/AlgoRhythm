@@ -5,9 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
-import { useTheme } from "../context/ThemeContext";
 import { Button } from "./ui/button";
 
 const navLinks = [
@@ -20,14 +19,10 @@ const navLinks = [
 export default function AlgorithmsNavbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -56,44 +51,20 @@ export default function AlgorithmsNavbar() {
           <div className="flex items-end gap-8">
             <Link href="/" className="flex items-end shrink-0">
               {/* Mobile logo - theme-based */}
-              {mounted && (
-                <Image
-                  src={theme === "dark" ? "/licon.svg" : "/dicon.svg"}
-                  alt="AlgoRhythm Logo"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 sm:hidden"
-                />
-              )}
-              {!mounted && (
-                <Image
-                  src="/licon.svg"
-                  alt="AlgoRhythm Logo"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 sm:hidden"
-                />
-              )}
-
-              {/* Desktop logo - theme-based */}
-              {mounted && (
-                <Image
-                  src={theme === "dark" ? "/algo-light.svg" : "/algo-dark.svg"}
-                  alt="AlgoRhythm Logo"
-                  width={110}
-                  height={28}
-                  className="hidden sm:block h-7 w-auto"
-                />
-              )}
-              {!mounted && (
-                <Image
-                  src="/algo-light.svg"
-                  alt="AlgoRhythm Logo"
-                  width={110}
-                  height={28}
-                  className="hidden sm:block h-7 w-auto"
-                />
-              )}
+              <Image
+                src="/licon.svg"
+                alt="AlgoRhythm Logo"
+                width={24}
+                height={24}
+                className="h-6 w-6 sm:hidden"
+              />
+              <Image
+                src="/algo-light.svg"
+                alt="AlgoRhythm Logo"
+                width={110}
+                height={28}
+                className="hidden h-7 w-auto sm:block"
+              />
             </Link>
 
             {/* Center nav - Desktop */}
@@ -130,32 +101,6 @@ export default function AlgorithmsNavbar() {
 
           {/* Right section */}
           <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="relative overflow-hidden"
-              aria-label="Toggle theme"
-            >
-              <AnimatePresence mode="wait">
-                {mounted && (
-                  <motion.div
-                    key={theme}
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 20, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {theme === "dark" ? (
-                      <Sun className="h-5 w-5" />
-                    ) : (
-                      <Moon className="h-5 w-5" />
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
-
             <motion.button
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}

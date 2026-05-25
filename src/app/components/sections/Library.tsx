@@ -57,14 +57,14 @@ export default function Library() {
             The complete{" "}
             <span style={{ color: "#8a4d98" }}>algorithm library</span>
           </p>
-          <p className="max-w-2xl text-sm font-extralight leading-relaxed tracking-wide opacity-75 sm:text-base">
+          <p className="landing-body max-w-2xl text-sm font-extralight leading-relaxed tracking-wide sm:text-base">
             {totalLibraryTopics} interactive topics across{" "}
             {libraryCategories.length} categories. Pick any box to jump straight
             into step-by-step visualization.
           </p>
         </motion.div>
 
-        <div className="divide-y divide-black/[0.08] dark:divide-white/[0.08]">
+        <div className="landing-divide divide-y">
           {libraryCategories.map((category, categoryIndex) => {
             const CategoryIcon =
               libraryCategoryIconMap[category.name] ?? Sparkles;
@@ -79,18 +79,18 @@ export default function Library() {
                   duration: 0.55,
                   delay: 0.06 + categoryIndex * 0.04,
                 }}
-                className="first:border-t first:border-black/[0.08] first:dark:border-white/[0.08]"
+                className="landing-border first:border-t"
               >
                 <button
                   type="button"
                   onClick={() => toggleCategory(category.name)}
                   aria-expanded={isExpanded}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:opacity-90 sm:py-6"
+                  className="flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left transition-colors hover:opacity-90 sm:py-6"
                 >
                   <div className="flex min-w-0 items-center gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-neutral-300/60 bg-neutral-50/80 dark:border-neutral-600/50 dark:bg-neutral-900/40">
+                    <div className="landing-icon-box flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
                       <CategoryIcon
-                        className="h-[18px] w-[18px] text-neutral-700 dark:text-neutral-200"
+                        className="h-[18px] w-[18px] text-neutral-200"
                         strokeWidth={1.5}
                       />
                     </div>
@@ -98,14 +98,14 @@ export default function Library() {
                       <h3 className="text-lg font-extralight tracking-tight sm:text-xl">
                         {category.name}
                       </h3>
-                      <p className="text-xs font-extralight tracking-wide opacity-60 sm:text-sm">
+                      <p className="landing-muted text-xs font-extralight tracking-wide sm:text-sm">
                         {category.algorithms.length} topics
                       </p>
                     </div>
                   </div>
 
                   <span
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-neutral-300/60 text-neutral-600 transition-colors dark:border-neutral-600/50 dark:text-neutral-300"
+                    className="landing-icon-box flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-neutral-300 transition-colors"
                     aria-hidden
                   >
                     {isExpanded ? (
@@ -138,7 +138,7 @@ export default function Library() {
                             <Link
                               key={topic.slug}
                               href={`/algorithms/${topic.slug}`}
-                              className="group flex h-full min-h-[108px] flex-col rounded-xl border border-neutral-300/60 bg-white/40 p-3.5 transition-colors duration-200 hover:border-[#8a4d98]/40 hover:bg-[#8a4d98]/[0.04] dark:border-neutral-600/50 dark:bg-neutral-900/20 dark:hover:border-[#8a4d98]/50 dark:hover:bg-[#8a4d98]/[0.08] sm:min-h-[116px] sm:p-4"
+                              className="landing-surface group flex h-full min-h-[108px] flex-col rounded-xl p-3.5 transition-[border-color,background-color,box-shadow] duration-200 hover:border-[#8a4d98]/50 hover:bg-[#8a4d98]/[0.08] sm:min-h-[116px] sm:p-4"
                             >
                               <div className="mb-3 flex items-start justify-between gap-2">
                                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#8a4d98]/10 transition-colors group-hover:bg-[#8a4d98]/15 sm:h-10 sm:w-10">
@@ -152,7 +152,7 @@ export default function Library() {
                                   strokeWidth={1.5}
                                 />
                               </div>
-                              <span className="line-clamp-3 text-xs font-extralight leading-snug tracking-tight text-neutral-800 transition-colors group-hover:text-[#8a4d98] dark:text-neutral-100 sm:text-sm">
+                              <span className="line-clamp-3 text-xs font-extralight leading-snug tracking-tight text-neutral-100 transition-colors group-hover:text-[#8a4d98] sm:text-sm">
                                 {topic.name}
                               </span>
                             </Link>
@@ -171,9 +171,9 @@ export default function Library() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-14 flex flex-col items-start gap-4 border-t border-black/[0.08] pt-8 dark:border-white/[0.08] sm:mt-16 sm:flex-row sm:items-center sm:justify-between sm:pt-10 md:mt-20"
+          className="landing-border mt-14 flex flex-col items-start gap-4 border-t pt-8 sm:mt-16 sm:flex-row sm:items-center sm:justify-between sm:pt-10 md:mt-20"
         >
-          <p className="text-sm font-extralight tracking-wide opacity-70 sm:text-base">
+          <p className="landing-body text-sm font-extralight tracking-wide sm:text-base">
             Open the full workspace with search and step controls.
           </p>
           <Link

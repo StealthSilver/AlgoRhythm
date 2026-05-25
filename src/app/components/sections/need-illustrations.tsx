@@ -5,15 +5,15 @@ import { Pause, Play } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
-/* Theme-safe ink: dark grey on light bg, white/light grey on dark bg */
-const INK = "fill-neutral-800 dark:fill-neutral-100";
-const INK_MID = "fill-neutral-500 dark:fill-neutral-400";
-const INK_SOFT = "fill-neutral-400 dark:fill-neutral-500";
-const INK_FAINT = "fill-neutral-300 dark:fill-neutral-600";
-const STROKE = "stroke-neutral-500 dark:stroke-neutral-400";
-const STROKE_FAINT = "stroke-neutral-300 dark:stroke-neutral-600";
-const STROKE_STRONG = "stroke-neutral-700 dark:stroke-neutral-200";
-const LABEL = "fill-neutral-500 dark:fill-neutral-400";
+/* Illustration ink — tuned for dark background */
+const INK = "fill-neutral-100";
+const INK_MID = "fill-neutral-400";
+const INK_SOFT = "fill-neutral-500";
+const INK_FAINT = "fill-neutral-600";
+const STROKE = "stroke-neutral-400";
+const STROKE_FAINT = "stroke-neutral-600";
+const STROKE_STRONG = "stroke-neutral-200";
+const LABEL = "fill-neutral-400";
 
 const VISIBLE_BARS = [28, 48, 36, 56, 40];
 
@@ -37,14 +37,13 @@ function IllustrationCard({
     >
       <motion.div
         className={cn(
-          "relative flex w-full min-h-[240px] items-center justify-center overflow-hidden rounded-xl",
-          "border border-neutral-300/60 p-10 sm:min-h-[260px] sm:p-12",
-          "dark:border-neutral-600/50",
+          "landing-surface relative flex w-full min-h-[240px] items-center justify-center overflow-hidden rounded-xl",
+          "p-10 sm:min-h-[260px] sm:p-12",
         )}
       >
         {children}
       </motion.div>
-      <p className="mt-5 text-xs font-extralight tracking-[0.12em] uppercase text-neutral-500 dark:text-neutral-400 sm:mt-6">
+      <p className="landing-muted mt-5 text-xs font-extralight tracking-[0.12em] uppercase sm:mt-6">
         {label}
       </p>
     </motion.div>
@@ -363,8 +362,8 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
             "transition-opacity duration-150",
             "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
             playing
-              ? "bg-neutral-800 text-white dark:bg-neutral-100 dark:text-neutral-900"
-              : "bg-neutral-300/70 text-neutral-700 dark:bg-neutral-600/60 dark:text-neutral-200",
+              ? "bg-neutral-100 text-neutral-900"
+              : "bg-neutral-600/60 text-neutral-200",
           )}
         >
           {playing ? (
@@ -504,7 +503,7 @@ export function UnforgettableIllustration({
                 textAnchor="middle"
                 fontSize="9"
                 fontWeight="500"
-                className={lit ? "fill-white dark:fill-neutral-900" : INK_SOFT}
+                className={lit ? "fill-neutral-900" : INK_SOFT}
                 fontFamily="var(--font-outfit), sans-serif"
               >
                 {node.value}

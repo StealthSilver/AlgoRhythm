@@ -5,6 +5,7 @@ import Hero from "./components/sections/Hero";
 import Need from "./components/sections/Need";
 import Features from "./components/sections/Features";
 import Library from "./components/sections/Library";
+import Students from "./components/sections/Students";
 import Footer from "./components/sections/Footer";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <Need />
         <Features />
         <Library />
+        <Students />
         <Footer />
       </main>
     </>

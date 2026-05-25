@@ -48,12 +48,12 @@ export default function Need() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1 + index * 0.08 }}
-              className="border-t border-black/[0.08] pt-6 dark:border-white/[0.08] sm:pt-8"
+              className="landing-border border-t pt-6 sm:pt-8"
             >
               <h3 className="mb-3 text-xl font-extralight leading-snug tracking-tight sm:mb-4 sm:text-2xl">
                 {point.title}
               </h3>
-              <p className="max-w-md text-base font-extralight tracking-wide opacity-80">
+              <p className="landing-body max-w-md text-base font-extralight tracking-wide">
                 {point.description}
               </p>
             </motion.div>

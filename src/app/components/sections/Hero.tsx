@@ -42,7 +42,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="mb-8 max-w-xl text-base font-extralight tracking-wide sm:mb-10"
+          className="landing-body mb-8 max-w-xl text-base font-extralight tracking-wide sm:mb-10"
         >
           Interactive visualizations that transform complex concepts into intuitive
           understanding
