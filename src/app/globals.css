@@ -217,10 +217,10 @@ body::-webkit-scrollbar-thumb:hover {
 
     .hero-radial-glow {
       background: radial-gradient(
-        ellipse 95% 82% at 0% 0%,
+        ellipse 140% 82% at 0% 0%,
         rgb(138 77 152 / 0.44) 0%,
-        rgb(138 77 152 / 0.2) 42%,
-        rgb(var(--background)) 72%
+        rgb(138 77 152 / 0.2) 50%,
+        rgb(var(--background)) 80%
       );
     }
   }

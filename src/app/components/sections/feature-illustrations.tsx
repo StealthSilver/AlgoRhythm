@@ -349,12 +349,19 @@ export function InteractiveControlsMini({ isInView }: { isInView: boolean }) {
 
       <g
         role="button"
-        tabIndex={-1}
+        tabIndex={0}
+        aria-label={playing ? "Pause playback" : "Play playback"}
         className="cursor-pointer"
         style={{ outline: "none" }}
         onClick={(e) => {
           e.stopPropagation();
           setPlaying((p) => !p);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setPlaying((p) => !p);
+          }
         }}
         onMouseDown={(e) => e.preventDefault()}
       >

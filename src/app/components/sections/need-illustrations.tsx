@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Pause, Play } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -198,8 +197,15 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
 }
 
 const INTERACTIVE_VALUES = [42, 58, 36, 50, 28];
-const BAR_BASELINE = 96;
+const INTERACTIVE_VB_W = 240;
+const INTERACTIVE_VB_H = 142;
+const BAR_BASELINE = 88;
 const BAR_X = (i: number) => 40 + i * 38;
+const INTERACTIVE_BTN_Y = 120;
+const INTERACTIVE_BTN_W = 30;
+const INTERACTIVE_BTN_H = 26;
+const INTERACTIVE_PLAY_CX = INTERACTIVE_VB_W / 2;
+const INTERACTIVE_EASE = [0.25, 0.1, 0.25, 1] as const;
 
 type BubbleStep = {
   values: number[];
@@ -256,30 +262,41 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
     return () => window.clearInterval(id);
   }, [playing, isInView, steps.length]);
 
+  useEffect(() => {
+    if (!isInView) return;
+    setPlaying(true);
+    return () => setPlaying(false);
+  }, [isInView]);
+
   const { values, compare, sortedFrom, swapped } = steps[frame];
   const compareEnd =
     compare !== null ? Math.min(compare + 1, values.length - 1) : null;
+  const stepNum = frame + 1;
+  const playX = INTERACTIVE_PLAY_CX - INTERACTIVE_BTN_W / 2;
+  const playY = INTERACTIVE_BTN_Y - INTERACTIVE_BTN_H / 2;
 
   return (
     <IllustrationCard label="Interactive" delay={0.62} isInView={isInView}>
-      <motion.div className="relative mx-auto w-full max-w-[240px] pb-5">
+      <div className="flex w-full justify-center px-2 pb-2 pt-1 sm:pb-3">
         <svg
-          viewBox="0 0 240 130"
-          className="mx-auto block h-auto w-full"
+          viewBox={`0 0 ${INTERACTIVE_VB_W} ${INTERACTIVE_VB_H}`}
+          className="mx-auto block h-auto w-full max-w-[240px]"
           role="img"
-          aria-label="Bubble sort animation"
+          aria-label="Bubble sort with play and pause controls"
         >
-          <text
-            x="120"
-            y="0"
-            dominantBaseline="hanging"
-            textAnchor="middle"
-            fontSize="8"
-            className={LABEL}
-            fontFamily="var(--font-outfit), sans-serif"
-          >
-            bubble sort
-          </text>
+        <motion.text
+          x="120"
+          y="0"
+          dominantBaseline="hanging"
+          textAnchor="middle"
+          fontSize="8"
+          className={LABEL}
+          fontFamily="var(--font-outfit), sans-serif"
+          animate={{ opacity: playing ? 0.75 : 0.5 }}
+          transition={{ duration: 0.4, ease: INTERACTIVE_EASE }}
+        >
+          {playing ? `playing · step ${stepNum}` : `paused · step ${stepNum}`}
+        </motion.text>
 
           {sortedFrom < values.length && (
             <line
@@ -340,7 +357,7 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
                 />
                 <text
                   x={x + 10}
-                  y="108"
+                  y="100"
                   textAnchor="middle"
                   fontSize="9"
                   className={isCompare ? INK : INK_SOFT}
@@ -351,28 +368,70 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
               </g>
             );
           })}
-        </svg>
 
-        <button
-          type="button"
-          onClick={() => setPlaying((p) => !p)}
+        <g
+          role="button"
+          tabIndex={0}
           aria-label={playing ? "Pause bubble sort" : "Play bubble sort"}
-          className={cn(
-            "absolute left-1/2 bottom-0 flex h-7 w-7 -translate-x-1/2 cursor-pointer items-center justify-center rounded-full ring-0 outline-none",
-            "transition-opacity duration-150",
-            "focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0",
-            playing
-              ? "bg-neutral-100 text-neutral-900"
-              : "bg-neutral-600/60 text-neutral-200",
-          )}
+          className="cursor-pointer"
+          style={{ outline: "none" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setPlaying((p) => !p);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setPlaying((p) => !p);
+            }
+          }}
+          onMouseDown={(e) => e.preventDefault()}
         >
+          <rect
+            x={playX - 4}
+            y={playY - 4}
+            width={INTERACTIVE_BTN_W + 8}
+            height={INTERACTIVE_BTN_H + 8}
+            fill="transparent"
+          />
+          <rect
+            x={playX}
+            y={playY}
+            width={INTERACTIVE_BTN_W}
+            height={INTERACTIVE_BTN_H}
+            rx="5"
+            fill="none"
+            className={STROKE_FAINT}
+            strokeWidth="0.75"
+          />
           {playing ? (
-            <Pause className="h-3 w-3" strokeWidth={2} />
+            <>
+              <rect
+                x={INTERACTIVE_PLAY_CX - 5}
+                y={INTERACTIVE_BTN_Y - 5}
+                width="3"
+                height="10"
+                rx="0.5"
+                className={INK}
+              />
+              <rect
+                x={INTERACTIVE_PLAY_CX + 2}
+                y={INTERACTIVE_BTN_Y - 5}
+                width="3"
+                height="10"
+                rx="0.5"
+                className={INK}
+              />
+            </>
           ) : (
-            <Play className="ml-0.5 h-3 w-3" strokeWidth={2} />
+            <path
+              d={`M ${INTERACTIVE_PLAY_CX - 4} ${INTERACTIVE_BTN_Y - 5} L ${INTERACTIVE_PLAY_CX + 5} ${INTERACTIVE_BTN_Y} L ${INTERACTIVE_PLAY_CX - 4} ${INTERACTIVE_BTN_Y + 5} Z`}
+              className={INK}
+            />
           )}
-        </button>
-      </motion.div>
+        </g>
+        </svg>
+      </div>
     </IllustrationCard>
   );
 }
