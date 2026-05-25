@@ -74,7 +74,7 @@ export default function Hero() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute right-0 bottom-0 z-[1] max-sm:inset-x-0 max-sm:overflow-hidden pb-4"
+        className="pointer-events-none absolute right-0 bottom-0 z-[1] max-sm:inset-x-0 max-sm:-bottom-3 max-sm:overflow-visible max-sm:pb-0 pb-4"
       >
         <HeroGridAnimations />
       </div>

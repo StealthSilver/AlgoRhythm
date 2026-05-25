@@ -163,7 +163,7 @@ export default function AlgorithmsNavbar() {
               borderTop: "1px solid rgba(var(--foreground), 0.1)",
             }}
           >
-            <div className="max-w-full mx-auto px-4 sm:px-6 py-6 flex flex-col gap-2">
+            <div className="mx-auto flex max-w-full flex-col items-end gap-2 px-4 py-6 text-right sm:px-6">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -171,7 +171,7 @@ export default function AlgorithmsNavbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    className="rounded-lg px-4 py-2 text-right text-sm font-medium transition-colors"
                     style={{
                       backgroundColor: isActive
                         ? "rgba(138, 77, 152, 0.12)"
@@ -193,7 +193,7 @@ export default function AlgorithmsNavbar() {
                   setIsMobileMenuOpen(false);
                   router.push("/#connect");
                 }}
-                className="relative px-6 py-3 text-white text-sm font-semibold rounded-lg overflow-hidden group cursor-pointer mt-3"
+                className="relative mt-3 cursor-pointer overflow-hidden rounded-lg px-6 py-3 text-sm font-semibold text-white group"
                 style={{
                   backgroundColor: "#8a4d98",
                   boxShadow:

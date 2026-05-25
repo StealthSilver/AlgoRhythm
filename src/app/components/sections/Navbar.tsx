@@ -179,14 +179,14 @@ export default function Navbar({
             transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
             className="absolute top-full right-0 left-0 z-50 overflow-hidden border-t border-white/[0.08] bg-[rgb(var(--background))]/95 shadow-lg shadow-black/25 backdrop-blur-md md:hidden"
           >
-            <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4 sm:px-5">
+            <div className="mx-auto flex max-w-7xl flex-col items-end gap-1 px-4 py-4 text-right sm:px-5">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "rounded-md px-2 py-2.5 text-[13px] font-medium text-[#e6e6e6]/90 transition-colors duration-150 hover:bg-white/5 hover:text-white",
+                    "rounded-md px-2 py-2.5 text-right text-[13px] font-medium text-[#e6e6e6]/90 transition-colors duration-150 hover:bg-white/5 hover:text-white",
                     activeLinkName === link.name && "text-white",
                   )}
                   aria-current={
