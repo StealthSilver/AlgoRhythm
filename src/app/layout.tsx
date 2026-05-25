@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AlgoRhythm - Where Algorithms Find Their Flow",
+  title: "AlgoRhythm - Stunning visualizations for algorithms",
   description:
     "Explore, understand, and visualize every algorithm — from fundamentals to advanced concepts — all in one rhythmic, interactive platform. Master algorithms through real-time visualizations, step-by-step animations, and clean explanations.",
   keywords: [
