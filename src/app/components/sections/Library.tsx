@@ -138,10 +138,10 @@ export default function Library() {
                             <Link
                               key={topic.slug}
                               href={`/algorithms/${topic.slug}`}
-                              className="landing-surface group flex h-full min-h-[108px] flex-col rounded-xl p-3.5 transition-[border-color,background-color,box-shadow] duration-200 hover:border-[#8a4d98]/50 hover:bg-[#8a4d98]/[0.08] sm:min-h-[116px] sm:p-4"
+                              className="landing-surface group flex h-full min-h-[108px] flex-col rounded-xl p-3.5 transition-[border-color,box-shadow] duration-200 hover:border-[#8a4d98]/50 sm:min-h-[116px] sm:p-4"
                             >
                               <div className="mb-3 flex items-start justify-between gap-2">
-                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#8a4d98]/10 transition-colors group-hover:bg-[#8a4d98]/15 sm:h-10 sm:w-10">
+                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#8a4d98]/10 sm:h-10 sm:w-10">
                                   <TopicIcon
                                     className="h-4 w-4 text-[#8a4d98] sm:h-[18px] sm:w-[18px]"
                                     strokeWidth={1.5}
@@ -152,7 +152,7 @@ export default function Library() {
                                   strokeWidth={1.5}
                                 />
                               </div>
-                              <span className="line-clamp-3 text-xs font-extralight leading-snug tracking-tight text-neutral-100 transition-colors group-hover:text-[#8a4d98] sm:text-sm">
+                              <span className="line-clamp-3 text-xs font-extralight leading-snug tracking-tight text-neutral-100 sm:text-sm">
                                 {topic.name}
                               </span>
                             </Link>

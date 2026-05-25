@@ -1,8 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { HeroGridAnimations } from "../hero/HeroGridAnimations";
+
+const HeroGridAnimations = dynamic(
+  () =>
+    import("../hero/HeroGridAnimations").then((m) => ({
+      default: m.HeroGridAnimations,
+    })),
+  { ssr: false },
+);
 
 const ctaButtonClass =
   "group relative inline-flex h-11 cursor-pointer items-center justify-center overflow-hidden rounded-full px-7 text-base font-medium leading-none text-white transition-colors duration-150 sm:h-12 sm:px-8";
@@ -22,7 +30,7 @@ export default function Hero() {
       className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden"
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
-      <div aria-hidden className="pointer-events-none absolute inset-0">
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[2]">
         <div className="hero-radial-glow absolute inset-0" />
       </div>
 

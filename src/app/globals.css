@@ -220,7 +220,7 @@ body::-webkit-scrollbar-thumb:hover {
         ellipse 140% 82% at 0% 0%,
         rgb(138 77 152 / 0.44) 0%,
         rgb(138 77 152 / 0.2) 50%,
-        rgb(var(--background)) 80%
+        transparent 80%
       );
     }
   }
@@ -260,7 +260,7 @@ body::-webkit-scrollbar-thumb:hover {
       ellipse 65% 58% at 0% 0%,
       rgb(138 77 152 / 0.44) 0%,
       rgb(138 77 152 / 0.2) 32%,
-      rgb(var(--background)) 62%
+      transparent 62%
     );
   }
 

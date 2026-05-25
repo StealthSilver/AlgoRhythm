@@ -6,6 +6,7 @@ import {
   FeatureBentoIllustration,
   type FeatureIllustrationId,
 } from "./feature-illustrations";
+import { GlowCard, GlowCardGrid } from "@/app/components/ui/glow-card";
 
 const features: {
   title: string;
@@ -74,33 +75,36 @@ export default function Features() {
           <span style={{ color: "#8a4d98" }}>visual toolkit</span>
         </motion.p>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+        <GlowCardGrid className="grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
           {features.map((feature, index) => (
-            <motion.article
+            <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.08 + index * 0.06 }}
-              className="landing-surface flex min-h-[360px] flex-col rounded-xl p-5 sm:min-h-[400px] sm:p-6 md:min-h-[430px]"
             >
-              <div className="flex flex-1 items-center justify-center px-2 py-6 sm:px-3 sm:py-8 md:px-4 md:py-8">
-                <FeatureBentoIllustration
-                  id={feature.illustration}
-                  isInView={isInView}
-                />
-              </div>
+              <GlowCard className="min-h-[360px] sm:min-h-[400px] md:min-h-[430px]">
+                <div className="flex h-full flex-col p-5 sm:p-6">
+                  <div className="flex flex-1 items-center justify-center px-2 py-6 sm:px-3 sm:py-8 md:px-4 md:py-8">
+                    <FeatureBentoIllustration
+                      id={feature.illustration}
+                      isInView={isInView}
+                    />
+                  </div>
 
-              <div className="landing-border shrink-0 border-t pt-4 sm:pt-5">
-                <h3 className="mb-2 text-base font-extralight leading-snug tracking-tight sm:text-lg">
-                  {feature.title}
-                </h3>
-                <p className="landing-body text-sm font-extralight leading-relaxed tracking-wide">
-                  {feature.description}
-                </p>
-              </div>
-            </motion.article>
+                  <div className="landing-border shrink-0 border-t pt-4 sm:pt-5">
+                    <h3 className="mb-2 text-base font-extralight leading-snug tracking-tight sm:text-lg">
+                      {feature.title}
+                    </h3>
+                    <p className="landing-body text-sm font-extralight leading-relaxed tracking-wide">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              </GlowCard>
+            </motion.div>
           ))}
-        </div>
+        </GlowCardGrid>
       </motion.div>
     </section>
   );

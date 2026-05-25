@@ -1,12 +1,12 @@
-"use client";
-
+import dynamic from "next/dynamic";
 import Navbar from "./components/sections/Navbar";
 import Hero from "./components/sections/Hero";
-import Need from "./components/sections/Need";
-import Features from "./components/sections/Features";
-import Library from "./components/sections/Library";
-import Students from "./components/sections/Students";
-import Footer from "./components/sections/Footer";
+
+const Need = dynamic(() => import("./components/sections/Need"));
+const Features = dynamic(() => import("./components/sections/Features"));
+const Library = dynamic(() => import("./components/sections/Library"));
+const Students = dynamic(() => import("./components/sections/Students"));
+const Footer = dynamic(() => import("./components/sections/Footer"));
 
 export default function Home() {
   return (

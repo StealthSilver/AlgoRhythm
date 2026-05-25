@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useId, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { GlowCard, GlowCardGrid } from "@/app/components/ui/glow-card";
 
 /* Illustration ink — tuned for dark background */
 const INK = "fill-neutral-100";
@@ -34,14 +35,16 @@ function IllustrationCard({
       transition={{ duration: 0.6, delay }}
       className="flex flex-col items-center"
     >
-      <motion.div
+      <GlowCard
         className={cn(
-          "landing-surface relative flex w-full min-h-[240px] items-center justify-center overflow-hidden rounded-xl",
-          "p-10 sm:min-h-[260px] sm:p-12",
+          "w-full min-h-[280px]",
+          "sm:min-h-[320px]",
         )}
       >
-        {children}
-      </motion.div>
+        <div className="flex h-full min-h-[inherit] items-center justify-center px-10 py-14 sm:px-12 sm:py-16">
+          {children}
+        </div>
+      </GlowCard>
       <p className="landing-muted mt-5 text-xs font-extralight tracking-[0.12em] uppercase sm:mt-6">
         {label}
       </p>
@@ -69,7 +72,7 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
   return (
     <IllustrationCard label="Visible" delay={0.55} isInView={isInView}>
       <svg
-        viewBox="0 0 240 130"
+        viewBox="0 0 240 158"
         className="mx-auto h-auto w-full max-w-[240px]"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => {
@@ -81,12 +84,12 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
       >
         <defs>
           <clipPath id={`${uid}-reveal`}>
-            <rect x="0" y="0" width={revealW} height="130" />
+            <rect x="0" y="0" width={revealW} height="158" />
           </clipPath>
         </defs>
 
         {/* Chart frame */}
-        <line x1="24" y1="96" x2="216" y2="96" className={STROKE_FAINT} strokeWidth="1" />
+        <line x1="24" y1="118" x2="216" y2="118" className={STROKE_FAINT} strokeWidth="1" />
         <text
           x="24"
           y="0"
@@ -116,7 +119,7 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
             <g key={`ghost-${i}`}>
               <rect
                 x={x}
-                y={96 - h}
+                y={118 - h}
                 width="20"
                 height={h}
                 rx="2"
@@ -125,7 +128,7 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
               />
               <rect
                 x={x}
-                y={96 - h}
+                y={118 - h}
                 width="20"
                 height={h}
                 rx="2"
@@ -136,7 +139,7 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
               />
               <text
                 x={x + 10}
-                y={108}
+                y={134}
                 textAnchor="middle"
                 fontSize="9"
                 className={INK_SOFT}
@@ -158,7 +161,7 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
               <g key={`bar-${i}`}>
                 <rect
                   x={x}
-                  y={96 - h}
+                  y={118 - h}
                   width="20"
                   height={h}
                   rx="2"
@@ -166,7 +169,7 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
                 />
                 <text
                   x={x + 10}
-                  y={108}
+                  y={134}
                   textAnchor="middle"
                   fontSize="9"
                   className={INK}
@@ -183,9 +186,9 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
         {!revealed && (
           <line
             x1={revealW}
-            y1="24"
+            y1="28"
             x2={revealW}
-            y2="96"
+            y2="118"
             className={STROKE_STRONG}
             strokeWidth="1.5"
             strokeDasharray="3 2"
@@ -198,10 +201,10 @@ export function VisibleIllustration({ isInView }: { isInView: boolean }) {
 
 const INTERACTIVE_VALUES = [42, 58, 36, 50, 28];
 const INTERACTIVE_VB_W = 240;
-const INTERACTIVE_VB_H = 142;
-const BAR_BASELINE = 88;
+const INTERACTIVE_VB_H = 170;
+const BAR_BASELINE = 106;
 const BAR_X = (i: number) => 40 + i * 38;
-const INTERACTIVE_BTN_Y = 120;
+const INTERACTIVE_BTN_Y = 146;
 const INTERACTIVE_BTN_W = 30;
 const INTERACTIVE_BTN_H = 26;
 const INTERACTIVE_PLAY_CX = INTERACTIVE_VB_W / 2;
@@ -301,7 +304,7 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
           {sortedFrom < values.length && (
             <line
               x1={BAR_X(sortedFrom) - 10}
-              y1="22"
+              y1="28"
               x2={BAR_X(sortedFrom) - 10}
               y2={BAR_BASELINE}
               className={STROKE_FAINT}
@@ -321,7 +324,7 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
 
           {compare !== null && compareEnd !== null && (
             <path
-              d={`M ${BAR_X(compare)} 28 L ${BAR_X(compare)} 22 L ${BAR_X(compareEnd) + 20} 22 L ${BAR_X(compareEnd) + 20} 28`}
+              d={`M ${BAR_X(compare)} 34 L ${BAR_X(compare)} 28 L ${BAR_X(compareEnd) + 20} 28 L ${BAR_X(compareEnd) + 20} 34`}
               fill="none"
               className={STROKE}
               strokeWidth="1"
@@ -357,7 +360,7 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
                 />
                 <text
                   x={x + 10}
-                  y="100"
+                  y="120"
                   textAnchor="middle"
                   fontSize="9"
                   className={isCompare ? INK : INK_SOFT}
@@ -437,11 +440,11 @@ export function InteractiveIllustration({ isInView }: { isInView: boolean }) {
 }
 
 const TREE_NODES = [
-  { value: 5, x: 120, y: 36, level: 0 },
-  { value: 3, x: 72, y: 66, level: 1 },
-  { value: 7, x: 168, y: 66, level: 1 },
-  { value: 1, x: 48, y: 96, level: 2 },
-  { value: 9, x: 192, y: 96, level: 2 },
+  { value: 5, x: 120, y: 40, level: 0 },
+  { value: 3, x: 72, y: 80, level: 1 },
+  { value: 7, x: 168, y: 80, level: 1 },
+  { value: 1, x: 48, y: 120, level: 2 },
+  { value: 9, x: 192, y: 120, level: 2 },
 ] as const;
 
 const TREE_EDGES: [number, number][] = [
@@ -485,7 +488,7 @@ export function UnforgettableIllustration({
   return (
     <IllustrationCard label="Unforgettable" delay={0.69} isInView={isInView}>
       <svg
-        viewBox="0 0 240 130"
+        viewBox="0 0 240 155"
         className="mx-auto h-auto w-full max-w-[240px]"
         role="img"
         aria-label="Tree lighting up level by level"
@@ -582,11 +585,13 @@ export function NeedIllustrations({ isInView }: { isInView: boolean }) {
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: 0.6, delay: 0.52 }}
-      className="mt-16 grid grid-cols-1 gap-12 sm:mt-20 sm:grid-cols-3 sm:gap-10 lg:mt-24 lg:gap-14"
+      className="mt-16 sm:mt-20 lg:mt-24"
     >
-      <VisibleIllustration isInView={isInView} />
-      <InteractiveIllustration isInView={isInView} />
-      <UnforgettableIllustration isInView={isInView} />
+      <GlowCardGrid className="grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-10 lg:gap-14">
+        <VisibleIllustration isInView={isInView} />
+        <InteractiveIllustration isInView={isInView} />
+        <UnforgettableIllustration isInView={isInView} />
+      </GlowCardGrid>
     </motion.div>
   );
 }

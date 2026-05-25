@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -72,14 +72,9 @@ export default function Navbar({
   ctaHref = "/algorithms",
 }: NavbarProps) {
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = linksOverride ?? defaultNavLinks;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/[0.08] bg-[rgb(var(--background))]/95 backdrop-blur-md relative">
@@ -108,23 +103,14 @@ export default function Navbar({
               AlgoRhythm
             </span>
           </span>
-          {mounted ? (
-            <Image
-              src="/algo-light.svg"
-              alt="AlgoRhythm Logo"
-              width={110}
-              height={28}
-              className="hidden h-7 w-auto sm:block"
-            />
-          ) : (
-            <Image
-              src="/algo-light.svg"
-              alt="AlgoRhythm Logo"
-              width={110}
-              height={28}
-              className="hidden h-7 w-auto sm:block"
-            />
-          )}
+          <Image
+            src="/algo-light.svg"
+            alt="AlgoRhythm Logo"
+            width={110}
+            height={28}
+            className="hidden h-7 w-auto sm:block"
+            priority
+          />
         </Link>
 
         <ul className="hidden min-w-0 flex-1 items-center justify-end gap-4 md:flex lg:gap-5">
